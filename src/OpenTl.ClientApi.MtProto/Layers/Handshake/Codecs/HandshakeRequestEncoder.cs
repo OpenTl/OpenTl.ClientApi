@@ -12,7 +12,7 @@
     using OpenTl.Schema.Serialization;
 
     [SingleInstance(typeof(IHandshakeHandler))]
-    internal class HandshakeRequestEncoder: MessageToByteEncoder<IObject>,
+    internal sealed class HandshakeRequestEncoder: MessageToByteEncoder<IObject>,
                                                  IHandshakeHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(HandshakeRequestEncoder));

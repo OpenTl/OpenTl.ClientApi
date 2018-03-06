@@ -13,7 +13,7 @@
     using OpenTl.Schema.Serialization;
 
     [SingleInstance(typeof(ISecureHandler))]
-    internal class SecureRequestDecoder: ByteToMessageDecoder,
+    internal sealed class SecureRequestDecoder: ByteToMessageDecoder,
                                          ISecureHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(SecureRequestDecoder));

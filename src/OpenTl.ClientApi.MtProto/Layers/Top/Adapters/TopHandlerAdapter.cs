@@ -17,7 +17,7 @@
     using OpenTl.Schema.Help;
 
     [SingleInstance(typeof(ITopLevelHandler), typeof(IPackageSender))]
-    internal class TopHandlerAdapter : SimpleChannelInboundHandler<IObject>,
+    internal sealed class TopHandlerAdapter : SimpleChannelInboundHandler<IObject>,
                                        ITopLevelHandler,
                                        IPackageSender
     {
@@ -44,6 +44,8 @@
 
             if (ClientSettings.ClientSession.AuthKey != null)
             {
+                Log.Debug("Session was found.");
+                
                 SendInitConnectionRequest().ConfigureAwait(false);
             }
         }
@@ -83,6 +85,8 @@
 
         private async Task SendInitConnectionRequest()
         {
+            Log.Debug("Send init connection request");
+            
             try
             {
                 Guard.That(ClientSettings.AppId).IsNotDefault();
@@ -113,9 +117,7 @@
 
                 await _context.WriteAndFlushAsync(request).ConfigureAwait(false);
 
-                var config = await resultTask;
-
-                ClientSettings.Config = (IConfig)config;
+                ClientSettings.Config = (IConfig)await resultTask;
 
                 _initTask.SetResult(true);
             }

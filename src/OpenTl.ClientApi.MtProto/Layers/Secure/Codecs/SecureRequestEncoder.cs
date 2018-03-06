@@ -14,7 +14,7 @@
     using OpenTl.Schema.Serialization;
 
     [SingleInstance(typeof(ISecureHandler))]
-    internal class SecureRequestEncoder: MessageToByteEncoder<IRequest>,
+    internal sealed class SecureRequestEncoder: MessageToByteEncoder<IRequest>,
                                          ISecureHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(SecureRequestEncoder));
@@ -44,7 +44,7 @@
                 messageBuffer.Release();
             }
             
-            RequestService.SetMessageId(message, messageId);
+            RequestService.AttachRequestToMessageId(message, messageId);
         }
     }
 }

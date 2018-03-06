@@ -9,8 +9,10 @@
     internal interface IRequestService
     {
         Task<object> RegisterRequest(IRequest request, CancellationToken cancellationToken);
+
+        IRequest GetRequestToReply(long messageId);
         
-        void SetMessageId(IRequest request, long messageId);
+        void AttachRequestToMessageId(IRequest request, long messageId);
 
         void ReturnException(long messageId, Exception exception);
 

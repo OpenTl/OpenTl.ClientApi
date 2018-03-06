@@ -1,6 +1,6 @@
 ﻿namespace OpenTl.ClientApi.MtProto.FunctionalTests.Settings
 {
-    public class TestApplicationProperties: IApplicationProperties
+    public sealed class TestApplicationProperties: IApplicationProperties
     {
         public string AppVersion { get; set; } = "1.0.0";
 

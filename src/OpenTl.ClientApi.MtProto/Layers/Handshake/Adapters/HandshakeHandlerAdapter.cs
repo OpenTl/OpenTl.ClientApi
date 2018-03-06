@@ -15,7 +15,7 @@
     using OpenTl.Schema;
 
     [SingleInstance(typeof(IHandshakeHandler))]
-    internal class HandshakeHandlerAdapter: SimpleChannelInboundHandler<IObject>,
+    internal sealed class HandshakeHandlerAdapter: SimpleChannelInboundHandler<IObject>,
                                           IHandshakeHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(HandshakeHandlerAdapter));
@@ -50,17 +50,23 @@
             {
                 case TResPQ resPq:
                     Guard.That(resPq.Nonce).IsItemsEquals(_nonce);
-                    
+
+                    Log.Debug("TResPQ step complete");
+ 
                     var requestReqDhParams = Step2ClientHelper.GetRequest(resPq, ClientSettings.PublicKey, out _newNonce);
                     ctx.WriteAndFlushAsync(requestReqDhParams);
                     break;
                 case TServerDHParamsOk dhParamsOk:
+                    Log.Debug("TServerDHParamsOk step complete");
+                    
                     var request = Step3ClientHelper.GetRequest(dhParamsOk, _newNonce, out _clientAgree, out var serverTime);
                     ClientSettings.ClientSession.TimeOffset = serverTime - (int)DateTimeOffset.Now.ToUnixTimeSeconds();
                     
                     ctx.WriteAndFlushAsync(request);
                     break;
                 case TDhGenOk dhGenOk:
+                    Log.Debug("TDhGenOk step complete");
+
                     ClientSettings.ClientSession.AuthKey = new AuthKey(_clientAgree);
                     ClientSettings.ClientSession.ServerSalt = SaltHelper.ComputeSalt(_newNonce, dhGenOk.ServerNonce);
                     ctx.FireChannelRead(msg);

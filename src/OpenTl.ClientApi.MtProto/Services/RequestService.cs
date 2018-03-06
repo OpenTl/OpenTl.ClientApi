@@ -12,11 +12,11 @@
     using OpenTl.Schema;
 
     [SingleInstance(typeof(IRequestService))]
-    internal class RequestService : IRequestService
+    internal sealed class RequestService : IRequestService
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(RequestService));
 
-        private readonly Dictionary<long, (Timer, TaskCompletionSource<object>)> _resultCallbacks = new Dictionary<long, (Timer, TaskCompletionSource<object>)>();
+        private readonly Dictionary<long, RequestCacheItem> _requestCache = new Dictionary<long, RequestCacheItem>();
 
         public Task<object> RegisterRequest(IRequest request, CancellationToken cancellationToken)
         {
@@ -33,48 +33,65 @@
                         }
                     });
             }
-            _resultCallbacks[request.GetHashCode()] = (null, tcs);
+
+            _requestCache[request.GetHashCode()] = new RequestCacheItem(request, tcs); 
             
             return tcs.Task;
         }
-
-        public void SetMessageId(IRequest request, long messageId)
+        
+        public void AttachRequestToMessageId(IRequest request, long messageId)
         {
-            if (!_resultCallbacks.TryGetValue(request.GetHashCode(), out var value))
+            if (!_requestCache.TryGetValue(request.GetHashCode(), out var cacheItem))
             {
                 return;
             }
 
-            (var _, var tcs) = value;
-            
             var timer = new Timer( _ =>
             {
-                if (!tcs.Task.IsCompleted)
+                if (!cacheItem.TaskSource.Task.IsCompleted)
                 {
                     Log.Warn($"Message response result timed out for messageid '{messageId}'");
                         
-                    _resultCallbacks.Remove(messageId);
+                    _requestCache.Remove(messageId);
                         
-                    tcs.TrySetCanceled();
+                    cacheItem.TaskSource.TrySetCanceled();
                 }
             }, null, TimeSpan.FromMinutes(1), TimeSpan.Zero);
 
-            _resultCallbacks.Remove(request.GetHashCode());
-            _resultCallbacks[messageId] = (timer, tcs);
+            _requestCache.Remove(request.GetHashCode());
+            
+            cacheItem.Timer = timer;
+            _requestCache[messageId] = cacheItem;
+        }
+
+        public IRequest GetRequestToReply(long messageId)
+        {
+            if (!_requestCache.TryGetValue(messageId, out var cacheItem))
+            {
+                return null;
+            }
+
+            cacheItem.Timer.Dispose();
+            cacheItem.Timer = null;
+            
+            _requestCache.Remove(messageId);
+
+            _requestCache[cacheItem.Request.GetHashCode()] = cacheItem;
+
+            return cacheItem.Request;
         }
 
         public void ReturnException(long messageId, Exception exception)
         {
-            if (_resultCallbacks.TryGetValue(messageId, out var data))
+            if (_requestCache.TryGetValue(messageId, out var cacheItem))
             {
-                (Timer timer, TaskCompletionSource<object> callback) = data;
-                timer.Dispose();
+                cacheItem.Timer.Dispose();
                 
-                callback.TrySetException(exception);
+                cacheItem.TaskSource.TrySetException(exception);
                 
                 Log.Error($"Request was processed with error", exception);
                 
-                _resultCallbacks.Remove(messageId);
+                _requestCache.Remove(messageId);
             }
             else
             {
@@ -86,28 +103,44 @@
         {
             Log.Error($"All requests was processed with error", exception);
 
-            foreach ((Timer timer, TaskCompletionSource<object> callback) in _resultCallbacks.Values)
+            foreach (var cacheItem in _requestCache.Values)
             {
-                timer.Dispose();
-                callback.TrySetException(exception);
+               cacheItem.Timer.Dispose();
+                
+               cacheItem.TaskSource.TrySetException(exception);
             }
         }
 
         public void ReturnResult(long messageId, object obj)
         {
-            if (_resultCallbacks.TryGetValue(messageId, out var data))
+            if (_requestCache.TryGetValue(messageId, out var cacheItem))
             {
-                (Timer timer, TaskCompletionSource<object> callback) = data;
-                timer.Dispose();
+                cacheItem.Timer.Dispose();
                 
-                callback.TrySetResult(obj);
+                cacheItem.TaskSource.TrySetResult(obj);
                 
-                _resultCallbacks.Remove(messageId);
+                _requestCache.Remove(messageId);
             }
             else
             {
                 Log.Error($"Callback for request with Id {messageId} wasn't found");
             }
+        }
+        
+        private sealed class RequestCacheItem
+        {
+            public RequestCacheItem(IRequest request, TaskCompletionSource<object> taskSource)
+            {
+                Request = request;
+                
+                TaskSource = taskSource;
+                
+            }
+            public Timer Timer { get; set; }
+
+            public IRequest Request { get; }
+
+            public TaskCompletionSource<object> TaskSource { get; }
         }
     }
 }

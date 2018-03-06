@@ -11,7 +11,7 @@
 
     using Crc32 = OpenTl.Common.Crypto.Crc32;
 
-    internal class TcpLayerHandlerAdapter: ChannelHandlerAdapter
+    internal sealed class TcpLayerHandlerAdapter: ChannelHandlerAdapter
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(TcpLayerHandlerAdapter));
 

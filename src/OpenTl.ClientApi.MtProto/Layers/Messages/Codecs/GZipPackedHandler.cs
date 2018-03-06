@@ -18,11 +18,11 @@
     using OpenTl.Schema.Serialization;
 
     [SingleInstance(typeof(IMessageHandler), typeof(IUnzippedService))]
-    internal class UnzippedService : MessageToMessageDecoder<TgZipPacked>,
+    internal sealed class GZipPackedHandler : MessageToMessageDecoder<TgZipPacked>,
                                        IMessageHandler,
                                        IUnzippedService
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(UnzippedService));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(GZipPackedHandler));
 
         public int Order { get; } = 50;
 
@@ -35,6 +35,8 @@
 
         public IObject UnzipPackage(TgZipPacked message)
         {
+            Log.Debug($"Process TgZipPacked message");
+            
             using (var decompressStream = new MemoryStream())
             {
                 using (var stream = new MemoryStream(message.PackedData))

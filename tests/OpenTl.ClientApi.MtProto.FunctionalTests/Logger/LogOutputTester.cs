@@ -17,7 +17,7 @@
 
     using Xunit.Abstractions;
 
-    internal class TestOutputAppender : AppenderSkeleton
+    internal sealed class TestOutputAppender : AppenderSkeleton
     {
         private readonly ITestOutputHelper _xunitTestOutputHelper;
 
@@ -34,7 +34,7 @@
         }
     }
 
-    internal class LogOutputTester : IDisposable
+    internal sealed class LogOutputTester : IDisposable
     {
         private readonly TestOutputAppender _appender;
 

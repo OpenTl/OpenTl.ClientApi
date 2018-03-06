@@ -1,22 +1,15 @@
 ﻿namespace OpenTl.ClientApi.MtProto.Layers.Messages.Codecs
 {
-    using System.IO;
-    using System.IO.Compression;
-
-    using DotNetty.Buffers;
     using DotNetty.Transport.Channels;
 
     using log4net;
 
-    using Newtonsoft.Json;
-
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
-    using OpenTl.Schema.Serialization;
 
     [SingleInstance(typeof(IMessageHandler))]
-    internal class RpcResultHandler : SimpleChannelInboundHandler<TRpcResult>,
+    internal sealed class RpcResultHandler : SimpleChannelInboundHandler<TRpcResult>,
                                       IMessageHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(RpcResultHandler));
@@ -29,17 +22,19 @@
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, TRpcResult msg)
         {
-            Log.Debug("Handle RpcResult");
-
             Log.Debug($"Process RpcResult  with request id = '{msg.ReqMsgId}'");
 
             switch (msg.Result)
             {
                 case TRpcError error:
+                    Log.Debug($"Handle Rpc error");
+                    
                     HandleRpcError(msg.ReqMsgId, error);
                     break;
 
                 case TgZipPacked zipPacked:
+                    Log.Debug($"Try unzip");
+
                     var obj = UnzippedService.UnzipPackage(zipPacked);
                     RequestService.ReturnResult(msg.ReqMsgId, obj);
                     break;

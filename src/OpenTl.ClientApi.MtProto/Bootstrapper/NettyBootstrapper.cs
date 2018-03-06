@@ -25,7 +25,7 @@ namespace OpenTl.ClientApi.MtProto.Bootstrapper
     using OpenTl.Common.IoC;
 
     [SingleInstance(typeof(INettyBootstrapper))]
-    internal class NettyBootstrapper : INettyBootstrapper
+    internal sealed class NettyBootstrapper : INettyBootstrapper
     {
         private readonly Bootstrap _bootstrap = new Bootstrap();
 

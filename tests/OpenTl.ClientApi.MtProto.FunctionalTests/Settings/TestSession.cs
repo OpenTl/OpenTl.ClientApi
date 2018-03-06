@@ -2,15 +2,17 @@
 {
     using System;
 
+    using DotNetty.Common.Utilities;
+
     using OpenTl.Common.Auth;
 
-    public class TestSession: IClientSession
+    public sealed class TestSession: IClientSession
     {
         private static readonly Random Random = new Random();
 
         public AuthKey AuthKey { get; set; }
 
-        public ulong SessionId { get; } = ((ulong)Random.Next() << 32) | (ulong)Random.Next();
+        public ulong SessionId { get; } = (ulong)Random.NextLong();
 
         public int LastMessageId { get; set; }
 
