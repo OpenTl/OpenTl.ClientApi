@@ -10,11 +10,14 @@
     using OpenTl.Schema;
 
     [SingleInstance(typeof(IMessageHandler))]
-    internal class MsgContainerHandler: MessageToMessageDecoder<TMsgContainer>, IMessageHandler
+    internal class MsgContainerHandler : MessageToMessageDecoder<TMsgContainer>,
+                                         IMessageHandler
     {
+        public int Order { get; } = 0;
+
         protected override void Decode(IChannelHandlerContext context, TMsgContainer message, List<object> output)
         {
-             output.AddRange(message.Messages.Select(m => m.Body)); 
+            output.AddRange(message.Messages.Select(m => m.Body));
         }
     }
 }

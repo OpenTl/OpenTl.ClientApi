@@ -32,7 +32,7 @@
         {
             base.ChannelActive(context);
 
-            if (ClientSettings.ClientSession.AuthKey == null || ClientSettings.ClientSession.AuthKey.Data.Length == 0)
+            if (ClientSettings.ClientSession.AuthKey == null)
             {
                 Log.Info("Try do authentication");
 
@@ -63,13 +63,14 @@
                 case TDhGenOk dhGenOk:
                     ClientSettings.ClientSession.AuthKey = new AuthKey(_clientAgree);
                     ClientSettings.ClientSession.ServerSalt = SaltHelper.ComputeSalt(_newNonce, dhGenOk.ServerNonce);
+                    ctx.FireChannelRead(msg);
                     break;
                 case TServerDHParamsFail _:
                 case TDhGenRetry _:
                 case TDhGenFail _:
                     throw new NotSupportedException();
                 default:
-                    ChannelRead(ctx, msg);
+                    ctx.FireChannelRead(msg);
                     break;
             }
         }

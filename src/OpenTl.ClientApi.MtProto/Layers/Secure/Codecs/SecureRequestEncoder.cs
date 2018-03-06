@@ -6,6 +6,8 @@
 
     using log4net;
 
+    using OpenTl.ClientApi.MtProto.Extensions;
+    using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Common.MtProto;
     using OpenTl.Schema;
@@ -19,18 +21,30 @@
 
         public IClientSettings ClientSettings { get; set; }
 
+        public IRequestService RequestService { get; set; }
+        
         public override bool AcceptOutboundMessage(object message) => message is IRequest;
 
         protected override void Encode(IChannelHandlerContext context, IRequest message, IByteBuffer output)
         {
-            (long mesId, int seqNo) = ClientSettings.ClientSession.GenerateMsgIdAndSeqNo(true);
-
-            Log.Debug($"Send secure message with Id = {mesId} and seqNo = {seqNo}");
+            var messageId = ClientSettings.ClientSession.GenerateMessageId();
+            var sequenceNumber = ClientSettings.ClientSession.GenerateSequenceNumber(true);
+            
+            Log.Debug($"Send secure message with messageId = {messageId} and sequenceNumber = {sequenceNumber}");
             
             var messageBuffer = PooledByteBufferAllocator.Default.Buffer();
-            Serializer.Serialize(message, messageBuffer);
+            try
+            {
+                Serializer.Serialize(message, messageBuffer);
             
-            MtProtoHelper.ToServerEncrypt(messageBuffer, ClientSettings.ClientSession, mesId, seqNo, output);
+                MtProtoHelper.ToServerEncrypt(messageBuffer, ClientSettings.ClientSession, messageId, sequenceNumber, output);
+            }
+            finally
+            {
+                messageBuffer.Release();
+            }
+            
+            RequestService.SetMessageId(message, messageId);
         }
     }
 }

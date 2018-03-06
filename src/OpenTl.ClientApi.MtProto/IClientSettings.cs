@@ -10,10 +10,10 @@
 
         string PublicKey { get; set; }
 
+        IApplicationProperties ApplicationProperties {get; set; }
+             
         IClientSession ClientSession { get; set; }
         
         IConfig Config { get; set; }
-        
-        TUser User { get; set; }
     }
 }

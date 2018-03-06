@@ -8,14 +8,16 @@
     using OpenTl.Schema;
 
     [SingleInstance(typeof(IMessageHandler))]
-    internal class NewSessionCreatedHandler: SimpleChannelInboundHandler<TMsgsAck>, IMessageHandler
+    internal class NewSessionCreatedHandler : SimpleChannelInboundHandler<TNewSessionCreated>,
+                                              IMessageHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(NewSessionCreatedHandler));
 
-        protected override void ChannelRead0(IChannelHandlerContext ctx, TMsgsAck msg)
+        public int Order { get; } = 100;
+
+        protected override void ChannelRead0(IChannelHandlerContext ctx, TNewSessionCreated msg)
         {
             Log.Debug("Handle a new session was created");
         }
     }
-
 }

@@ -4,6 +4,6 @@
 
     internal interface IMessageHandler: IChannelHandler
     {
-        
+        int Order { get; }
     }
 }

@@ -8,9 +8,12 @@
     using OpenTl.Schema;
 
     [SingleInstance(typeof(IMessageHandler))]
-    internal class UpdatesHandler: SimpleChannelInboundHandler<IUpdates>, IMessageHandler
+    internal class UpdatesHandler : SimpleChannelInboundHandler<IUpdates>,
+                                    IMessageHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(UpdatesHandler));
+
+        public int Order { get; } = 100;
 
         // public IUpdatesApiServiceRaiser UpdateRaiser { get; set; }
 
@@ -22,7 +25,7 @@
             //     Log.Debug($"Recieve Updates \n{jUpdate}");
             // }
 
-           // // UpdateRaiser.OnUpdateRecieve(obj.Cast<IUpdates>());
+            // // UpdateRaiser.OnUpdateRecieve(obj.Cast<IUpdates>());
         }
     }
 }

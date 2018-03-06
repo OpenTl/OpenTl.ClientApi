@@ -8,9 +8,12 @@
     using OpenTl.Schema;
 
     [SingleInstance(typeof(IMessageHandler))]
-    internal class MsgNewDetailedHandler: SimpleChannelInboundHandler<TMsgNewDetailedInfo>, IMessageHandler
+    internal class MsgNewDetailedHandler : SimpleChannelInboundHandler<TMsgNewDetailedInfo>,
+                                           IMessageHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(MsgNewDetailedHandler));
+
+        public int Order { get; } = 100;
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, TMsgNewDetailedInfo msg)
         {

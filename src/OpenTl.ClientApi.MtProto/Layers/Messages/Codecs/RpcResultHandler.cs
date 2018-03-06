@@ -1,16 +1,31 @@
 ﻿namespace OpenTl.ClientApi.MtProto.Layers.Messages.Codecs
 {
+    using System.IO;
+    using System.IO.Compression;
+
+    using DotNetty.Buffers;
     using DotNetty.Transport.Channels;
 
     using log4net;
 
+    using Newtonsoft.Json;
+
+    using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
+    using OpenTl.Schema.Serialization;
 
     [SingleInstance(typeof(IMessageHandler))]
-    internal class RpcResultHandler: SimpleChannelInboundHandler<TRpcResult>, IMessageHandler
+    internal class RpcResultHandler : SimpleChannelInboundHandler<TRpcResult>,
+                                      IMessageHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(RpcResultHandler));
+
+        public int Order { get; } = 25;
+
+        public IRequestService RequestService { get; set; }
+
+        public IUnzippedService UnzippedService { get; set; }
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, TRpcResult msg)
         {
@@ -25,22 +40,23 @@
                     break;
 
                 case TgZipPacked zipPacked:
-                    ChannelRead(ctx, zipPacked);
+                    var obj = UnzippedService.UnzipPackage(zipPacked);
+                    RequestService.ReturnResult(msg.ReqMsgId, obj);
                     break;
-
                 default:
-                    // ResponseResultSetter.ReturnResult(msg.ReqMsgId, msg.Result);
+                    RequestService.ReturnResult(msg.ReqMsgId, msg.Result);
                     break;
             }
         }
-        
+
+
         private void HandleRpcError(long messageReqMsgId, TRpcError error)
         {
             // rpc_error
 
             // Log.Warn($"Recieve error from server: {error.ErrorMessage}");
 
-           // // Exception exception;
+            // // Exception exception;
             // switch (error.ErrorMessage)
             // {
             //     case var floodMessage when floodMessage.StartsWith("FLOOD_WAIT_"):
@@ -49,42 +65,42 @@
             //         exception = new FloodException(TimeSpan.FromSeconds(seconds));
             //         break;
 
-           // //     case var phoneMigrate when phoneMigrate.StartsWith("PHONE_MIGRATE_"):
+            // //     case var phoneMigrate when phoneMigrate.StartsWith("PHONE_MIGRATE_"):
             //         var phoneMigrateDcNumber = Regex.Match(phoneMigrate, @"\d+").Value;
             //         var phoneMigrateDcIdx = int.Parse(phoneMigrateDcNumber);
             //         exception = new PhoneMigrationException(phoneMigrateDcIdx);
             //         break;
 
-           // //     case var fileMigrate when fileMigrate.StartsWith("FILE_MIGRATE_"):
+            // //     case var fileMigrate when fileMigrate.StartsWith("FILE_MIGRATE_"):
             //         var fileMigrateDcNumber = Regex.Match(fileMigrate, @"\d+").Value;
             //         var fileMigrateDcIdx = int.Parse(fileMigrateDcNumber);
             //         exception = new FileMigrationException(fileMigrateDcIdx);
             //         break;
 
-           // //     case var userMigrate when userMigrate.StartsWith("USER_MIGRATE_"):
+            // //     case var userMigrate when userMigrate.StartsWith("USER_MIGRATE_"):
             //         var userMigrateDcNumber = Regex.Match(userMigrate, @"\d+").Value;
             //         var userMigrateDcIdx = int.Parse(userMigrateDcNumber);
             //         exception = new UserMigrationException(userMigrateDcIdx);
             //         break;
 
-           // //     case "PHONE_CODE_INVALID":
+            // //     case "PHONE_CODE_INVALID":
             //         exception = new InvalidPhoneCodeException("The numeric code used to authenticate does not match the numeric code sent by SMS/Telegram");
             //         break;
 
-           // //     case "SESSION_PASSWORD_NEEDED":
+            // //     case "SESSION_PASSWORD_NEEDED":
             //         exception = new CloudPasswordNeededException("This Account has Cloud Password !");
             //         break;
 
-           // //     case "AUTH_RESTART":
+            // //     case "AUTH_RESTART":
             //         ResponseResultSetter.ReturnException(new AuthRestartException());
             //         return;
 
-           // //     default:
+            // //     default:
             //         exception = new InvalidOperationException(error.ErrorMessage);
             //         break;
             // }
 
-           // // ResponseResultSetter.ReturnException(messageReqMsgId, exception);
+            // // ResponseResultSetter.ReturnException(messageReqMsgId, exception);
         }
     }
 }

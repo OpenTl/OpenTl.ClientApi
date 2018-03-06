@@ -8,9 +8,12 @@
     using OpenTl.Schema;
 
     [SingleInstance(typeof(IMessageHandler))]
-    internal class PingHandler: SimpleChannelInboundHandler<RequestPing>, IMessageHandler
+    internal class PingHandler : SimpleChannelInboundHandler<RequestPing>,
+                                 IMessageHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(PingHandler));
+
+        public int Order { get; } = 100;
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, RequestPing msg)
         {

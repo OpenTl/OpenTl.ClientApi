@@ -10,9 +10,12 @@
     using OpenTl.Schema;
 
     [SingleInstance(typeof(IMessageHandler))]
-    internal class BadMsgNotificationHandler: SimpleChannelInboundHandler<TBadMsgNotification>, IMessageHandler
+    internal class BadMsgNotificationHandler : SimpleChannelInboundHandler<TBadMsgNotification>,
+                                               IMessageHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(BadMsgNotificationHandler));
+
+        public int Order { get; } = 100;
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, TBadMsgNotification msg)
         {

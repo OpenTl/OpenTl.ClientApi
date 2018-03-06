@@ -3,6 +3,7 @@
     <TargetFrameworks>net46;netcoreapp1.1</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.1.0" />
     <PackageReference Include="Castle.Windsor" Version="4.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk">
       <Version>15.0.0</Version>

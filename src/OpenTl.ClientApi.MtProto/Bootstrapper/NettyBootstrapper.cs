@@ -1,10 +1,14 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleTo("OpenTl.ClientApi.MtProto.UnitTests")]
+[assembly: InternalsVisibleTo("OpenTl.ClientApi.MtProto.UnitTests")]
+
 namespace OpenTl.ClientApi.MtProto.Bootstrapper
 {
+    using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
+
+    using BarsGroup.CodeGuard;
 
     using DotNetty.Buffers;
     using DotNetty.Codecs;
@@ -25,20 +29,23 @@ namespace OpenTl.ClientApi.MtProto.Bootstrapper
     {
         private readonly Bootstrap _bootstrap = new Bootstrap();
 
-        private IClientSettings ClientSettings { get; set; }
-
         private IChannel _clientChannel;
 
-        private IHandshakeHandler[] HandshakeHandlers { get; set; }
+        public IClientSettings ClientSettings { get; set; }
 
-        private ISecureHandler[] SecureHandlers { get; set; }
+        public IHandshakeHandler[] HandshakeHandlers { get; set; }
 
-        private IMessageHandler[] MessageHandlers { get; set; }
+        public ISecureHandler[] SecureHandlers { get; set; }
 
-        private ITopLevelHandler[] TopLevelHandlers { get; set; }
-        
+        public IMessageHandler[] MessageHandlers { get; set; }
+
+        public ITopLevelHandler[] TopLevelHandlers { get; set; }
+
         public async Task Init()
         {
+            Guard.That(ClientSettings.ClientSession.ServerAddress).IsNotNullOrWhiteSpace();
+            Guard.That(ClientSettings.ClientSession.Port).IsNotDefault();
+
             _bootstrap
                 .Group(new MultithreadEventLoopGroup())
                 .Channel<TcpSocketChannel>()
@@ -47,18 +54,19 @@ namespace OpenTl.ClientApi.MtProto.Bootstrapper
                         channel =>
                         {
                             var pipeline = channel.Pipeline;
-                            
+
                             pipeline.AddLast(new LengthFieldBasedFrameDecoder(ByteOrder.LittleEndian, int.MaxValue, 0, 4, -4, 0, true));
                             pipeline.AddLast(new TcpLayerHandlerAdapter());
                             pipeline.AddLast(HandshakeHandlers);
                             pipeline.AddLast(SecureHandlers);
-                            pipeline.AddLast(MessageHandlers);
+                            pipeline.AddLast(MessageHandlers.OrderBy(h => h.Order).ToArray());
                             pipeline.AddLast(TopLevelHandlers);
                             pipeline.AddLast(new LoggingHandler(LogLevel.TRACE));
                         })
                 );
-            
-            _clientChannel = await _bootstrap.ConnectAsync(new IPEndPoint(IPAddress.Parse(ClientSettings.ClientSession.ServerAddress), ClientSettings.ClientSession.Port)).ConfigureAwait(false);
+
+            _clientChannel = await _bootstrap.ConnectAsync(new IPEndPoint(IPAddress.Parse(ClientSettings.ClientSession.ServerAddress), ClientSettings.ClientSession.Port))
+                                             .ConfigureAwait(false);
         }
     }
 }

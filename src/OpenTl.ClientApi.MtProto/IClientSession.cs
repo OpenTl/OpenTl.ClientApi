@@ -9,11 +9,5 @@ namespace OpenTl.ClientApi.MtProto
         int Port { get; set; }
 
         int TimeOffset { get; set; }
-
-        long GenerateMsgId();
-
-        (long, int) GenerateMsgIdAndSeqNo(bool confirmed);
-
-        byte[] ToBytes();
     }
 }

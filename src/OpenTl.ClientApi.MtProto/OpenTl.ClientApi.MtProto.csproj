@@ -10,7 +10,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\OpenTl.Common\src\OpenTl.Common\OpenTl.Common.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Layers" />
-  </ItemGroup>
 </Project>

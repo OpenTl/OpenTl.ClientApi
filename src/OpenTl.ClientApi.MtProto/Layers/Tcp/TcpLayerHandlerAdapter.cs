@@ -54,7 +54,7 @@
 
             Log.Debug($"Send the message with sequence number {sequenceNumer}");
 
-            return base.WriteAsync(context, buffer);
+            return context.WriteAsync(buffer);
         }
 
         public override void ChannelRead(IChannelHandlerContext context, object message)
@@ -82,7 +82,7 @@
                 Log.Error($"Recieve the message with {code}");
             }
             
-            base.ChannelRead(context, data);
+            context.FireChannelRead(data);
         }
         
         private static void CheckChecksum(IByteBuffer buffer, int length)

@@ -6,6 +6,7 @@
 
     using log4net;
 
+    using OpenTl.ClientApi.MtProto.Extensions;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
     using OpenTl.Schema.Serialization;
@@ -22,7 +23,7 @@
 
         protected override void Encode(IChannelHandlerContext context, IObject message, IByteBuffer output)
         {
-            var newMessageId = ClientSettings.ClientSession.GenerateMsgId();
+            var newMessageId = ClientSettings.ClientSession.GenerateMessageId();
             Log.Debug($"Send handshake message {message} with id : {newMessageId}");
 
             var dataBuffer = PooledByteBufferAllocator.Default.Buffer();
