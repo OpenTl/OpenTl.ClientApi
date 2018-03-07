@@ -29,6 +29,11 @@
 
         protected override void Encode(IChannelHandlerContext context, IRequest message, IByteBuffer output)
         {
+            if (message == null)
+            {
+                return;
+            }
+            
             var messageId = ClientSettings.ClientSession.GenerateMessageId();
             var sequenceNumber = ClientSettings.ClientSession.GenerateSequenceNumber(true);
             

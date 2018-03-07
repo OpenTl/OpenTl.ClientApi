@@ -1,7 +1,5 @@
 ﻿namespace OpenTl.ClientApi.MtProto.UnitTests.Framework.Builders
 {
-    using System;
-
     using AutoFixture;
 
     using Moq;

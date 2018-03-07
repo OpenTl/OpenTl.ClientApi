@@ -88,7 +88,7 @@
                     RequestService.ReturnException(messageReqMsgId, new FloodWaitException(TimeSpan.FromSeconds(seconds)));
                     break;
                 default:
-                    RequestService.ReturnException(messageReqMsgId, new InvalidOperationException(error.ErrorMessage));
+                    RequestService.ReturnException(messageReqMsgId, new UnhandledException(error.ErrorMessage));
                     break;
             }
         }

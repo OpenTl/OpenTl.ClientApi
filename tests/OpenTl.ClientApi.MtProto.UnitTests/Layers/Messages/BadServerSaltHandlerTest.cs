@@ -1,23 +1,18 @@
 ﻿namespace OpenTl.ClientApi.MtProto.UnitTests.Layers.Messages
 {
     using System;
-    using System.Threading.Tasks;
 
-    using DotNetty.Buffers;
     using DotNetty.Common.Utilities;
-    using DotNetty.Transport.Channels;
     using DotNetty.Transport.Channels.Embedded;
 
     using Moq;
 
-    using OpenTl.ClientApi.MtProto.Layers.Handshake.Codecs;
     using OpenTl.ClientApi.MtProto.Layers.Messages.Adapters;
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.ClientApi.MtProto.UnitTests.Framework;
     using OpenTl.ClientApi.MtProto.UnitTests.Framework.Builders;
     using OpenTl.Common.Testing;
     using OpenTl.Schema;
-    using OpenTl.Schema.Serialization;
 
     using Xunit;
 

@@ -1,13 +1,10 @@
 ﻿namespace OpenTl.ClientApi.MtProto.UnitTests.Layers.Messages
 {
     using System;
-    using System.IO;
-    using System.IO.Compression;
     using System.Linq;
 
     using AutoFixture;
 
-    using DotNetty.Buffers;
     using DotNetty.Transport.Channels.Embedded;
 
     using Moq;
@@ -17,10 +14,8 @@
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.ClientApi.MtProto.UnitTests.Framework;
     using OpenTl.ClientApi.MtProto.UnitTests.Framework.Builders;
-    using OpenTl.Common.Extesions;
     using OpenTl.Common.Testing;
     using OpenTl.Schema;
-    using OpenTl.Schema.Serialization;
 
     using Xunit;
 
@@ -104,7 +99,7 @@
         [InlineData("PHONE_CODE_INVALID", typeof(PhoneCodeInvalidException))]
         [InlineData("FILE_MIGRATE_1", typeof(FileMigrationException))]
         [InlineData("FLOOD_WAIT_1000", typeof(FloodWaitException))]
-        [InlineData("SOME_EXCEPTION", typeof(InvalidOperationException))]
+        [InlineData("SOME_EXCEPTION", typeof(UnhandledException))]
         public void ReturnError_SimpleCases(string errorMessage, Type exceptionType)
         {
             this.RegisterType<RpcResultHandler>();

@@ -26,6 +26,13 @@
             
             return mock;
         }
+         
+        public static Mock<IRequestService> BuildGetRequestToReply(this Mock<IRequestService> mock, long messageId, IRequest result)
+        {
+            mock.Setup(rs => rs.GetRequestToReply(messageId))
+                           .Returns(() => result);
+            return mock;
+        }
         
         public static Mock<IRequestService> BuildReturnException<TException>(this Mock<IRequestService> mock, long messageId) where TException: Exception
         {
