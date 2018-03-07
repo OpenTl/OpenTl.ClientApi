@@ -14,7 +14,7 @@
     using OpenTl.Schema.Serialization;
 
     [SingleInstance(typeof(ISecureHandler))]
-    internal sealed class SecureRequestEncoder: MessageToByteEncoder<IRequest>,
+    internal sealed class SecureRequestEncoder: MessageToByteEncoder<IObject>,
                                          ISecureHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(SecureRequestEncoder));
@@ -25,9 +25,9 @@
         
         public override bool IsSharable { get; } = true;
 
-        public override bool AcceptOutboundMessage(object message) => message is IRequest;
+        public override bool AcceptOutboundMessage(object message) => message is IObject;
 
-        protected override void Encode(IChannelHandlerContext context, IRequest message, IByteBuffer output)
+        protected override void Encode(IChannelHandlerContext context, IObject message, IByteBuffer output)
         {
             if (message == null)
             {
@@ -35,9 +35,11 @@
             }
             
             var messageId = ClientSettings.ClientSession.GenerateMessageId();
-            var sequenceNumber = ClientSettings.ClientSession.GenerateSequenceNumber(true);
             
-            Log.Debug($"Send secure message with messageId = {messageId} and sequenceNumber = {sequenceNumber}");
+            var isRequest = message is IRequest;
+            
+            var sequenceNumber = ClientSettings.ClientSession.GenerateSequenceNumber(isRequest);
+            
             
             var messageBuffer = PooledByteBufferAllocator.Default.Buffer();
             try
@@ -50,8 +52,13 @@
             {
                 messageBuffer.Release();
             }
+
+            Log.Debug($"Send secure message {message} with messageId = {messageId} and sequenceNumber = {sequenceNumber}");
             
-            RequestService.AttachRequestToMessageId(message, messageId);
+            if (isRequest)
+            {
+                RequestService.AttachRequestToMessageId(message.Cast<IRequest>(), messageId);
+            }
         }
     }
 }

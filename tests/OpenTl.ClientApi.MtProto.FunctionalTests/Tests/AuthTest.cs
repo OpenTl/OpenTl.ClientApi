@@ -47,8 +47,8 @@
         {
             var settings = Container.Resolve<IClientSettings>();
 
-            const string PhoneNumber = "9996620000";
-            const string PhoneCode = "22222";
+            const string PhoneNumber = "9996610000";
+            const string PhoneCode = "11111";
             
             var requestSendCode = new RequestSendCode
                                   {

@@ -10,7 +10,7 @@
     using OpenTl.Schema;
 
     [SingleInstance(typeof(IMessageHandler))]
-    internal class UpdatesHandler : SimpleChannelInboundHandler<IUpdates>,
+    internal sealed class UpdatesHandler : SimpleChannelInboundHandler<IUpdates>,
                                     IMessageHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(UpdatesHandler));
@@ -19,7 +19,7 @@
 
         public override bool IsSharable { get; } = true;
         
-        // public IUpdatesApiServiceRaiser UpdateRaiser { get; set; }
+        public IUpdatesRaiser UpdateRaiser { get; set; }
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, IUpdates msg)
         {
@@ -29,7 +29,7 @@
                 Log.Debug($"Recieve Updates \n{jUpdate}");
             }
 
-            // // UpdateRaiser.OnUpdateRecieve(obj.Cast<IUpdates>());
+            UpdateRaiser.OnUpdateRecieve(msg);
         }
     }
 }

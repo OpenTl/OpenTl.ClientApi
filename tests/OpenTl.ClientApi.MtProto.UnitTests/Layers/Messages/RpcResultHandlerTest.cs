@@ -49,6 +49,9 @@
             // ---
 
             Assert.Null(channel.ReadOutbound<object>());
+            
+            channel.Flush();
+            Assert.IsType<TMsgsAck>(channel.ReadOutbound<TMsgsAck>());
 
             mRequestService.Verify(service => service.ReturnResult(messageId, result), Times.Once);
         }
@@ -91,6 +94,9 @@
 
             Assert.Null(channel.ReadOutbound<object>());
 
+            channel.Flush();
+            Assert.IsType<TMsgsAck>(channel.ReadOutbound<TMsgsAck>());
+
             mRequestService.Verify(service => service.ReturnResult(messageId, result), Times.Once);
         }
         
@@ -130,6 +136,9 @@
             // ---
 
             Assert.Null(channel.ReadOutbound<object>());
+            
+            channel.Flush();
+            Assert.IsType<TMsgsAck>(channel.ReadOutbound<TMsgsAck>());
 
             mRequestService.Verify(service => service.ReturnException(messageId, It.Is<Exception>(ex => ex.GetType() == exceptionType)), Times.Once);
         }
@@ -169,7 +178,7 @@
 
             // ---
 
-            Assert.Null(channel.ReadOutbound<object>());
+            Assert.IsType<TMsgsAck>(channel.ReadOutbound<TMsgsAck>());
 
             Assert.False(channel.Open);
             

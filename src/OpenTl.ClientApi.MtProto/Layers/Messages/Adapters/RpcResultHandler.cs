@@ -32,6 +32,12 @@
         {
             Log.Debug($"Process RpcResult  with request id = '{msg.ReqMsgId}'");
 
+            ctx.WriteAsync(
+                new TMsgsAck
+                {
+                    MsgIds = new TVector<long>(msg.ReqMsgId)
+                });
+            
             switch (msg.Result)
             {
                     case TRpcError error:
@@ -73,6 +79,7 @@
                     ClientSettings.ClientSession.ServerAddress = dcOption.IpAddress;
                     ClientSettings.ClientSession.Port = dcOption.Port;
 
+                    ctx.Flush();
                     ctx.DisconnectAsync().ConfigureAwait(false);
                     break;
                 case var fileMigrate when fileMigrate.StartsWith("FILE_MIGRATE_"):
