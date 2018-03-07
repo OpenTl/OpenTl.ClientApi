@@ -2,14 +2,12 @@
 {
     using System;
     using System.Text.RegularExpressions;
-    using System.Threading.Tasks;
 
     using DotNetty.Transport.Channels;
 
     using log4net;
 
     using OpenTl.ClientApi.MtProto.Exceptions;
-    using OpenTl.ClientApi.MtProto.Extensions;
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
@@ -36,7 +34,7 @@
 
             switch (msg.Result)
             {
-                case TRpcError error:
+                    case TRpcError error:
                     HandleRpcError(ctx, msg.ReqMsgId, error);
                     break;
 
@@ -60,10 +58,10 @@
             switch (error.ErrorMessage)
             {
                 case "PHONE_CODE_INVALID":
-                    RequestService.ReturnException(messageReqMsgId, new InvalidPhoneCodeException("The numeric code used to authenticate does not match the numeric code sent by SMS/Telegram"));
+                    RequestService.ReturnException(messageReqMsgId, new PhoneCodeInvalidException());
                     break;
                 case "SESSION_PASSWORD_NEEDED":
-                    RequestService.ReturnException(messageReqMsgId, new CloudPasswordNeededException("The numeric code used to authenticate does not match the numeric code sent by SMS/Telegram"));
+                    RequestService.ReturnException(messageReqMsgId, new CloudPasswordNeededException());
                     break;
                 case var phoneMigrate when phoneMigrate.StartsWith("PHONE_MIGRATE_"):
                 case var userMigrate when userMigrate.StartsWith("USER_MIGRATE_"):
@@ -76,49 +74,23 @@
                     ClientSettings.ClientSession.Port = dcOption.Port;
 
                     ctx.DisconnectAsync().ConfigureAwait(false);
+                    break;
+                case var fileMigrate when fileMigrate.StartsWith("FILE_MIGRATE_"):
+                    var fileMigrateDcNumber = Regex.Match(fileMigrate, @"\d+").Value;
+                    var fileMigrateDcIdx = int.Parse(fileMigrateDcNumber);
                     
+                    RequestService.ReturnException(messageReqMsgId, new FileMigrationException(fileMigrateDcIdx));
+                    break;
+                case var floodMessage when floodMessage.StartsWith("FLOOD_WAIT_"):
+                    var floodMessageTime = Regex.Match(floodMessage, @"\d+").Value;
+                    var seconds = int.Parse(floodMessageTime);
+                    
+                    RequestService.ReturnException(messageReqMsgId, new FloodWaitException(TimeSpan.FromSeconds(seconds)));
                     break;
                 default:
                     RequestService.ReturnException(messageReqMsgId, new InvalidOperationException(error.ErrorMessage));
                     break;
-            //     case var floodMessage when floodMessage.StartsWith("FLOOD_WAIT_"):
-            //         var floodMessageTime = Regex.Match(floodMessage, @"\d+").Value;
-            //         var seconds = int.Parse(floodMessageTime);
-            //         exception = new FloodException(TimeSpan.FromSeconds(seconds));
-            //         break;
-
-           // // //     case var phoneMigrate when phoneMigrate.StartsWith("PHONE_MIGRATE_"):
-            //         var phoneMigrateDcNumber = Regex.Match(phoneMigrate, @"\d+").Value;
-            //         var phoneMigrateDcIdx = int.Parse(phoneMigrateDcNumber);
-            //         exception = new PhoneMigrationException(phoneMigrateDcIdx);
-            //         break;
-
-           // // //     case var fileMigrate when fileMigrate.StartsWith("FILE_MIGRATE_"):
-            //         var fileMigrateDcNumber = Regex.Match(fileMigrate, @"\d+").Value;
-            //         var fileMigrateDcIdx = int.Parse(fileMigrateDcNumber);
-            //         exception = new FileMigrationException(fileMigrateDcIdx);
-            //         break;
-
-           // // //     case var userMigrate when userMigrate.StartsWith("USER_MIGRATE_"):
-            //         var userMigrateDcNumber = Regex.Match(userMigrate, @"\d+").Value;
-            //         var userMigrateDcIdx = int.Parse(userMigrateDcNumber);
-            //         exception = new UserMigrationException(userMigrateDcIdx);
-            //         break;
-
-          
-
-           // // //     case "SESSION_PASSWORD_NEEDED":
-            //         exception = new CloudPasswordNeededException("This Account has Cloud Password !");
-            //         break;
-
-           // // //     case "AUTH_RESTART":
-            //         ResponseResultSetter.ReturnException(new AuthRestartException());
-            //         return;
-
-         
             }
-
-            // ResponseResultSetter.ReturnException(messageReqMsgId, exception);
         }
     }
 }

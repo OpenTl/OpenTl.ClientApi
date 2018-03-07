@@ -7,6 +7,7 @@
     using Moq;
 
     using OpenTl.Common.Testing;
+    using OpenTl.Schema;
 
     internal static class ClientSettingsBuilder
     {
@@ -20,6 +21,10 @@
                                      .AttachSession(mSession)
                                      .AttachAppProperties(mAppProperties);
 
+            unitTest.Fixture.Freeze<IDcOption>(composer => composer.FromFactory(() => unitTest.Fixture.Create<TDcOption>()));
+            unitTest.Fixture.Freeze<IDisabledFeature>(composer => composer.FromFactory(() => unitTest.Fixture.Create<TDisabledFeature>()));
+            mSettings.Object.Config = unitTest.Fixture.Create<TConfig>();
+            
             return mSettings;
         }
             

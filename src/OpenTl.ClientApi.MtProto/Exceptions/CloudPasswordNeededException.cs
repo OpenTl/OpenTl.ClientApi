@@ -4,7 +4,7 @@
 
     public sealed class CloudPasswordNeededException : Exception
     {
-        internal CloudPasswordNeededException(string msg) : base(msg)
+        internal CloudPasswordNeededException() : base("This Account has Cloud Password !")
         {
         }
     }

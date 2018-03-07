@@ -1,10 +1,5 @@
-﻿using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("OpenTl.ClientApi.MtProto.UnitTests")]
-
-namespace OpenTl.ClientApi.MtProto.Bootstrapper
+﻿namespace OpenTl.ClientApi.MtProto.Bootstrapper
 {
-    using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
 
