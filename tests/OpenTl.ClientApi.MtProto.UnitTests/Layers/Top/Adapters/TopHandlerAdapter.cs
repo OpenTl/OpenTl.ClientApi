@@ -34,9 +34,8 @@
             
             var request = new RequestPing();
 
-            var mRequestService = this.Resolve<Mock<IRequestService>>();
-            mRequestService.Setup(rs => rs.RegisterRequest(request, It.IsAny<CancellationToken>()))
-                           .Returns<IRequest, CancellationToken>((_, __) => resultTaskSource.Task);
+            this.Resolve<Mock<IRequestService>>()
+                .BuildRegisterRequest<RequestPing>(resultTaskSource.Task);
 
             var handlerAdapter = this.Resolve<TopHandlerAdapter>();
 
@@ -64,12 +63,9 @@
                          {
                              DcOptions = new TVector<IDcOption>(Fixture.Create<TDcOption>())
                          };
-                
-            var mRequestService = new Mock<IRequestService>();
-            mRequestService.Setup(rs => rs.RegisterRequest(It.IsAny<RequestInvokeWithLayer>(), It.IsAny<CancellationToken>()))
-                           .Returns<IRequest, CancellationToken>((_, __) => Task.FromResult((object)config));
-                           
-            this.RegisterMock(mRequestService);
+            
+            this.Resolve<Mock<IRequestService>>()
+                .BuildRegisterRequest<RequestInvokeWithLayer>(Task.FromResult((object)config));
 
             var handlerAdapter = this.Resolve<TopHandlerAdapter>();
 
@@ -95,13 +91,9 @@
             msession.Object.ClientSession.AuthKey = new AuthKey(Fixture.CreateMany<byte>(256).ToArray());
             var resultTaskSource = new TaskCompletionSource<object>();
             
-            var mRequestService = new Mock<IRequestService>();
-            mRequestService.Setup(rs => rs.RegisterRequest(It.IsAny<RequestPing>(), It.IsAny<CancellationToken>()))
-                           .Returns<IRequest, CancellationToken>((_, __) => resultTaskSource.Task);
-            mRequestService.Setup(rs => rs.RegisterRequest(It.IsAny<RequestInvokeWithLayer>(), It.IsAny<CancellationToken>()))
-                           .Returns<IRequest, CancellationToken>((_, __) => Task.FromResult((object)new TConfig()));
-                           
-            this.RegisterMock(mRequestService);
+            this.Resolve<Mock<IRequestService>>()
+                .BuildRegisterRequest<RequestPing>(resultTaskSource.Task)
+                .BuildRegisterRequest<RequestInvokeWithLayer>(Task.FromResult((object)new TConfig()));
 
             var handlerAdapter = this.Resolve<TopHandlerAdapter>();
 
@@ -139,16 +131,11 @@
             var request = new RequestPing();
             var response = new TPong();
             
-            var mRequestService = new Mock<IRequestService>();
-            mRequestService.Setup(rs => rs.GetAllRequestToReply())
-                           .Returns(() => new [] { request });
-            mRequestService.Setup(rs => rs.RegisterRequest(It.IsAny<RequestPing>(), It.IsAny<CancellationToken>()))
-                           .Returns<IRequest, CancellationToken>((_, __) => resultTaskSource.Task);
-            mRequestService.Setup(rs => rs.RegisterRequest(It.IsAny<RequestInvokeWithLayer>(), It.IsAny<CancellationToken>()))
-                           .Returns<IRequest, CancellationToken>((_, __) => Task.FromResult((object)new TConfig()));
-                           
-            this.RegisterMock(mRequestService);
-
+            this.Resolve<Mock<IRequestService>>()
+                .BuildRegisterRequest<RequestPing>(resultTaskSource.Task)
+                .BuildGetAllRequestToReply(request)
+                .BuildRegisterRequest<RequestInvokeWithLayer>(Task.FromResult((object)new TConfig()));
+            
             var handlerAdapter = this.Resolve<TopHandlerAdapter>();
 
             // ---
