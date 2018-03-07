@@ -19,6 +19,8 @@
 
         public IClientSettings ClientSettings { get; set; }
 
+        public override bool IsSharable { get; } = true;
+
         public override bool AcceptOutboundMessage(object message) => message is RequestReqPqMulty || message is RequestReqDHParams || message is RequestSetClientDHParams;
 
         protected override void Encode(IChannelHandlerContext context, IObject message, IByteBuffer output)

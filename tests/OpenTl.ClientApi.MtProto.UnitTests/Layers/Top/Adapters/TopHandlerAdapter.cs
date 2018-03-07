@@ -27,25 +27,24 @@
         {
             this.RegisterType<TopHandlerAdapter>();
 
+            var mSettings =  this.BuildClientSettingsProps();
+            mSettings.Object.ClientSession.AuthKey = null;
+            
             var resultTaskSource = new TaskCompletionSource<object>();
             
-            var mRequestService = new Mock<IRequestService>();
-            mRequestService.Setup(rs => rs.RegisterRequest(It.IsAny<IRequest>(), It.IsAny<CancellationToken>()))
+            var request = new RequestPing();
+
+            var mRequestService = this.Resolve<Mock<IRequestService>>();
+            mRequestService.Setup(rs => rs.RegisterRequest(request, It.IsAny<CancellationToken>()))
                            .Returns<IRequest, CancellationToken>((_, __) => resultTaskSource.Task);
-                           
-            this.RegisterMock(mRequestService);
 
             var handlerAdapter = this.Resolve<TopHandlerAdapter>();
 
             var channel = new EmbeddedChannel(handlerAdapter);
 
-            var request = new RequestPing();
-
             // ---
 
-            var resultTask = handlerAdapter.SendRequest(request);
-
-            resultTaskSource.SetResult(true);
+            var resultTask = handlerAdapter.SendRequestAsync(request, CancellationToken.None);
             
             // ---
 
@@ -75,8 +74,6 @@
             var handlerAdapter = this.Resolve<TopHandlerAdapter>();
 
             var channel = new EmbeddedChannel(handlerAdapter);
-
-            var request = new RequestPing();
 
             // ---
 
@@ -115,7 +112,7 @@
 
             // ---
 
-            var resultTask = handlerAdapter.SendRequest(request);
+            var resultTask = handlerAdapter.SendRequestAsync(request, CancellationToken.None);
 
             resultTaskSource.SetResult(response);
             
@@ -133,11 +130,18 @@
         {
             this.RegisterType<TopHandlerAdapter>();
 
-            this.BuildClientSettingsProps();
+            var mSettings = this.BuildClientSettingsProps();
+            
+            var authKey = mSettings.Object.ClientSession.AuthKey;
             
             var resultTaskSource = new TaskCompletionSource<object>();
+
+            var request = new RequestPing();
+            var response = new TPong();
             
             var mRequestService = new Mock<IRequestService>();
+            mRequestService.Setup(rs => rs.GetAllRequestToReply())
+                           .Returns(() => new [] { request });
             mRequestService.Setup(rs => rs.RegisterRequest(It.IsAny<RequestPing>(), It.IsAny<CancellationToken>()))
                            .Returns<IRequest, CancellationToken>((_, __) => resultTaskSource.Task);
             mRequestService.Setup(rs => rs.RegisterRequest(It.IsAny<RequestInvokeWithLayer>(), It.IsAny<CancellationToken>()))
@@ -147,17 +151,18 @@
 
             var handlerAdapter = this.Resolve<TopHandlerAdapter>();
 
+            // ---
+            
+            mSettings.Object.ClientSession.AuthKey = null;
+
             var channel = new EmbeddedChannel(handlerAdapter);
 
-            var request = new RequestPing();
-            var response = new TPong();
-
-            // ---
-
-            var resultTask = handlerAdapter.SendRequest(request);
+            mSettings.Object.ClientSession.AuthKey = authKey;
 
             channel.WriteInbound(new TDhGenOk());
-
+            
+            var resultTask = handlerAdapter.SendRequestAsync(request, CancellationToken.None);
+            
             resultTaskSource.SetResult(response);
             
             // ---

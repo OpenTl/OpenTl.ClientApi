@@ -11,6 +11,7 @@
     using log4net;
     using log4net.Util;
 
+    using OpenTl.ClientApi.MtProto.Extensions;
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
@@ -25,28 +26,23 @@
 
         private IChannelHandlerContext _context;
 
-        private TaskCompletionSource<bool> _initTask = new TaskCompletionSource<bool>();
-
         public IRequestService RequestService { get; set; }
 
         public IClientSettings ClientSettings { get; set; }
 
+        public override bool IsSharable { get; } = true;
+        
         public override void ChannelActive(IChannelHandlerContext context)
         {
             _context = context;
 
-            if (_initTask.Task.IsCanceled || _initTask.Task.IsCompleted || _initTask.Task.IsFaulted)
-            {
-                _initTask = new TaskCompletionSource<bool>();
-            }
-
             base.ChannelActive(context);
 
-            if (ClientSettings.ClientSession.AuthKey != null)
+            if (ClientSettings.ClientSession.WasInitialized())
             {
                 Log.Debug("Session was found.");
                 
-                SendInitConnectionRequest().ConfigureAwait(false);
+                SendInitConnectionRequest().ConfigureAwait(false);                
             }
         }
 
@@ -57,16 +53,14 @@
             RequestService.ReturnException(exception);
         }
 
-        public async Task<TResult> SendRequest<TResult>(IRequest<TResult> request)
+        public async Task<TResult> SendRequestAsync<TResult>(IRequest<TResult> request, CancellationToken cancellationToken)
         {
-            if (!_initTask.Task.IsCanceled && !_initTask.Task.IsCompleted)
+            var resultTask = RequestService.RegisterRequest(request, cancellationToken);
+
+            if (ClientSettings.ClientSession.WasInitialized())
             {
-                await _initTask.Task;
+                await _context.WriteAndFlushAsync(request);
             }
-
-            var resultTask = RequestService.RegisterRequest(request, CancellationToken.None);
-
-            await _context.WriteAndFlushAsync(request);
 
             return (TResult)await resultTask;
         }
@@ -117,13 +111,18 @@
 
                 await _context.WriteAndFlushAsync(request).ConfigureAwait(false);
 
-                ClientSettings.Config = (IConfig)await resultTask;
+                ClientSettings.Config = (IConfig)await resultTask.ConfigureAwait(false);
 
-                _initTask.SetResult(true);
+                foreach (var replyRequest in RequestService.GetAllRequestToReply())
+                {
+                    _context.WriteAsync(replyRequest).ConfigureAwait(false);
+                }
+
+                _context.Flush();
             }
             catch (Exception e)
             {
-                _initTask.SetException(e);
+                RequestService.ReturnException(e);
             }
         }
     }

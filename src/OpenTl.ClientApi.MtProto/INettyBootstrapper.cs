@@ -5,5 +5,7 @@
     public interface INettyBootstrapper
     {
         Task Init();
+
+        Task Connect();
     }
 }

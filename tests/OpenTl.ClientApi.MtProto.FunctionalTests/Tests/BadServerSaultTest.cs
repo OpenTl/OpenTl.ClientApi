@@ -1,6 +1,7 @@
 ﻿namespace OpenTl.ClientApi.MtProto.FunctionalTests.Tests
 {
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using DotNetty.Common.Utilities;
@@ -22,13 +23,13 @@
         [Fact]
         public async Task BadServerSault()
         {
-            var resultBefore = await PackageSender.SendRequest(new RequestGetConfig()).ConfigureAwait(false);
+            var resultBefore = await PackageSender.SendRequestAsync(new RequestGetConfig(), CancellationToken.None).ConfigureAwait(false);
 
             var settings = Container.Resolve<IClientSettings>();
             
             settings.ClientSession.ServerSalt = BitConverter.GetBytes(Random.NextLong()); 
 
-            var resultAfter = await PackageSender.SendRequest(new RequestGetConfig()).ConfigureAwait(false);
+            var resultAfter = await PackageSender.SendRequestAsync(new RequestGetConfig(), CancellationToken.None).ConfigureAwait(false);
 
             Assert.Equal(resultBefore.Date, resultAfter.Date);
         }

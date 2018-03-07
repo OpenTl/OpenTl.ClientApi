@@ -1,9 +1,15 @@
-﻿namespace OpenTl.ClientApi.MtProto.Layers.Messages.Codecs
+﻿namespace OpenTl.ClientApi.MtProto.Layers.Messages.Adapters
 {
+    using System;
+    using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
+
     using DotNetty.Transport.Channels;
 
     using log4net;
 
+    using OpenTl.ClientApi.MtProto.Exceptions;
+    using OpenTl.ClientApi.MtProto.Extensions;
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
@@ -16,6 +22,10 @@
 
         public int Order { get; } = 25;
 
+        public override bool IsSharable { get; } = true;
+        
+        public IClientSettings ClientSettings { get; set; }
+        
         public IRequestService RequestService { get; set; }
 
         public IUnzippedService UnzippedService { get; set; }
@@ -27,9 +37,7 @@
             switch (msg.Result)
             {
                 case TRpcError error:
-                    Log.Debug($"Handle Rpc error");
-                    
-                    HandleRpcError(msg.ReqMsgId, error);
+                    HandleRpcError(ctx, msg.ReqMsgId, error);
                     break;
 
                 case TgZipPacked zipPacked:
@@ -44,58 +52,73 @@
             }
         }
 
-
-        private void HandleRpcError(long messageReqMsgId, TRpcError error)
+        private void HandleRpcError(IChannelHandlerContext ctx, long messageReqMsgId, TRpcError error)
         {
-            // rpc_error
+            Log.Warn($"Recieve error from server: {error.ErrorMessage}");
 
-            // Log.Warn($"Recieve error from server: {error.ErrorMessage}");
+            // Exception exception;
+            switch (error.ErrorMessage)
+            {
+                case "PHONE_CODE_INVALID":
+                    RequestService.ReturnException(messageReqMsgId, new InvalidPhoneCodeException("The numeric code used to authenticate does not match the numeric code sent by SMS/Telegram"));
+                    break;
+                case "SESSION_PASSWORD_NEEDED":
+                    RequestService.ReturnException(messageReqMsgId, new CloudPasswordNeededException("The numeric code used to authenticate does not match the numeric code sent by SMS/Telegram"));
+                    break;
+                case var phoneMigrate when phoneMigrate.StartsWith("PHONE_MIGRATE_"):
+                case var userMigrate when userMigrate.StartsWith("USER_MIGRATE_"):
+                case var netwokMigrate when netwokMigrate.StartsWith("NETWORK_MIGRATE_"):
+                    var dcNumber = int.Parse(Regex.Match(error.ErrorMessage, @"\d+").Value);
+                    var dcOption = ClientSettings.Config.DcOptions.Items.Find(option => option.Id == dcNumber);
 
-            // // Exception exception;
-            // switch (error.ErrorMessage)
-            // {
+                    ClientSettings.ClientSession.AuthKey = null;
+                    ClientSettings.ClientSession.ServerAddress = dcOption.IpAddress;
+                    ClientSettings.ClientSession.Port = dcOption.Port;
+
+                    ctx.DisconnectAsync().ConfigureAwait(false);
+                    
+                    break;
+                default:
+                    RequestService.ReturnException(messageReqMsgId, new InvalidOperationException(error.ErrorMessage));
+                    break;
             //     case var floodMessage when floodMessage.StartsWith("FLOOD_WAIT_"):
             //         var floodMessageTime = Regex.Match(floodMessage, @"\d+").Value;
             //         var seconds = int.Parse(floodMessageTime);
             //         exception = new FloodException(TimeSpan.FromSeconds(seconds));
             //         break;
 
-            // //     case var phoneMigrate when phoneMigrate.StartsWith("PHONE_MIGRATE_"):
+           // // //     case var phoneMigrate when phoneMigrate.StartsWith("PHONE_MIGRATE_"):
             //         var phoneMigrateDcNumber = Regex.Match(phoneMigrate, @"\d+").Value;
             //         var phoneMigrateDcIdx = int.Parse(phoneMigrateDcNumber);
             //         exception = new PhoneMigrationException(phoneMigrateDcIdx);
             //         break;
 
-            // //     case var fileMigrate when fileMigrate.StartsWith("FILE_MIGRATE_"):
+           // // //     case var fileMigrate when fileMigrate.StartsWith("FILE_MIGRATE_"):
             //         var fileMigrateDcNumber = Regex.Match(fileMigrate, @"\d+").Value;
             //         var fileMigrateDcIdx = int.Parse(fileMigrateDcNumber);
             //         exception = new FileMigrationException(fileMigrateDcIdx);
             //         break;
 
-            // //     case var userMigrate when userMigrate.StartsWith("USER_MIGRATE_"):
+           // // //     case var userMigrate when userMigrate.StartsWith("USER_MIGRATE_"):
             //         var userMigrateDcNumber = Regex.Match(userMigrate, @"\d+").Value;
             //         var userMigrateDcIdx = int.Parse(userMigrateDcNumber);
             //         exception = new UserMigrationException(userMigrateDcIdx);
             //         break;
 
-            // //     case "PHONE_CODE_INVALID":
-            //         exception = new InvalidPhoneCodeException("The numeric code used to authenticate does not match the numeric code sent by SMS/Telegram");
-            //         break;
+          
 
-            // //     case "SESSION_PASSWORD_NEEDED":
+           // // //     case "SESSION_PASSWORD_NEEDED":
             //         exception = new CloudPasswordNeededException("This Account has Cloud Password !");
             //         break;
 
-            // //     case "AUTH_RESTART":
+           // // //     case "AUTH_RESTART":
             //         ResponseResultSetter.ReturnException(new AuthRestartException());
             //         return;
 
-            // //     default:
-            //         exception = new InvalidOperationException(error.ErrorMessage);
-            //         break;
-            // }
+         
+            }
 
-            // // ResponseResultSetter.ReturnException(messageReqMsgId, exception);
+            // ResponseResultSetter.ReturnException(messageReqMsgId, exception);
         }
     }
 }

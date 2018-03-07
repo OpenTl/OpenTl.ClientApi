@@ -1,4 +1,4 @@
-﻿namespace OpenTl.ClientApi.MtProto.Layers.Messages.Codecs
+﻿namespace OpenTl.ClientApi.MtProto.Layers.Messages.Adapters
 {
     using System.Collections.Generic;
     using System.IO;
@@ -26,6 +26,8 @@
 
         public int Order { get; } = 50;
 
+        public override bool IsSharable { get; } = true;
+        
         protected override void Decode(IChannelHandlerContext context, TgZipPacked message, List<object> output)
         {
             var unzippedObj = UnzipPackage(message);

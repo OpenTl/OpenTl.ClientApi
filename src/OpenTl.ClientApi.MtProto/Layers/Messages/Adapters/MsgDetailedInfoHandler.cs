@@ -17,6 +17,8 @@
 
         public int Order { get; } = 100;
 
+        public override bool IsSharable { get; } = true;
+        
         protected override void ChannelRead0(IChannelHandlerContext ctx, TMsgDetailedInfo msg)
         {
             if (Log.IsDebugEnabled)

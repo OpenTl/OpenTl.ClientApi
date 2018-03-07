@@ -17,6 +17,8 @@
 
         public int Order { get; } = 100;
 
+        public override bool IsSharable { get; } = true;
+        
         protected override void ChannelRead0(IChannelHandlerContext ctx, TFutureSalts msg)
         {
             Log.Debug($"Handle Future Salts for request {msg.ReqMsgId}");

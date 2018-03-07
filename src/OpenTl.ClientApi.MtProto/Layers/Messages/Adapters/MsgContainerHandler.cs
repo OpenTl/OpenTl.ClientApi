@@ -1,4 +1,4 @@
-﻿namespace OpenTl.ClientApi.MtProto.Layers.Messages.Codecs
+﻿namespace OpenTl.ClientApi.MtProto.Layers.Messages.Adapters
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -19,6 +19,8 @@
 
         public int Order { get; } = 0;
 
+        public override bool IsSharable { get; } = true;
+        
         protected override void Decode(IChannelHandlerContext context, TMsgContainer message, List<object> output)
         {
             Log.Debug($"Process MsgContainer message with {message.Messages.Length} items");

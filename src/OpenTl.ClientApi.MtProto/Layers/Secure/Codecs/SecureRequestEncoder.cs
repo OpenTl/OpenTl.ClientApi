@@ -23,6 +23,8 @@
 
         public IRequestService RequestService { get; set; }
         
+        public override bool IsSharable { get; } = true;
+
         public override bool AcceptOutboundMessage(object message) => message is IRequest;
 
         protected override void Encode(IChannelHandlerContext context, IRequest message, IByteBuffer output)

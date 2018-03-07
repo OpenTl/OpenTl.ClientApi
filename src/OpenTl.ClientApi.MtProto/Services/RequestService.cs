@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(RequestService));
 
-        private readonly Dictionary<long, RequestCacheItem> _requestCache = new Dictionary<long, RequestCacheItem>();
+        private readonly LinkedList<RequestCacheItem> _requestQueue = new LinkedList<RequestCacheItem>();
 
         public Task<object> RegisterRequest(IRequest request, CancellationToken cancellationToken)
         {
@@ -34,14 +35,16 @@
                     });
             }
 
-            _requestCache[request.GetHashCode()] = new RequestCacheItem(request, tcs); 
+            _requestQueue.AddLast(new RequestCacheItem(request, tcs)); 
             
             return tcs.Task;
         }
         
         public void AttachRequestToMessageId(IRequest request, long messageId)
         {
-            if (!_requestCache.TryGetValue(request.GetHashCode(), out var cacheItem))
+            var cacheItem = _requestQueue.FirstOrDefault(item => item.Request == request);
+            
+            if (cacheItem == null)
             {
                 return;
             }
@@ -52,21 +55,32 @@
                 {
                     Log.Warn($"Message response result timed out for messageid '{messageId}'");
                         
-                    _requestCache.Remove(messageId);
+                    _requestQueue.Remove(cacheItem);
                         
                     cacheItem.TaskSource.TrySetCanceled();
                 }
             }, null, TimeSpan.FromMinutes(1), TimeSpan.Zero);
 
-            _requestCache.Remove(request.GetHashCode());
-            
+            cacheItem.MessageId = messageId;
             cacheItem.Timer = timer;
-            _requestCache[messageId] = cacheItem;
         }
 
+        public IEnumerable<IRequest> GetAllRequestToReply()
+        {
+            foreach (var cacheItem in _requestQueue)
+            {
+                cacheItem.Timer?.Dispose();
+                cacheItem.Timer = null;
+            }
+
+            return _requestQueue.Select(item => item.Request);
+        }
+        
         public IRequest GetRequestToReply(long messageId)
         {
-            if (!_requestCache.TryGetValue(messageId, out var cacheItem))
+            var cacheItem = _requestQueue.FirstOrDefault(item => item.MessageId == messageId);
+            
+            if (cacheItem == null)
             {
                 return null;
             }
@@ -74,24 +88,22 @@
             cacheItem.Timer.Dispose();
             cacheItem.Timer = null;
             
-            _requestCache.Remove(messageId);
-
-            _requestCache[cacheItem.Request.GetHashCode()] = cacheItem;
-
             return cacheItem.Request;
         }
 
         public void ReturnException(long messageId, Exception exception)
         {
-            if (_requestCache.TryGetValue(messageId, out var cacheItem))
+            var cacheItem = _requestQueue.FirstOrDefault(item => item.MessageId == messageId);
+
+            if (cacheItem != null)
             {
+                _requestQueue.Remove(cacheItem);
+
                 cacheItem.Timer.Dispose();
                 
                 cacheItem.TaskSource.TrySetException(exception);
                 
                 Log.Error($"Request was processed with error", exception);
-                
-                _requestCache.Remove(messageId);
             }
             else
             {
@@ -103,7 +115,7 @@
         {
             Log.Error($"All requests was processed with error", exception);
 
-            foreach (var cacheItem in _requestCache.Values)
+            foreach (var cacheItem in _requestQueue)
             {
                cacheItem.Timer.Dispose();
                 
@@ -113,13 +125,14 @@
 
         public void ReturnResult(long messageId, object obj)
         {
-            if (_requestCache.TryGetValue(messageId, out var cacheItem))
+            var cacheItem = _requestQueue.FirstOrDefault(item => item.MessageId == messageId);
+            if (cacheItem != null)
             {
+                _requestQueue.Remove(cacheItem);
+
                 cacheItem.Timer.Dispose();
                 
                 cacheItem.TaskSource.TrySetResult(obj);
-                
-                _requestCache.Remove(messageId);
             }
             else
             {
@@ -134,8 +147,10 @@
                 Request = request;
                 
                 TaskSource = taskSource;
-                
             }
+            
+            public long MessageId { get; set; }
+            
             public Timer Timer { get; set; }
 
             public IRequest Request { get; }

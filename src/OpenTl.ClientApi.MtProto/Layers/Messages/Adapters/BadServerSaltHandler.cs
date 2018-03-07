@@ -22,6 +22,8 @@
         
         public int Order { get; } = 100;
 
+        public override bool IsSharable { get; } = true;
+        
         protected override void ChannelRead0(IChannelHandlerContext ctx, TBadServerSalt msg)
         {
             Log.Info($"Bad server sault detected! message id = {msg.BadMsgId} ");

@@ -14,7 +14,7 @@
 
     using Xunit;
 
-    public class HandshakeRequestEncoderTest: UnitTest
+    public sealed class HandshakeRequestEncoderTest: UnitTest
     {
         private static readonly Random Random = new Random();
         
@@ -23,7 +23,7 @@
         {
             this.RegisterType<HandshakeRequestEncoder>();
 
-            // ---
+            this.BuildClientSettingsProps();
             
             var requestEncoder = this.Resolve<HandshakeRequestEncoder>();
             
@@ -36,6 +36,8 @@
             
             requestReqPqMulty.Nonce = new byte[16];
             Random.NextBytes(requestReqPqMulty.Nonce);
+
+            // ---
 
             channel.WriteOutbound(requestReqPqMulty);
 

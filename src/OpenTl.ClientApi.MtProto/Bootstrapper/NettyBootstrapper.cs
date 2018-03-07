@@ -10,6 +10,8 @@ namespace OpenTl.ClientApi.MtProto.Bootstrapper
 
     using BarsGroup.CodeGuard;
 
+    using Castle.Windsor;
+
     using DotNetty.Buffers;
     using DotNetty.Codecs;
     using DotNetty.Handlers.Logging;
@@ -29,17 +31,9 @@ namespace OpenTl.ClientApi.MtProto.Bootstrapper
     {
         private readonly Bootstrap _bootstrap = new Bootstrap();
 
-        private IChannel _clientChannel;
-
+        public IWindsorContainer Container { get; set; }
+        
         public IClientSettings ClientSettings { get; set; }
-
-        public IHandshakeHandler[] HandshakeHandlers { get; set; }
-
-        public ISecureHandler[] SecureHandlers { get; set; }
-
-        public IMessageHandler[] MessageHandlers { get; set; }
-
-        public ITopLevelHandler[] TopLevelHandlers { get; set; }
 
         public async Task Init()
         {
@@ -57,15 +51,20 @@ namespace OpenTl.ClientApi.MtProto.Bootstrapper
 
                             pipeline.AddLast(new LengthFieldBasedFrameDecoder(ByteOrder.LittleEndian, int.MaxValue, 0, 4, -4, 0, true));
                             pipeline.AddLast(new TcpLayerHandlerAdapter());
-                            pipeline.AddLast(HandshakeHandlers);
-                            pipeline.AddLast(SecureHandlers);
-                            pipeline.AddLast(MessageHandlers.OrderBy(h => h.Order).ToArray());
-                            pipeline.AddLast(TopLevelHandlers);
+                            pipeline.AddLast(Container.ResolveAll<IHandshakeHandler>());
+                            pipeline.AddLast(Container.ResolveAll<ISecureHandler>());
+                            pipeline.AddLast(Container.ResolveAll<IMessageHandler>());
+                            pipeline.AddLast(Container.ResolveAll<ITopLevelHandler>());
                             pipeline.AddLast(new LoggingHandler(LogLevel.TRACE));
                         })
                 );
 
-            _clientChannel = await _bootstrap.ConnectAsync(new IPEndPoint(IPAddress.Parse(ClientSettings.ClientSession.ServerAddress), ClientSettings.ClientSession.Port))
+            await Connect();
+        }
+
+        public async Task Connect()
+        {
+            await _bootstrap.ConnectAsync(new IPEndPoint(IPAddress.Parse(ClientSettings.ClientSession.ServerAddress), ClientSettings.ClientSession.Port))
                                              .ConfigureAwait(false);
         }
     }

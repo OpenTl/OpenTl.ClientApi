@@ -28,6 +28,10 @@
 
         public IClientSettings ClientSettings { get; set; }
 
+        public Lazy<INettyBootstrapper> NettyBoostrapper { get; set; }
+
+        public override bool IsSharable { get; } = true;
+
         public override async void ChannelActive(IChannelHandlerContext context)
         {
             base.ChannelActive(context);
@@ -52,16 +56,16 @@
                     Guard.That(resPq.Nonce).IsItemsEquals(_nonce);
 
                     Log.Debug("TResPQ step complete");
- 
+
                     var requestReqDhParams = Step2ClientHelper.GetRequest(resPq, ClientSettings.PublicKey, out _newNonce);
                     ctx.WriteAndFlushAsync(requestReqDhParams);
                     break;
                 case TServerDHParamsOk dhParamsOk:
                     Log.Debug("TServerDHParamsOk step complete");
-                    
+
                     var request = Step3ClientHelper.GetRequest(dhParamsOk, _newNonce, out _clientAgree, out var serverTime);
                     ClientSettings.ClientSession.TimeOffset = serverTime - (int)DateTimeOffset.Now.ToUnixTimeSeconds();
-                    
+
                     ctx.WriteAndFlushAsync(request);
                     break;
                 case TDhGenOk dhGenOk:
@@ -79,6 +83,13 @@
                     ctx.FireChannelRead(msg);
                     break;
             }
+        }
+
+        public override void ChannelInactive(IChannelHandlerContext context)
+        {
+            base.ChannelInactive(context);
+
+             NettyBoostrapper.Value.Connect();
         }
     }
 }

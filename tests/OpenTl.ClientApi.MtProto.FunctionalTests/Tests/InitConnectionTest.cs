@@ -1,5 +1,6 @@
 ﻿namespace OpenTl.ClientApi.MtProto.FunctionalTests.Tests
  {
+     using System.Threading;
      using System.Threading.Tasks;
  
      using OpenTl.ClientApi.MtProto.FunctionalTests.Framework;
@@ -17,7 +18,7 @@
          [Fact]
          public async Task GetConfig()
          {
-             var result = await PackageSender.SendRequest(new RequestGetConfig()).ConfigureAwait(false);
+             var result = await PackageSender.SendRequestAsync(new RequestGetConfig(), CancellationToken.None).ConfigureAwait(false);
              
              Assert.NotNull(result);
              Assert.NotEmpty(result.DcOptions.Items);

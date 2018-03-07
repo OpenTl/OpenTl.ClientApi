@@ -15,6 +15,8 @@
 
         public int Order { get; } = 100;
 
+        public override bool IsSharable { get; } = true;
+        
         protected override void ChannelRead0(IChannelHandlerContext ctx, TNewSessionCreated msg)
         {
             Log.Debug("Handle a new session was created");
