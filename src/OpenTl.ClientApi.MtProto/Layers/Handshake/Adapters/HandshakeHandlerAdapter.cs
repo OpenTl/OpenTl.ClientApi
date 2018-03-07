@@ -8,6 +8,7 @@
 
     using log4net;
 
+    using OpenTl.ClientApi.MtProto.Enums;
     using OpenTl.Common.Auth;
     using OpenTl.Common.Auth.Client;
     using OpenTl.Common.GuardExtensions;
@@ -73,7 +74,8 @@
 
                     ClientSettings.ClientSession.AuthKey = new AuthKey(_clientAgree);
                     ClientSettings.ClientSession.ServerSalt = SaltHelper.ComputeSalt(_newNonce, dhGenOk.ServerNonce);
-                    ctx.FireChannelRead(msg);
+
+                    ctx.FireUserEventTriggered(ESystemNotification.HandshakeComplete);
                     break;
                 case TServerDHParamsFail _:
                 case TDhGenRetry _:

@@ -44,7 +44,10 @@
                     Log.Error($"Handle a bad message notification for request id = {msg.BadMsgId} and seqNo = {msg.BadMsgSeqno} :\n {jUpdate}");
 
                     var request = RequestService.GetRequestToReply(msg.BadMsgId);
-                    ctx.WriteAndFlushAsync(request);
+                    if (request != null)
+                    {
+                        ctx.WriteAndFlushAsync(request);
+                    }
                     break;
                 default:
                     var exception = new UnhandledException($"Wrong TBadMsgNotification code {msg.ErrorCode}");

@@ -10,6 +10,7 @@
 
     using Moq;
 
+    using OpenTl.ClientApi.MtProto.Enums;
     using OpenTl.ClientApi.MtProto.Layers.Top.Adapters;
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.ClientApi.MtProto.UnitTests.Framework;
@@ -73,7 +74,7 @@
 
             // ---
 
-            channel.WriteInbound(new TDhGenOk());
+            channel.Pipeline.FireUserEventTriggered(ESystemNotification.HandshakeComplete);
 
             // ---
             Assert.NotNull(channel.ReadOutbound<RequestInvokeWithLayer>());
@@ -146,7 +147,7 @@
 
             mSettings.Object.ClientSession.AuthKey = authKey;
 
-            channel.WriteInbound(new TDhGenOk());
+            channel.Pipeline.FireUserEventTriggered(ESystemNotification.HandshakeComplete);
             
             var resultTask = handlerAdapter.SendRequestAsync(request, CancellationToken.None);
             

@@ -11,6 +11,7 @@
     using log4net;
     using log4net.Util;
 
+    using OpenTl.ClientApi.MtProto.Enums;
     using OpenTl.ClientApi.MtProto.Extensions;
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.Common.IoC;
@@ -42,7 +43,7 @@
             {
                 Log.Debug("Session was found.");
                 
-                SendInitConnectionRequest().ConfigureAwait(false);                
+                UserEventTriggered(context, ESystemNotification.HandshakeComplete);
             }
         }
 
@@ -67,13 +68,18 @@
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, IObject msg)
         {
-            switch (msg)
+            Log.Warn($"Unhandled message {msg}");
+        }
+
+        public override void UserEventTriggered(IChannelHandlerContext context, object evt)
+        {
+            switch (evt)
             {
-                case TDhGenOk _:
-                    SendInitConnectionRequest().ConfigureAwait(false);
-                    break;
-                default:
-                    break;
+                 case ESystemNotification.HandshakeComplete:
+                     Log.Debug("Handshake is complete");
+                     
+                     SendInitConnectionRequest().ConfigureAwait(false);
+                 break;
             }
         }
 
