@@ -1,6 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard16;net46</TargetFrameworks>
+    <Title>Client implementation of the MtProto protocol</Title>
+    <Version>1.0.0</Version>
+    <PackageId>OpenTl.ClientApi.MtProto</PackageId>
+    <Authors>Viktor Borisov</Authors>
+    <Company />
+    <Product>OpenTl project</Product>
+    <Description>Client implementation of the MtProto protocol to connect the client to a server, such as Telegram Messenger</Description>
+    <PackageTags>opentl telegram mtproto</PackageTags>
+    <PackageProjectUrl>https://github.com/OpenTl</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/OpenTl/OpenTl.ClientApi</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BarsGroup.CodeGuard" Version="3.2.43" />
