@@ -14,6 +14,7 @@ Target "Clean" (fun _ ->
 
 Target "Build" (fun _ -> 
    XMLHelper.XmlPokeInnerText "./src/OpenTl.ClientApi/OpenTl.ClientApi.csproj" "/Project/PropertyGroup/Version" version
+   XMLHelper.XmlPokeInnerText "./src/OpenTl.ClientApi.MtProto/OpenTl.ClientApi.MtProto.csproj" "/Project/PropertyGroup/Version" version
 
    DotNetCli.Restore (fun p -> p)
 
