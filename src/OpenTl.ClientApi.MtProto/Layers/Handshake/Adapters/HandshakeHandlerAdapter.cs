@@ -28,6 +28,8 @@
         private byte[] _nonce;
 
         public IClientSettings ClientSettings { get; set; }
+        
+        public ISessionWriter SessionWriter { get; set; }
 
         public Lazy<INettyBootstrapper> NettyBoostrapper { get; set; }
 
@@ -67,7 +69,9 @@
                     var request = Step3ClientHelper.GetRequest(dhParamsOk, _newNonce, out _clientAgree, out var serverTime);
                     ClientSettings.ClientSession.TimeOffset = serverTime - (int)DateTimeOffset.Now.ToUnixTimeSeconds();
 
-                    ctx.WriteAndFlushAsync(request);
+                    SessionWriter.Save(ClientSettings.ClientSession)
+                        .ContinueWith(_ => ctx.WriteAndFlushAsync(request));
+                    
                     break;
                 case TDhGenOk dhGenOk:
                     Log.Debug("TDhGenOk step complete");
@@ -75,7 +79,8 @@
                     ClientSettings.ClientSession.AuthKey = new AuthKey(_clientAgree);
                     ClientSettings.ClientSession.ServerSalt = SaltHelper.ComputeSalt(_newNonce, dhGenOk.ServerNonce);
 
-                    ctx.FireUserEventTriggered(ESystemNotification.HandshakeComplete);
+                    SessionWriter.Save(ClientSettings.ClientSession)
+                                 .ContinueWith(_ => ctx.FireUserEventTriggered(ESystemNotification.HandshakeComplete));
                     break;
                 case TServerDHParamsFail _:
                 case TDhGenRetry _:

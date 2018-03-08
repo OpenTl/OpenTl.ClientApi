@@ -19,6 +19,8 @@
         public IClientSettings ClientSettings { get; set; }
 
         public IRequestService RequestService { get; set; }
+
+        public ISessionWriter SessionWriter { get; set; }
         
         public int Order { get; } = 100;
 
@@ -29,12 +31,14 @@
             Log.Info($"Bad server sault detected! message id = {msg.BadMsgId} ");
 
             ClientSettings.ClientSession.ServerSalt = BitConverter.GetBytes(msg.NewServerSalt);
-
+           
             var request = RequestService.GetRequestToReply(msg.BadMsgId);
+            
+            var saveTask = SessionWriter.Save(ClientSettings.ClientSession);
 
             if (request != null)
             {
-                ctx.WriteAndFlushAsync(request);
+                saveTask.ContinueWith(_ => ctx.WriteAndFlushAsync(request));
             }
         }
     }

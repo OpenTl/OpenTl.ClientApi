@@ -62,7 +62,9 @@
 
             // ---
 
-            channel.WriteAsync(new object()).ConfigureAwait(false);
+#pragma warning disable 4014
+            channel.WriteAsync(new object());
+#pragma warning restore 4014
 
             await Task.Delay(2000).ConfigureAwait(false);
 

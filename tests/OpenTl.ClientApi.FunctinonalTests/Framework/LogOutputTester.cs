@@ -1,4 +1,4 @@
-﻿namespace OpenTl.ClientApi.MtProto.FunctionalTests.Logger
+﻿namespace OpenTl.ClientApi.MtProto.FunctionalTests.Framework
 {
     using System;
     using System.IO;
@@ -14,6 +14,7 @@
     using log4net.Repository.Hierarchy;
 
     using OpenTl.ClientApi.MtProto;
+    using OpenTl.Common.Testing.Logger;
 
     using Xunit.Abstractions;
 
@@ -45,7 +46,7 @@
             var repo = LogManager.GetRepository(typeof(INettyBootstrapper).GetTypeInfo().Assembly);
             XmlConfigurator.Configure(repo, new FileInfo("log4net.config"));
 
-            // InternalLoggerFactory.DefaultFactory.AddProvider(new Log4NetProvider("log4net.config"));
+            InternalLoggerFactory.DefaultFactory.AddProvider(new Log4NetProvider(repo));
                 
             var root = ((Hierarchy)repo).Root;
             _attachable = root;

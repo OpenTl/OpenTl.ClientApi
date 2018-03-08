@@ -1,15 +1,19 @@
-﻿namespace OpenTl.ClientApi.MtProto.FunctionalTests.Settings
+﻿namespace OpenTl.ClientApi.Settings
 {
     using System;
 
     using DotNetty.Common.Utilities;
 
+    using OpenTl.ClientApi.MtProto;
     using OpenTl.Common.Auth;
+    
+    using NullGuard;
 
-    public sealed class TestSession: IClientSession
+    internal sealed class ClientSession: IClientSession
     {
         private static readonly Random Random = new Random();
-
+        
+        [AllowNull]
         public AuthKey AuthKey { get; set; }
 
         public ulong SessionId { get; } = (ulong)Random.NextLong();

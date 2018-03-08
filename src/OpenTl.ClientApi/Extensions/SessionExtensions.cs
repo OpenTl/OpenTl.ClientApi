@@ -7,7 +7,7 @@
 
     using OpenTl.ClientApi.MtProto;
 
-    internal static class SessionExtensions
+    public static class SessionExtensions
     {
         public static void FromBytes(this IClientSession clientSession, byte[] buffer)
         {
@@ -17,24 +17,27 @@
             }
 
             using (var inputStream = new MemoryStream(buffer))
-            using (var zippedStream = new GZipStream(inputStream, CompressionMode.Decompress))
-            using (var streamReader = new StreamReader(zippedStream))
+            // using (var zippedStream = new GZipStream(inputStream, CompressionMode.Decompress))
+            using (var streamReader = new StreamReader(inputStream))
             {
-                JsonConvert.PopulateObject(streamReader.ReadToEnd(), clientSession);
+                var settings = streamReader.ReadToEnd();
+                JsonConvert.PopulateObject(settings, clientSession);
             }
         }
 
         public static byte[] ToBytes(this IClientSession clientSession)
         {
-            using (var inputStream = new MemoryStream())
-            using (var zippedStream = new GZipStream(inputStream, CompressionMode.Compress))
-            using (var streamWriter = new StreamWriter(zippedStream))
+            using (var outputStream = new MemoryStream())
+            // using (var zippedStream = new GZipStream(output, CompressionMode.Compress))
+            using (var streamWriter = new StreamWriter(outputStream))
             using (var jWriter = new JsonTextWriter(streamWriter))
             {
                 var serializer = new JsonSerializer();
                 serializer.Serialize(jWriter, clientSession);
+                jWriter.Flush();
+                streamWriter.Flush();
                 
-                return inputStream.ToArray();
+                return outputStream.ToArray();
             }
         }        
     }

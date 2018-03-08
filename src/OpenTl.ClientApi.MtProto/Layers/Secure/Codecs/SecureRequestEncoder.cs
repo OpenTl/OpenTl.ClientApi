@@ -23,6 +23,8 @@
 
         public IRequestService RequestService { get; set; }
         
+        public ISessionWriter SessionWriter { get; set; } 
+
         public override bool IsSharable { get; } = true;
 
         public override bool AcceptOutboundMessage(object message) => message is IObject;
@@ -40,6 +42,7 @@
             
             var sequenceNumber = ClientSettings.ClientSession.GenerateSequenceNumber(isRequest);
             
+            SessionWriter.Save(ClientSettings.ClientSession);
             
             var messageBuffer = PooledByteBufferAllocator.Default.Buffer();
             try

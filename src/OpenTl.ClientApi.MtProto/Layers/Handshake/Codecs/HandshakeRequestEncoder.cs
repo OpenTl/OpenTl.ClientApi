@@ -19,6 +19,8 @@
 
         public IClientSettings ClientSettings { get; set; }
 
+        public ISessionWriter SessionWriter { get; set; } 
+            
         public override bool IsSharable { get; } = true;
 
         public override bool AcceptOutboundMessage(object message) => message is RequestReqPqMulty || message is RequestReqDHParams || message is RequestSetClientDHParams;
@@ -26,6 +28,8 @@
         protected override void Encode(IChannelHandlerContext context, IObject message, IByteBuffer output)
         {
             var newMessageId = ClientSettings.ClientSession.GenerateMessageId();
+            SessionWriter.Save(ClientSettings.ClientSession);
+            
             Log.Debug($"Send handshake message {message} with id : {newMessageId}");
 
             var dataBuffer = PooledByteBufferAllocator.Default.Buffer();

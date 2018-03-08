@@ -39,7 +39,7 @@
 
             base.ChannelActive(context);
 
-            if (ClientSettings.ClientSession.WasInitialized())
+            if (ClientSettings.ClientSession.SessionWasHandshaked())
             {
                 Log.Debug("Session was found.");
                 
@@ -58,7 +58,7 @@
         {
             var resultTask = RequestService.RegisterRequest(request, cancellationToken);
 
-            if (ClientSettings.ClientSession.WasInitialized())
+            if (ClientSettings.ConnectionWasInitialize())
             {
                 await _context.WriteAndFlushAsync(request);
             }
@@ -121,7 +121,9 @@
 
                 foreach (var replyRequest in RequestService.GetAllRequestToReply())
                 {
-                    _context.WriteAsync(replyRequest).ConfigureAwait(false);
+#pragma warning disable 4014
+                    _context.WriteAsync(replyRequest);
+#pragma warning restore 4014
                 }
 
                 _context.Flush();

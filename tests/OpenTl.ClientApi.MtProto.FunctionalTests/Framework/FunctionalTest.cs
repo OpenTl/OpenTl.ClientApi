@@ -13,9 +13,6 @@ namespace OpenTl.ClientApi.MtProto.FunctionalTests.Framework
 
     using Microsoft.Extensions.Configuration;
 
-    using Moq;
-
-    using OpenTl.ClientApi.MtProto.FunctionalTests.Logger;
     using OpenTl.ClientApi.MtProto.FunctionalTests.Settings;
 
     using Xunit.Abstractions;

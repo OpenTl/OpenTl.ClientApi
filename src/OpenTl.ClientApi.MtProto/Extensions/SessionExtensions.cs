@@ -4,7 +4,7 @@
 
     internal static class SessionExtentions
     {
-        public static bool WasInitialized(this IClientSession session)
+        public static bool SessionWasHandshaked(this IClientSession session)
         {
             return session.AuthKey != null;
         }

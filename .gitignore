@@ -288,3 +288,5 @@ __pycache__/
 *.xsd.cs
 
 *.debug.json
+
+session.dat

@@ -27,6 +27,8 @@
         public IRequestService RequestService { get; set; }
 
         public IUnzippedService UnzippedService { get; set; }
+        
+        public ISessionWriter SessionWriter { get; set; }
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, TRpcResult msg)
         {
@@ -80,7 +82,10 @@
                     ClientSettings.ClientSession.Port = dcOption.Port;
 
                     ctx.Flush();
-                    ctx.DisconnectAsync().ConfigureAwait(false);
+
+                    SessionWriter.Save(ClientSettings.ClientSession)
+                        .ContinueWith(_ => ctx.DisconnectAsync());
+                    
                     break;
                 case var fileMigrate when fileMigrate.StartsWith("FILE_MIGRATE_"):
                     var fileMigrateDcNumber = Regex.Match(fileMigrate, @"\d+").Value;
