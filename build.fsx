@@ -23,12 +23,16 @@ Target "Build" (fun _ ->
       Configuration = "Release"
    })
 
-   ()
-
    DotNetCli.Pack (fun p -> 
    { p with
       OutputPath = buildDir
       Project = "./src/OpenTl.ClientApi/OpenTl.ClientApi.csproj"
+   })
+
+   DotNetCli.Pack (fun p -> 
+   { p with
+      OutputPath = buildDir
+      Project = "./src/OpenTl.ClientApi.MtProto/OpenTl.ClientApi.MtProto.csproj"
    })
 )
 
