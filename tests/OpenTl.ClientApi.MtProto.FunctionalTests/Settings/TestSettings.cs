@@ -2,7 +2,7 @@
 {
     using OpenTl.Schema;
 
-    public sealed class TestSettings: IClientSettings
+    internal sealed class TestSettings: IClientSettings
     {
         public int AppId { get; set; }
 

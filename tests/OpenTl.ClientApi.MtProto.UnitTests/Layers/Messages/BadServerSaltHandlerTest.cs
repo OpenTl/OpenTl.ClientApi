@@ -1,6 +1,7 @@
 ﻿namespace OpenTl.ClientApi.MtProto.UnitTests.Layers.Messages
 {
     using System;
+    using System.Threading.Tasks;
 
     using DotNetty.Common.Utilities;
     using DotNetty.Transport.Channels.Embedded;
@@ -49,7 +50,7 @@
         
         
         [Fact]
-        public void RepeatSendMessage()
+        public async Task RepeatSendMessage()
         {
             this.RegisterType<BadServerSaltHandler>();
 
@@ -57,6 +58,9 @@
 
             const int BadMsgId = 1;
             var request = new RequestPing();
+
+            this.Resolve<Mock<ISessionWriter>>()
+                .BuildSuccessSave();
             
             var mRequestService = this.Resolve<Mock<IRequestService>>();
 
@@ -77,6 +81,7 @@
 
             channel.WriteInbound(badServerSalt);
 
+            await Task.Delay(500);
             // ---
             
             Assert.Equal(request, channel.ReadOutbound<object>());

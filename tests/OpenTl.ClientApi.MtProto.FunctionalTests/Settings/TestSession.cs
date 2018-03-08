@@ -6,7 +6,7 @@
 
     using OpenTl.Common.Auth;
 
-    public sealed class TestSession: IClientSession
+    internal sealed class TestSession: IClientSession
     {
         private static readonly Random Random = new Random();
 

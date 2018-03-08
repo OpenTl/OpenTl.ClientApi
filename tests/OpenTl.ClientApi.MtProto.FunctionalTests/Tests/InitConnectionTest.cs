@@ -23,9 +23,5 @@
              Assert.NotNull(result);
              Assert.NotEmpty(result.DcOptions.Items);
          }
- 
-         protected override void Init()
-         {
-         }
      }
  }

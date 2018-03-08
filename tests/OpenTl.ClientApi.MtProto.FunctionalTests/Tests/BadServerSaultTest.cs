@@ -33,9 +33,5 @@
 
             Assert.Equal(resultBefore.Date, resultAfter.Date);
         }
- 
-        protected override void Init()
-        {
-        }
     }
 }

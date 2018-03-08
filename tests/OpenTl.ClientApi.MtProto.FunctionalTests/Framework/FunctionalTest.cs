@@ -5,6 +5,7 @@ namespace OpenTl.ClientApi.MtProto.FunctionalTests.Framework
 {
     using System;
     using System.Reflection;
+    using System.Threading.Tasks;
 
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
@@ -12,6 +13,8 @@ namespace OpenTl.ClientApi.MtProto.FunctionalTests.Framework
     using log4net;
 
     using Microsoft.Extensions.Configuration;
+
+    using Moq;
 
     using OpenTl.ClientApi.MtProto.FunctionalTests.Settings;
 
@@ -51,6 +54,8 @@ namespace OpenTl.ClientApi.MtProto.FunctionalTests.Framework
 
         private void PrepareToTesting()
         {
+            Container.Register(Component.For<ISessionWriter>().ImplementedBy<SessionWriter>().LifestyleSingleton());
+
             var settings = new TestSettings();
             Container.Register(Component.For<IClientSettings>().Instance(settings));
             
@@ -63,13 +68,9 @@ namespace OpenTl.ClientApi.MtProto.FunctionalTests.Framework
             settings.ClientSession.Port = Convert.ToInt32(Configuration[nameof(settings.ClientSession.Port)]);
             
             settings.ClientSession.ServerAddress = Configuration[nameof(settings.ClientSession.ServerAddress)];
-            
-            Init();
-            
+
             Log.Info(
                 $"\n\n#################################################  {DateTime.Now}  ################################################################################\n\n");
         }
-        
-        protected abstract void Init();
     }
 }

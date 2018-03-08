@@ -25,15 +25,12 @@
         public IClientSettings ClientSettings { get; set; }
 
         public ISessionWriter SessionWriter { get; set; }
-        
+
+        /// <inheritdoc />
         public long? CurrentUserId => ClientSettings.ClientSession.UserId;
 
-        public async Task<IPassword> GetPasswordSetting(CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return await PackageSender.SendRequestAsync(new RequestGetPassword(), cancellationToken).ConfigureAwait(false);
-        }
-
-        public async Task<ICheckedPhone> IsPhoneRegisteredAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken))
+        /// <inheritdoc />
+        public async Task<bool> IsPhoneRegisteredAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken))
         {
             Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
 
@@ -41,19 +38,21 @@
                                         {
                                             PhoneNumber = phoneNumber
                                         };
-            return await PackageSender.SendRequestAsync(authCheckPhoneRequest, cancellationToken).ConfigureAwait(false);
+            var response = await PackageSender.SendRequestAsync(authCheckPhoneRequest, cancellationToken).ConfigureAwait(false);
+            
+            return response.PhoneRegistered;
         }
 
-        public async Task<TUser> MakeAuthAsync(string phoneNumber, string phoneCodeHash, string code, CancellationToken cancellationToken = default(CancellationToken))
+        /// <inheritdoc />
+        public async Task<TUser> SignInAsync(string phoneNumber, ISentCode sentCode, string code, CancellationToken cancellationToken = default(CancellationToken))
         {
             Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
-            Guard.That(phoneCodeHash, nameof(phoneCodeHash)).IsNotNullOrWhiteSpace();
             Guard.That(code, nameof(code)).IsNotNullOrWhiteSpace();
 
             var request = new RequestSignIn
                           {
                               PhoneNumber = phoneNumber,
-                              PhoneCodeHash = phoneCodeHash,
+                              PhoneCodeHash = sentCode.PhoneCodeHash,
                               PhoneCode = code
                           };
 
@@ -66,10 +65,15 @@
             return user;
         }
 
-        public async Task<TUser> MakeAuthWithPasswordAsync(TPassword password, string passwordStr, CancellationToken cancellationToken = default(CancellationToken))
+        /// <inheritdoc />
+        public async Task<TUser> CheckCloudPasswordAsync(string password, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var passwordBytes = Encoding.UTF8.GetBytes(passwordStr);
-            var rv = password.CurrentSalt.Concat(passwordBytes).Concat(password.CurrentSalt);
+            Guard.That(password, nameof(password)).IsNotNullOrWhiteSpace();
+
+            var passwordBytes = Encoding.UTF8.GetBytes(password);
+
+            var pwd = (TPassword)await PackageSender.SendRequestAsync(new RequestGetPassword(), cancellationToken).ConfigureAwait(false);
+            var rv = pwd.CurrentSalt.Concat(passwordBytes).Concat(pwd.CurrentSalt);
 
             byte[] passwordHash;
             using (var sha = SHA256.Create())
@@ -90,7 +94,8 @@
             return user;
         }
 
-        public async Task<ISentCode> SendCodeRequestAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken))
+        /// <inheritdoc />
+        public async Task<ISentCode> SendCodeAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken))
         {
             Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
 
@@ -100,16 +105,28 @@
                               ApiId = ClientSettings.AppId,
                               ApiHash = ClientSettings.AppHash
                           };
+
             return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
-        public async Task<TUser> SignUpAsync(string phoneNumber, string phoneCodeHash, string code, string firstName, string lastName, CancellationToken cancellationToken = default(CancellationToken))
+        /// <inheritdoc />
+        public async Task<TUser> SignUpAsync(string phoneNumber,
+                                             ISentCode sentCode,
+                                             string code,
+                                             string firstName,
+                                             string lastName,
+                                             CancellationToken cancellationToken = default(CancellationToken))
         {
+            Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
+            Guard.That(code, nameof(code)).IsNotNullOrWhiteSpace();
+            Guard.That(firstName, nameof(firstName)).IsNotNullOrWhiteSpace();
+            Guard.That(lastName, nameof(lastName)).IsNotNullOrWhiteSpace();
+            
             var request = new RequestSignUp
                           {
                               PhoneNumber = phoneNumber,
                               PhoneCode = code,
-                              PhoneCodeHash = phoneCodeHash,
+                              PhoneCodeHash = sentCode.PhoneCodeHash,
                               FirstName = firstName,
                               LastName = lastName
                           };

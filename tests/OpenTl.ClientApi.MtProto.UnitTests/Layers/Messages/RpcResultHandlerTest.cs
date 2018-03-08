@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using AutoFixture;
 
@@ -21,14 +22,28 @@
 
     public sealed class RpcResultHandlerTest : UnitTest
     {
-        [Fact]
-        public void ReturnResult()
+        [Theory]
+        [InlineData("PHONE_MIGRATE_")]
+        [InlineData("USER_MIGRATE_")]
+        [InlineData("NETWORK_MIGRATE_")]
+        public async Task ReturnError_Migration(string errorMessage)
         {
             this.RegisterType<RpcResultHandler>();
 
+            var mSettings = this.BuildClientSettingsProps();
+
+            this.Resolve<Mock<ISessionWriter>>()
+                .BuildSuccessSave();
+
+            var dcOption = mSettings.Object.Config.DcOptions.Items.First();
+            errorMessage += dcOption.Id;
+
             var messageId = Fixture.Create<long>();
 
-            var result = new TPong();
+            var result = new TRpcError
+                         {
+                             ErrorMessage = errorMessage
+                         };
 
             var request = new TRpcResult
                           {
@@ -36,70 +51,27 @@
                               Result = result
                           };
 
-            var mRequestService = this.Resolve<Mock<IRequestService>>()
-                                      .BuildReturnResult(messageId, result);
-
             var requestEncoder = this.Resolve<RpcResultHandler>();
 
             var channel = new EmbeddedChannel(requestEncoder);
+
             // ---
 
             channel.WriteInbound(request);
 
+            await Task.Delay(500);
+            
             // ---
 
-            Assert.Null(channel.ReadOutbound<object>());
-            
-            channel.Flush();
             Assert.IsType<TMsgsAck>(channel.ReadOutbound<TMsgsAck>());
 
-            mRequestService.Verify(service => service.ReturnResult(messageId, result), Times.Once);
+            Assert.False(channel.Open);
+
+            Assert.Equal(dcOption.IpAddress, mSettings.Object.ClientSession.ServerAddress);
+            Assert.Equal(dcOption.Port, mSettings.Object.ClientSession.Port);
+            Assert.Null(mSettings.Object.ClientSession.AuthKey);
         }
-        
-        [Fact]
-        public void ReturnZippedResult()
-        {
-            this.RegisterType<RpcResultHandler>();
 
-            var messageId = Fixture.Create<long>();
-
-            
-            var result = new TPong();
-
-            var tgZipPacked = new TgZipPacked
-                              {
-                                  PackedData = Fixture.CreateMany<byte>(8).ToArray()
-                              };
-            var request = new TRpcResult
-                          {
-                              ReqMsgId = messageId,
-                              Result = tgZipPacked
-                          };
-
-            this.Resolve<Mock<IUnzippedService>>()
-                .Setup(service => service.UnzipPackage(tgZipPacked))
-                .Returns(() => result);
-
-            var mRequestService = this.Resolve<Mock<IRequestService>>()
-                                      .BuildReturnResult(messageId, result);
-
-            var requestEncoder = this.Resolve<RpcResultHandler>();
-
-            var channel = new EmbeddedChannel(requestEncoder);
-            // ---
-
-            channel.WriteInbound(request);
-
-            // ---
-
-            Assert.Null(channel.ReadOutbound<object>());
-
-            channel.Flush();
-            Assert.IsType<TMsgsAck>(channel.ReadOutbound<TMsgsAck>());
-
-            mRequestService.Verify(service => service.ReturnResult(messageId, result), Times.Once);
-        }
-        
         [Theory]
         [InlineData("SESSION_PASSWORD_NEEDED", typeof(CloudPasswordNeededException))]
         [InlineData("PHONE_CODE_INVALID", typeof(PhoneCodeInvalidException))]
@@ -129,6 +101,7 @@
             var requestEncoder = this.Resolve<RpcResultHandler>();
 
             var channel = new EmbeddedChannel(requestEncoder);
+
             // ---
 
             channel.WriteInbound(request);
@@ -136,32 +109,21 @@
             // ---
 
             Assert.Null(channel.ReadOutbound<object>());
-            
+
             channel.Flush();
             Assert.IsType<TMsgsAck>(channel.ReadOutbound<TMsgsAck>());
 
             mRequestService.Verify(service => service.ReturnException(messageId, It.Is<Exception>(ex => ex.GetType() == exceptionType)), Times.Once);
         }
-        
-        [Theory]
-        [InlineData("PHONE_MIGRATE_")]
-        [InlineData("USER_MIGRATE_")]
-        [InlineData("NETWORK_MIGRATE_")]
-        public void ReturnError_Migration(string errorMessage)
+
+        [Fact]
+        public void ReturnResult()
         {
             this.RegisterType<RpcResultHandler>();
 
-           var mSettings = this.BuildClientSettingsProps();
-
-            var dcOption = mSettings.Object.Config.DcOptions.Items.First();
-            errorMessage += dcOption.Id;
-            
             var messageId = Fixture.Create<long>();
 
-            var result = new TRpcError
-                         {
-                             ErrorMessage = errorMessage
-                         };
+            var result = new TPong();
 
             var request = new TRpcResult
                           {
@@ -169,22 +131,69 @@
                               Result = result
                           };
 
+            var mRequestService = this.Resolve<Mock<IRequestService>>()
+                                      .BuildReturnResult(messageId, result);
+
             var requestEncoder = this.Resolve<RpcResultHandler>();
 
             var channel = new EmbeddedChannel(requestEncoder);
+
             // ---
 
             channel.WriteInbound(request);
 
             // ---
 
+            Assert.Null(channel.ReadOutbound<object>());
+
+            channel.Flush();
             Assert.IsType<TMsgsAck>(channel.ReadOutbound<TMsgsAck>());
 
-            Assert.False(channel.Open);
-            
-            Assert.Equal(dcOption.IpAddress, mSettings.Object.ClientSession.ServerAddress);
-            Assert.Equal(dcOption.Port, mSettings.Object.ClientSession.Port);
-            Assert.Null(mSettings.Object.ClientSession.AuthKey);
+            mRequestService.Verify(service => service.ReturnResult(messageId, result), Times.Once);
+        }
+
+        [Fact]
+        public void ReturnZippedResult()
+        {
+            this.RegisterType<RpcResultHandler>();
+
+            var messageId = Fixture.Create<long>();
+
+            var result = new TPong();
+
+            var tgZipPacked = new TgZipPacked
+                              {
+                                  PackedData = Fixture.CreateMany<byte>(8).ToArray()
+                              };
+            var request = new TRpcResult
+                          {
+                              ReqMsgId = messageId,
+                              Result = tgZipPacked
+                          };
+
+            this.Resolve<Mock<IUnzippedService>>()
+                .Setup(service => service.UnzipPackage(tgZipPacked))
+                .Returns(() => result);
+
+            var mRequestService = this.Resolve<Mock<IRequestService>>()
+                                      .BuildReturnResult(messageId, result);
+
+            var requestEncoder = this.Resolve<RpcResultHandler>();
+
+            var channel = new EmbeddedChannel(requestEncoder);
+
+            // ---
+
+            channel.WriteInbound(request);
+
+            // ---
+
+            Assert.Null(channel.ReadOutbound<object>());
+
+            channel.Flush();
+            Assert.IsType<TMsgsAck>(channel.ReadOutbound<TMsgsAck>());
+
+            mRequestService.Verify(service => service.ReturnResult(messageId, result), Times.Once);
         }
     }
 }

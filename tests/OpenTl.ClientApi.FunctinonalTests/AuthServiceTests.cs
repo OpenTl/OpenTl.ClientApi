@@ -18,7 +18,7 @@
         {
             var checkedPhone = await TelegramClient.AuthService.IsPhoneRegisteredAsync(PhoneNumber);
             
-            Assert.True(checkedPhone.PhoneRegistered);
+            Assert.True(checkedPhone);
         }
     }
 }

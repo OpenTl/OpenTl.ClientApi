@@ -68,10 +68,5 @@
 
             var result = (TAuthorization)await PackageSender.SendRequestAsync(requestSignIn, CancellationToken.None).ConfigureAwait(false);
         }
-
-        
-        protected override void Init()
-        {
-        }
     }
 }

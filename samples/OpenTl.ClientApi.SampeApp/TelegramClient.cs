@@ -21,26 +21,25 @@
 
         public async Task Auth(string phone)
         {
-            var sentCode = await _client.AuthService.SendCodeRequestAsync(phone).ConfigureAwait(false);
+            var sentCode = await _client.AuthService.SendCodeAsync(phone).ConfigureAwait(false);
 
             var code = ReadLineHelper.Read("Write a code:");
 
             try
             {
-                _user = await _client.AuthService.MakeAuthAsync(phone, sentCode.PhoneCodeHash, code).ConfigureAwait(false);
+                _user = await _client.AuthService.SignInAsync(phone, sentCode, code).ConfigureAwait(false);
                 
                 Console.WriteLine($"User login. Current user is {_user.FirstName} {_user.LastName}");
             }
             catch (CloudPasswordNeededException)
             {
-                var password = (TPassword)await _client.AuthService.GetPasswordSetting();
 
                 ReadLine.PasswordMode = true;
                 
                 var passwordStr = ReadLineHelper.ReadPassword("Write a password:");
                 ReadLine.PasswordMode = false;
 
-                _user = await _client.AuthService.MakeAuthWithPasswordAsync(password, passwordStr).ConfigureAwait(false);
+                _user = await _client.AuthService.CheckCloudPasswordAsync(passwordStr).ConfigureAwait(false);
             }
             catch (PhoneCodeInvalidException ex)
             {
