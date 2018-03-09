@@ -1,11 +1,13 @@
 namespace OpenTl.ClientApi
 {
+    using System;
+
     using OpenTl.ClientApi.MtProto;
     using OpenTl.ClientApi.Services.Interfaces;
 
     using TelegramClient.Core.ApiServies.Interfaces;
 
-    public interface ITelegramClient
+    public interface ITelegramClient: IDisposable
     {
         /// <summary>Send a custom requests</summary>
         IPackageSender CustomRequestsService { get; }
@@ -24,6 +26,12 @@ namespace OpenTl.ClientApi
 
         /// <summary>Working with contacts</summary>
         IContactsService ContactsService { get; }
+
+        /// <summary>
+        /// The server closes the connection if the client does not send requests for some time.
+        /// This method sends an inquiry to the server every hour and keeps the connection open
+        /// </summary>
+        void KeepAliveConnection();
 
         // // /// <summary>Working with files</summary>
         // IUploadApiService UploadService { get; }
