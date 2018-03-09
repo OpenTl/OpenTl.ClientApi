@@ -25,7 +25,7 @@ If you want the desired function to appear in the library faster - [create featu
 ## [Schema Documentation](https://opentl.github.io/OpenTl.Schema/api/index.html)
 
 #### Nothing helps
-Ask your question at gitter or create an issue in project bug tracker.
+Ask your question at telegram group or create an issue in project bug tracker.
 
 **Attach following information**:
 
