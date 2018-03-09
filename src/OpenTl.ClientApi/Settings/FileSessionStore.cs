@@ -31,7 +31,7 @@
         {
             Log.Debug($"Load session for sessionTag = {_sessionFile}");
 
-            await EnsureStreamOpen();
+            await EnsureStreamOpen().ConfigureAwait(false);
 
             if (_fileStream.Length == 0)
             {
@@ -40,7 +40,7 @@
             
             var buffer = new byte[2048];
             
-            await _semaphore.WaitAsync();
+            await _semaphore.WaitAsync().ConfigureAwait(false);
 
             _fileStream.Position = 0;
 
@@ -68,7 +68,7 @@
         {
             Log.Debug($"Save session into {_sessionFile}");
 
-            await EnsureStreamOpen();
+            await EnsureStreamOpen().ConfigureAwait(false);
 
             await _semaphore.WaitAsync().ConfigureAwait(false);
 
