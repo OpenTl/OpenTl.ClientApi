@@ -18,7 +18,6 @@
 
     using IChatFull = OpenTl.Schema.Messages.IChatFull;
 
-    /// <summary>API methods for working with messages.</summary>
     [SingleInstance(typeof(IMessagesService))]
     internal class MessagesService : IMessagesService
     {
