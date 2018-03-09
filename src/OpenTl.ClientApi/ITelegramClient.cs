@@ -1,30 +1,30 @@
 namespace OpenTl.ClientApi
 {
- using OpenTl.ClientApi.Services.Interfaces;
+    using OpenTl.ClientApi.Services.Interfaces;
 
- using TelegramClient.Core.ApiServies.Interfaces;
+    using TelegramClient.Core.ApiServies.Interfaces;
 
- public interface ITelegramClient
+    public interface ITelegramClient
     {
         // /// <summary>Send custom messages</summary>
         // ISenderService SendService { get; }
 
-       // // /// <summary>Automatic and manual updates</summary>
+        // // /// <summary>Automatic and manual updates</summary>
         // IUpdatesApiService UpdatesService { get; }
 
-       // // /// <summary>Connecting to the server</summary>
+        // // /// <summary>Connecting to the server</summary>
         // IConnectApiService ConnectService { get; }
 
         /// <summary>Registration and authentication</summary>
         IAuthService AuthService { get; }
 
-        // /// <summary>Messages and chats</summary>
-        // IMessagesApiService MessagesService { get; }
+        /// <summary>Messages and chats</summary>
+        IMessagesService MessagesService { get; }
 
-       /// <summary>Working with contacts</summary>
-       IContactsService ContactsService { get; }
+        /// <summary>Working with contacts</summary>
+        IContactsService ContactsService { get; }
 
-       // // /// <summary>Working with files</summary>
+        // // /// <summary>Working with files</summary>
         // IUploadApiService UploadService { get; }
     }
 }

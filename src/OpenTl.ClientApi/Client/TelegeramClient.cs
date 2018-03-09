@@ -24,7 +24,8 @@
         /// <inheritdoc />
         public IContactsService ContactsService { get; set;  }
 
-        // // public IMessagesApiService MessagesService { get; set; }
+        /// <inheritdoc />
+        public IMessagesService MessagesService { get; set; }
 
        // // public IUploadApiService UploadService { get; set; }
 
