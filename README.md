@@ -1,5 +1,4 @@
-#OpenTl.ClientApi
-
+# OpenTl.ClientApi
 [![Build status](https://ci.appveyor.com/api/projects/status/nh3ek3735uqscqhx/branch/master?svg=true)](https://ci.appveyor.com/project/vik_borisov/opentl-clientapi/branch/master)
 [![NuGet version](https://badge.fury.io/nu/OpenTl.ClientApi.svg)](https://badge.fury.io/nu/OpenTl.ClientApi)
 [![Telegram group](https://img.shields.io/badge/TELEGRAM-GROUP-green.svg)](https://t.me/joinchat/D1EEGBGwdrHcoNbzXALYPg)
@@ -20,6 +19,9 @@ Install via NuGet
 ```
 	> Install-Package OpenTl.ClientApi
 ```
+## Feature request
+If you want the desired function to appear in the library faster - create a problem, the more votes it gets, the higher the priority
+[create feature request](http://feathub.com/OpenTl/OpenTl.ClientApi)
 
 ## [Schema Documentation](https://opentl.github.io/OpenTl.Schema/api/index.html)
 
