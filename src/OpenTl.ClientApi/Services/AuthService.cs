@@ -87,7 +87,7 @@
                           };
             var result = (TAuthorization)await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
 
-            var user = result.User.As<TUser>();
+            var user = result.User.Cast<TUser>();
 
             await OnUserAuthenticated(user).ConfigureAwait(false);
 

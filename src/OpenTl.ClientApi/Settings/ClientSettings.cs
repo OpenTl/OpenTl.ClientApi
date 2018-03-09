@@ -1,5 +1,7 @@
 ﻿namespace OpenTl.ClientApi.Settings
 {
+    using NullGuard;
+
     using OpenTl.ClientApi.MtProto;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
@@ -17,6 +19,7 @@
 
         public IClientSession ClientSession { get; set; }
 
+        [AllowNull]
         public IConfig Config { get; set; }
     }
 }
