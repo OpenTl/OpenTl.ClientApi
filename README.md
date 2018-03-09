@@ -20,8 +20,7 @@ Install via NuGet
 	> Install-Package OpenTl.ClientApi
 ```
 ## Feature request
-If you want the desired function to appear in the library faster - create a problem, the more votes it gets, the higher the priority
-[create feature request](http://feathub.com/OpenTl/OpenTl.ClientApi)
+If you want the desired function to appear in the library faster - [create feature request](http://feathub.com/OpenTl/OpenTl.ClientApi), the more votes it gets, the higher the priority
 
 ## [Schema Documentation](https://opentl.github.io/OpenTl.Schema/api/index.html)
 
