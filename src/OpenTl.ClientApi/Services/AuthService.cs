@@ -30,42 +30,6 @@
         public long? CurrentUserId => ClientSettings.ClientSession.UserId;
 
         /// <inheritdoc />
-        public async Task<bool> IsPhoneRegisteredAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
-
-            var authCheckPhoneRequest = new RequestCheckPhone
-                                        {
-                                            PhoneNumber = phoneNumber
-                                        };
-            var response = await PackageSender.SendRequestAsync(authCheckPhoneRequest, cancellationToken).ConfigureAwait(false);
-            
-            return response.PhoneRegistered;
-        }
-
-        /// <inheritdoc />
-        public async Task<TUser> SignInAsync(string phoneNumber, ISentCode sentCode, string code, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
-            Guard.That(code, nameof(code)).IsNotNullOrWhiteSpace();
-
-            var request = new RequestSignIn
-                          {
-                              PhoneNumber = phoneNumber,
-                              PhoneCodeHash = sentCode.PhoneCodeHash,
-                              PhoneCode = code
-                          };
-
-            var result = (TAuthorization)await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
-
-            var user = result.User.Cast<TUser>();
-
-            await OnUserAuthenticated(user).ConfigureAwait(false);
-
-            return user;
-        }
-
-        /// <inheritdoc />
         public async Task<TUser> CheckCloudPasswordAsync(string password, CancellationToken cancellationToken = default(CancellationToken))
         {
             Guard.That(password, nameof(password)).IsNotNullOrWhiteSpace();
@@ -95,6 +59,20 @@
         }
 
         /// <inheritdoc />
+        public async Task<bool> IsPhoneRegisteredAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
+
+            var authCheckPhoneRequest = new RequestCheckPhone
+                                        {
+                                            PhoneNumber = phoneNumber
+                                        };
+            var response = await PackageSender.SendRequestAsync(authCheckPhoneRequest, cancellationToken).ConfigureAwait(false);
+
+            return response.PhoneRegistered;
+        }
+
+        /// <inheritdoc />
         public async Task<ISentCode> SendCodeAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken))
         {
             Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
@@ -110,6 +88,28 @@
         }
 
         /// <inheritdoc />
+        public async Task<TUser> SignInAsync(string phoneNumber, ISentCode sentCode, string code, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
+            Guard.That(code, nameof(code)).IsNotNullOrWhiteSpace();
+
+            var request = new RequestSignIn
+                          {
+                              PhoneNumber = phoneNumber,
+                              PhoneCodeHash = sentCode.PhoneCodeHash,
+                              PhoneCode = code
+                          };
+
+            var result = (TAuthorization)await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+
+            var user = result.User.Cast<TUser>();
+
+            await OnUserAuthenticated(user).ConfigureAwait(false);
+
+            return user;
+        }
+
+        /// <inheritdoc />
         public async Task<TUser> SignUpAsync(string phoneNumber,
                                              ISentCode sentCode,
                                              string code,
@@ -121,7 +121,7 @@
             Guard.That(code, nameof(code)).IsNotNullOrWhiteSpace();
             Guard.That(firstName, nameof(firstName)).IsNotNullOrWhiteSpace();
             Guard.That(lastName, nameof(lastName)).IsNotNullOrWhiteSpace();
-            
+
             var request = new RequestSignUp
                           {
                               PhoneNumber = phoneNumber,
