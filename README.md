@@ -5,7 +5,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cb64069dc0f247829dc01d3e8bb87999)](https://www.codacy.com/app/OpenTl/OpenTl.ClientApi?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OpenTl/OpenTl.ClientApi&amp;utm_campaign=Badge_Grade)
 [![Feature Requests](http://feathub.com/OpenTl/OpenTl.ClientApi?format=svg)](http://feathub.com/OpenTl/OpenTl.ClientApi)
 
-The Api client library that implements the MtProto 2.0 protocol is supported by .Net 4.6 and the dotnet> = 1.6 kernel.
+The Api client library that implements the MtProto 2.0 protocol is supported by .Net 4.6 and the dotnet core >= 1.6.
 Suitable for the realization of clients for work with servers that support the MtProto protocol, such as Telegram
 
 It's a perfect fit for any developer who would like to send data directly to Telegram users or write own custom Telegram client.
