@@ -20,6 +20,7 @@
         
         public IPackageSender SenderService { get; set; }
 
+        /// <inheritdoc />
         public async Task<IState> GetCurrentState(CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
@@ -27,6 +28,7 @@
             return await SenderService.SendRequestAsync(new RequestGetState(), cancellationToken).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<IDifference> GetUpdates(IState currentState, CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
@@ -41,6 +43,7 @@
             return await SenderService.SendRequestAsync(getDiffRequest, cancellationToken).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task OnUpdateRecieve(IUpdates message)
         {
             if (RecieveUpdates != null)
@@ -49,6 +52,7 @@
             }
         }
 
+        /// <inheritdoc />
         public event UpdateHandler RecieveUpdates;
     }
 }

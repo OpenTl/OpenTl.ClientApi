@@ -12,11 +12,8 @@ namespace OpenTl.ClientApi
         /// <summary>Send a custom requests</summary>
         IPackageSender CustomRequestsService { get; }
 
-        // // /// <summary>Automatic and manual updates</summary>
-        // IUpdatesApiService UpdatesService { get; }
-
-        // // /// <summary>Connecting to the server</summary>
-        // IConnectApiService ConnectService { get; }
+        /// <summary>Automatic and manual updates</summary>
+        IUpdatesService UpdatesService { get; }
 
         /// <summary>Registration and authentication</summary>
         IAuthService AuthService { get; }

@@ -23,7 +23,7 @@
 
         // public ISenderService SendService { get; set; }
 
-        // // public IUpdatesApiService UpdatesService { get; set; }
+        public IUpdatesService UpdatesService { get; set; }
 
         // // public IConnectApiService ConnectService { get; set; }
 
