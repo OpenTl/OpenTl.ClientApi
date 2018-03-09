@@ -1,13 +1,14 @@
 namespace OpenTl.ClientApi
 {
+    using OpenTl.ClientApi.MtProto;
     using OpenTl.ClientApi.Services.Interfaces;
 
     using TelegramClient.Core.ApiServies.Interfaces;
 
     public interface ITelegramClient
     {
-        // /// <summary>Send custom messages</summary>
-        // ISenderService SendService { get; }
+        /// <summary>Send a custom requests</summary>
+        IPackageSender CustomRequestsService { get; }
 
         // // /// <summary>Automatic and manual updates</summary>
         // IUpdatesApiService UpdatesService { get; }

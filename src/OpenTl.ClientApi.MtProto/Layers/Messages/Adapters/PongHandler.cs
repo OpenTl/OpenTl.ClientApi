@@ -4,6 +4,7 @@
 
     using log4net;
 
+    using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
 
@@ -17,9 +18,13 @@
 
         public override bool IsSharable { get; } = true;
         
+        public IRequestService RequestService { get; set; }
+
         protected override void ChannelRead0(IChannelHandlerContext ctx, TPong msg)
         {
-            Log.Debug("Handle ping");
+            Log.Debug("Handle pong");
+            
+            RequestService.ReturnResult(msg.MsgId, msg);
         }
     }
 }

@@ -2,6 +2,7 @@
 {
     using Castle.Windsor;
 
+    using OpenTl.ClientApi.MtProto;
     using OpenTl.ClientApi.Services.Interfaces;
     using OpenTl.Common.IoC;
 
@@ -17,6 +18,9 @@
        // // public IUpdatesApiService UpdatesService { get; set; }
 
        // // public IConnectApiService ConnectService { get; set; }
+
+        /// <inheritdoc />
+        public IPackageSender CustomRequestsService { get; set; }
 
         /// <inheritdoc />
         public IAuthService AuthService { get; set; }
