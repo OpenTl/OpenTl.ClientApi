@@ -20,6 +20,7 @@ Install via NuGet
 ```
 ## Feature request
 If you want the desired function to appear in the library faster - [create feature request](http://feathub.com/OpenTl/OpenTl.ClientApi), the more votes it gets, the higher the priority
+
 [![Feature Requests](http://feathub.com/OpenTl/OpenTl.ClientApi?format=svg)](http://feathub.com/OpenTl/OpenTl.ClientApi)
 
 ## [Schema Documentation](https://opentl.github.io/OpenTl.Schema/api/index.html)
