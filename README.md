@@ -24,7 +24,7 @@ If you want the desired function to appear in the library faster - [create featu
 [![Feature Requests](http://feathub.com/OpenTl/OpenTl.ClientApi?format=svg)](http://feathub.com/OpenTl/OpenTl.ClientApi)
 
 ## [Schema Documentation](https://opentl.github.io/OpenTl.Schema/api/index.html)
-
+## [Code of Conduct](./CODE_OF_CONDUCT.md)
 #### Nothing helps
 Ask your question at telegram group or create an issue in project bug tracker.
 
