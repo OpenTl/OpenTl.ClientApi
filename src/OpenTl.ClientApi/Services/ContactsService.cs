@@ -6,11 +6,10 @@
 
     using OpenTl.ClientApi.Extensions;
     using OpenTl.ClientApi.MtProto;
+    using OpenTl.ClientApi.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
     using OpenTl.Schema.Contacts;
-
-    using TelegramClient.Core.ApiServies.Interfaces;
 
     [SingleInstance(typeof(IContactsService))]
     internal class ContactsService : IContactsService
@@ -26,7 +25,7 @@
 
             var req = new RequestGetContacts { Hash = 0 };
 
-            return (TContacts) await PackageSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
+            return (TContacts)await PackageSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
         }
 
         public async Task<IReadOnlyList<TContactStatus>> GetStatusesAsync(CancellationToken cancellationToken = default(CancellationToken))
@@ -34,7 +33,7 @@
             ClientSettings.EnsureUserAuthorized();
             var req = new RequestGetStatuses();
 
-           var result = await PackageSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
+            var result = await PackageSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
 
             return result.Items;
         }
@@ -53,5 +52,4 @@
             return await PackageSender.SendRequestAsync(r, cancellationToken).ConfigureAwait(false);
         }
     }
-    
 }

@@ -1,7 +1,6 @@
 ﻿namespace OpenTl.ClientApi
 {
     using System.Reflection;
-    using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
 
     using BarsGroup.CodeGuard;
@@ -16,18 +15,18 @@
 
     public static class ClientFactory
     {
-        public static async Task<ITelegramClient> BuildClient(IFactorySettings factorySettings)
+        public static async Task<IClientApi> BuildClient(IFactorySettings factorySettings)
         {
-            var container = WindsorFactory.Create(typeof(INettyBootstrapper).GetTypeInfo().Assembly, typeof(ITelegramClient).GetTypeInfo().Assembly);
+            var container = WindsorFactory.Create(typeof(INettyBootstrapper).GetTypeInfo().Assembly, typeof(IClientApi).GetTypeInfo().Assembly);
 
             await FillSettings(container, factorySettings).ConfigureAwait(false);
 
             var bootstrapper = container.Resolve<INettyBootstrapper>();
             await bootstrapper.Init();
-            
-            return container.Resolve<ITelegramClient>();
+
+            return container.Resolve<IClientApi>();
         }
-        
+
         private static async Task FillSettings(IWindsorContainer container, IFactorySettings factorySettings)
         {
             Guard.That(factorySettings.AppId).IsPositive();
@@ -43,7 +42,7 @@
             settings.PublicKey = factorySettings.ServerPublicKey;
 
             settings.ApplicationProperties = factorySettings.Properties;
-            
+
             if (factorySettings.SessionStore != null)
             {
                 container.Register(Component.For<ISessionStore>().Instance(factorySettings.SessionStore).IsDefault());
@@ -51,14 +50,14 @@
 
             var sessionStore = container.Resolve<ISessionStore>();
             sessionStore.SetSessionTag(factorySettings.SessionTag);
-            
+
             settings.ClientSession = await TryLoadOrCreateNew(sessionStore, factorySettings).ConfigureAwait(false);
         }
 
         private static async Task<IClientSession> TryLoadOrCreateNew(ISessionStore sessionStore, IFactorySettings factorySettings)
         {
             var newSession = new ClientSession();
-            
+
             var sessionData = await sessionStore.Load().ConfigureAwait(false);
             if (sessionData != null)
             {
@@ -66,7 +65,7 @@
             }
             else
             {
-                    newSession.ServerAddress = factorySettings.ServerAddress;
+                newSession.ServerAddress = factorySettings.ServerAddress;
                 newSession.Port = factorySettings.ServerPort;
             }
 

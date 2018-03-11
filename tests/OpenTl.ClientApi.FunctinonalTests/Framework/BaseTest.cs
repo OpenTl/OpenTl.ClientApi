@@ -19,7 +19,7 @@
         protected const string PhoneNumber = "9996610000";
         protected const string PhoneCode = "11111";
 
-        protected ITelegramClient TelegramClient;
+        protected IClientApi ClientApi;
         
         static BaseTest()
         {
@@ -65,7 +65,7 @@
 
             clientTask.Wait();
 
-            TelegramClient = clientTask.Result;
+            ClientApi = clientTask.Result;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace TelegramClient.Core.ApiServies
+﻿namespace OpenTl.ClientApi.Services
 {
     using System;
     using System.Collections.Generic;
@@ -10,11 +10,10 @@
 
     using OpenTl.ClientApi.Extensions;
     using OpenTl.ClientApi.MtProto;
+    using OpenTl.ClientApi.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
     using OpenTl.Schema.Messages;
-
-    using TelegramClient.Core.ApiServies.Interfaces;
 
     using IChatFull = OpenTl.Schema.Messages.IChatFull;
 
@@ -22,9 +21,9 @@
     internal class MessagesService : IMessagesService
     {
         private static readonly Random Random = new Random();
-        
+
         public IClientSettings ClientSettings { get; set; }
-        
+
         public IPackageSender PackageSender { get; set; }
 
         /// <inheritdoc />
@@ -185,7 +184,7 @@
 
             return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
-        
+
         /// <inheritdoc />
         public async Task<IMessages> GetHistoryAsync(IInputPeer peer, int offset, int maxId, int limit, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -323,22 +322,22 @@
                                                               CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
-               
+
             var request = new RequestSendMedia
-                                   {
-                                       RandomId = Random.NextLong(),
-                                       Background = false,
-                                       ClearDraft = false,
-                                       Media = new TInputMediaUploadedDocument
-                                               {
-                                                   File = document,
-                                                   Caption = caption,
-                                                   MimeType = mimeType,
-                                                   Attributes = new TVector<IDocumentAttribute>(attributes.ToArray())
-                                               },
-                                       Peer = peer
-                                   };
-            
+                          {
+                              RandomId = Random.NextLong(),
+                              Background = false,
+                              ClearDraft = false,
+                              Media = new TInputMediaUploadedDocument
+                                      {
+                                          File = document,
+                                          Caption = caption,
+                                          MimeType = mimeType,
+                                          Attributes = new TVector<IDocumentAttribute>(attributes.ToArray())
+                                      },
+                              Peer = peer
+                          };
+
             return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
@@ -348,19 +347,18 @@
             ClientSettings.EnsureUserAuthorized();
 
             var request = new RequestSendMedia
-                                   {
-                                       RandomId = Random.NextLong(),
-                                       Background = false,
-                                       ClearDraft = false,
-                                       Media = new TInputMediaUploadedPhoto
-                                               {
-                                                   File = photo,
-                                                   Caption = caption
-                                               },
-                                       Peer = peer
-                                   };
+                          {
+                              RandomId = Random.NextLong(),
+                              Background = false,
+                              ClearDraft = false,
+                              Media = new TInputMediaUploadedPhoto
+                                      {
+                                          File = photo,
+                                          Caption = caption
+                                      },
+                              Peer = peer
+                          };
             return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
-
     }
 }

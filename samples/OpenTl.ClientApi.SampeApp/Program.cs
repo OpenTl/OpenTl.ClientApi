@@ -26,7 +26,7 @@
         {
             var configuration = Initialize();
 
-            var client = new TelegramClient();
+            var client = new Client();
             client.Init(
                 new FactorySettings
                 {

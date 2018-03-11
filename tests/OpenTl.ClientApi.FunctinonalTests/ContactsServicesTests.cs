@@ -16,7 +16,7 @@
         [Fact]
         public async Task GetContacts()
         {
-            var contacts = await TelegramClient.ContactsService.GetContactsAsync().ConfigureAwait(false);
+            var contacts = await ClientApi.ContactsService.GetContactsAsync().ConfigureAwait(false);
             
             Assert.NotEmpty(contacts.Contacts.Items);
         }
@@ -24,7 +24,7 @@
         [Fact]
         public async Task SearchUser()
         {
-            var found = await TelegramClient.ContactsService.SearchUserAsync("ZapZap").ConfigureAwait(false);
+            var found = await ClientApi.ContactsService.SearchUserAsync("ZapZap").ConfigureAwait(false);
             
             Assert.NotNull(found.Users);
         }

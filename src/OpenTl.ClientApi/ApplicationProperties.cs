@@ -2,7 +2,7 @@
 {
     using OpenTl.ClientApi.MtProto;
 
-    public sealed class ApplicationProperties: IApplicationProperties
+    public sealed class ApplicationProperties : IApplicationProperties
     {
         public string AppVersion { get; set; }
 

@@ -17,11 +17,11 @@
 
          private async Task PrepareToTesting()
         {
-            if (!TelegramClient.AuthService.CurrentUserId.HasValue)
+            if (!ClientApi.AuthService.CurrentUserId.HasValue)
             {
-                var sentCode = await TelegramClient.AuthService.SendCodeAsync(PhoneNumber).ConfigureAwait(false);
+                var sentCode = await ClientApi.AuthService.SendCodeAsync(PhoneNumber).ConfigureAwait(false);
 
-                CurrentUser = await TelegramClient.AuthService.SignInAsync(PhoneNumber, sentCode, PhoneCode).ConfigureAwait(false);
+                CurrentUser = await ClientApi.AuthService.SignInAsync(PhoneNumber, sentCode, PhoneCode).ConfigureAwait(false);
             }
         }
     }

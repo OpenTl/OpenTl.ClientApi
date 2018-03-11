@@ -7,7 +7,7 @@
     using OpenTl.Schema;
 
     [SingleInstance(typeof(IClientSettings))]
-    internal class ClientSettings: IClientSettings
+    internal class ClientSettings : IClientSettings
     {
         public int AppId { get; set; }
 

@@ -4,15 +4,15 @@
 
     using DotNetty.Common.Utilities;
 
-    using OpenTl.ClientApi.MtProto;
-    using OpenTl.Common.Auth;
-    
     using NullGuard;
 
-    internal sealed class ClientSession: IClientSession
+    using OpenTl.ClientApi.MtProto;
+    using OpenTl.Common.Auth;
+
+    internal sealed class ClientSession : IClientSession
     {
         private static readonly Random Random = new Random();
-        
+
         [AllowNull]
         public AuthKey AuthKey { get; set; }
 

@@ -1,4 +1,4 @@
-﻿namespace OpenTl.ClientApi.Client
+﻿namespace OpenTl.ClientApi
 {
     using System;
     using System.Threading;
@@ -12,20 +12,42 @@
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
 
-    using TelegramClient.Core.ApiServies.Interfaces;
+    /// <summary>Entry point to client API MtProto protocol</summary>
+    public interface IClientApi : IDisposable
+    {
+        /// <summary>Send a custom requests</summary>
+        IPackageSender CustomRequestsService { get; }
 
-    [SingleInstance(typeof(ITelegramClient))]
-    internal class TelegeramClient : ITelegramClient
+        /// <summary>Automatic and manual updates</summary>
+        IUpdatesService UpdatesService { get; }
+
+        /// <summary>Registration and authentication</summary>
+        IAuthService AuthService { get; }
+
+        /// <summary>Messages and chats</summary>
+        IMessagesService MessagesService { get; }
+
+        /// <summary>Working with contacts</summary>
+        IContactsService ContactsService { get; }
+
+        /// <summary>Working with files</summary>
+        IFileService FileService { get; }
+
+        /// <summary>
+        ///     The server closes the connection if the client does not send requests for some time. This method sends an
+        ///     inquiry to the server every hour and keeps the connection open
+        /// </summary>
+        void KeepAliveConnection();
+    }
+
+    [SingleInstance(typeof(IClientApi))]
+    internal class ClientApi : IClientApi
     {
         private Timer _keepAliveTimer;
 
         public IWindsorContainer Container { get; set; }
 
-        // public ISenderService SendService { get; set; }
-
         public IUpdatesService UpdatesService { get; set; }
-
-        // // public IConnectApiService ConnectService { get; set; }
 
         /// <inheritdoc />
         public IPackageSender CustomRequestsService { get; set; }
@@ -39,7 +61,8 @@
         /// <inheritdoc />
         public IMessagesService MessagesService { get; set; }
 
-        // // public IUploadApiService UploadService { get; set; }
+        /// <inheritdoc />
+        public IFileService FileService { get; set; }
 
         public void Dispose()
         {

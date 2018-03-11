@@ -25,7 +25,7 @@
         {
             var requestPing = new RequestPing { PingId = Random.NextLong() };
             
-            var pong = await TelegramClient.CustomRequestsService.SendRequestAsync(requestPing, CancellationToken.None).ConfigureAwait(false);
+            var pong = await ClientApi.CustomRequestsService.SendRequestAsync(requestPing, CancellationToken.None).ConfigureAwait(false);
             
             Assert.Equal(requestPing.PingId, pong.PingId);
         }

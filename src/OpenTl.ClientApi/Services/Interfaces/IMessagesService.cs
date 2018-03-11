@@ -1,4 +1,4 @@
-namespace TelegramClient.Core.ApiServies.Interfaces
+namespace OpenTl.ClientApi.Services.Interfaces
 {
     using System.Collections.Generic;
     using System.Threading;
@@ -102,12 +102,13 @@ namespace TelegramClient.Core.ApiServies.Interfaces
         /// <returns>Object contains extended info on chat with auxiliary data.</returns>
         Task<IChatFull> GetFullChatAsync(int chatId, CancellationToken cancellationToken = default(CancellationToken));
 
-        /// <summary>
-        /// Returns messages from the history of a single conversation
-        /// </summary>
+        /// <summary>Returns messages from the history of a single conversation</summary>
         /// <param name="peer">Target user or group</param>
         /// <param name="offset">Number of list elements to be skipped</param>
-        /// <param name="maxId">If a positive value was transferred, the method will return only messages with IDs less than <inheritdoc cref="maxId"/></param>
+        /// <param name="maxId">
+        ///     If a positive value was transferred, the method will return only messages with IDs less than
+        ///     <inheritdoc cref="maxId" />
+        /// </param>
         /// <param name="limit">Number of list elements to be returned</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>History messages</returns>
@@ -119,9 +120,7 @@ namespace TelegramClient.Core.ApiServies.Interfaces
         /// <returns>Object contains list of messages</returns>
         Task<IMessages> GetMessagesAsync(IReadOnlyList<int> ids, CancellationToken cancellationToken = default(CancellationToken));
 
-        /// <summary>
-        /// Returns a list of the current user’s conversations
-        /// </summary>
+        /// <summary>Returns a list of the current user’s conversations</summary>
         /// <param name="limit">Number of list elements to be returned</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Dialogs</returns>
@@ -143,9 +142,7 @@ namespace TelegramClient.Core.ApiServies.Interfaces
         /// <returns>Returns a <see cref="IAffectedMessages" /> object containing a affected messages</returns>
         Task<IAffectedMessages> ReadMessageContentsAsync(IReadOnlyList<int> ids, CancellationToken cancellationToken = default(CancellationToken));
 
-        /// <summary>
-        /// Confirms that a client has received messages and cancels push notifications
-        /// </summary>
+        /// <summary>Confirms that a client has received messages and cancels push notifications</summary>
         /// <param name="maxId">Maximum message ID available in a client.</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Notifications</returns>
@@ -158,26 +155,20 @@ namespace TelegramClient.Core.ApiServies.Interfaces
         /// <returns>Returns a <see cref="IUpdates" /> object containing a service message sent during the action.</returns>
         Task<IUpdates> SendMediaAsync(IInputPeer peer, IInputMedia media, CancellationToken cancellationToken = default(CancellationToken));
 
-        /// <summary>
-        /// Sends a text message.
-        /// </summary>
+        /// <summary>Sends a text message.</summary>
         /// <param name="peer">User or chat where a message will be sent</param>
         /// <param name="message">Message text</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns></returns>
         Task<IUpdates> SendMessageAsync(IInputPeer peer, string message, CancellationToken cancellationToken = default(CancellationToken));
 
-        /// <summary>
-        /// Transmits the current user typing event to the conversation partner or group
-        /// </summary>
+        /// <summary>Transmits the current user typing event to the conversation partner or group</summary>
         /// <param name="peer">Target user or group</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns></returns>
         Task<bool> SendTypingAsync(IInputPeer peer, CancellationToken cancellationToken = default(CancellationToken));
 
-        /// <summary>
-        /// Sends a document with <inheritdoc cref="mimeType"/> to user or chat
-        /// </summary>
+        /// <summary>Sends a document with <inheritdoc cref="mimeType" /> to user or chat</summary>
         /// <param name="peer">User or chat where a message will be sent</param>
         /// <param name="document">Document</param>
         /// <param name="caption">Caption</param>
@@ -186,15 +177,13 @@ namespace TelegramClient.Core.ApiServies.Interfaces
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Updates</returns>
         Task<IUpdates> SendUploadedDocumentAsync(IInputPeer peer,
-                                            IInputFile document,
-                                            string caption,
-                                            string mimeType,
-                                            IReadOnlyList<IDocumentAttribute> attributes,
-                                            CancellationToken cancellationToken = default(CancellationToken));
+                                                 IInputFile document,
+                                                 string caption,
+                                                 string mimeType,
+                                                 IReadOnlyList<IDocumentAttribute> attributes,
+                                                 CancellationToken cancellationToken = default(CancellationToken));
 
-        /// <summary>
-        /// Sends a photo to user or chat
-        /// </summary>
+        /// <summary>Sends a photo to user or chat</summary>
         /// <param name="peer">User or chat where a message will be sent</param>
         /// <param name="photo">Photo</param>
         /// <param name="caption">Caption</param>

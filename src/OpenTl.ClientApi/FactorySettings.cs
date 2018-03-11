@@ -2,8 +2,6 @@
 {
     using NullGuard;
 
-    using OpenTl.ClientApi.Settings;
-
     public interface IFactorySettings
     {
         int AppId { get; set; }
@@ -11,15 +9,15 @@
         string AppHash { get; set; }
 
         string ServerAddress { get; set; }
-        
+
         int ServerPort { get; set; }
 
         string ServerPublicKey { get; set; }
-        
+
         string SessionTag { get; set; }
 
         ApplicationProperties Properties { get; set; }
-        
+
         ISessionStore SessionStore { get; set; }
     }
 

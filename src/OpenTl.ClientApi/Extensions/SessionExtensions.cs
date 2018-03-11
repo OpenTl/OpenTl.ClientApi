@@ -1,7 +1,6 @@
 ﻿namespace OpenTl.ClientApi.Extensions
 {
     using System.IO;
-    using System.IO.Compression;
 
     using Newtonsoft.Json;
 
@@ -17,7 +16,8 @@
             }
 
             using (var inputStream = new MemoryStream(buffer))
-            // using (var zippedStream = new GZipStream(inputStream, CompressionMode.Decompress))
+
+                // using (var zippedStream = new GZipStream(inputStream, CompressionMode.Decompress))
             using (var streamReader = new StreamReader(inputStream))
             {
                 var settings = streamReader.ReadToEnd();
@@ -28,7 +28,8 @@
         public static byte[] ToBytes(this IClientSession clientSession)
         {
             using (var outputStream = new MemoryStream())
-            // using (var zippedStream = new GZipStream(output, CompressionMode.Compress))
+
+                // using (var zippedStream = new GZipStream(output, CompressionMode.Compress))
             using (var streamWriter = new StreamWriter(outputStream))
             using (var jWriter = new JsonTextWriter(streamWriter))
             {
@@ -36,9 +37,9 @@
                 serializer.Serialize(jWriter, clientSession);
                 jWriter.Flush();
                 streamWriter.Flush();
-                
+
                 return outputStream.ToArray();
             }
-        }        
+        }
     }
 }

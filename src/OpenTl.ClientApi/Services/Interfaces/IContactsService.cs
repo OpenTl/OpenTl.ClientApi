@@ -1,22 +1,18 @@
-﻿namespace TelegramClient.Core.ApiServies.Interfaces
+﻿namespace OpenTl.ClientApi.Services.Interfaces
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
-    using OpenTl.Schema;
     using OpenTl.Schema.Contacts;
 
     // <summary>Working with contacts</summary>
     public interface IContactsService
     {
-        /// <summary>
-        /// Returns the current user’s contact list
-        /// </summary>
+        /// <summary>Returns the current user’s contact list</summary>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Contacts</returns>
         Task<TContacts> GetContactsAsync(CancellationToken cancellationToken = default(CancellationToken));
-        
+
         // /// <summary>
         // /// Returns the list of contact statuses.
         // /// </summary>

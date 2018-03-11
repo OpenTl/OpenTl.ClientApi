@@ -7,10 +7,10 @@
     using OpenTl.Common.IoC;
 
     [SingleInstance(typeof(ISessionWriter))]
-    public class SessionWriter: ISessionWriter
+    public class SessionWriter : ISessionWriter
     {
         public ISessionStore SessionStore { get; set; }
-        
+
         public async Task Save(IClientSession clientSession)
         {
             await SessionStore.Save(clientSession.ToBytes());

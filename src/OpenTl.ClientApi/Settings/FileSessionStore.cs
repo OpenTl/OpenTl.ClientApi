@@ -17,16 +17,18 @@
 
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
-        private string _sessionFile;
-
         private FileStream _fileStream;
 
-        public void SetSessionTag(string sessionTag)
+        private string _sessionFile;
+
+        public void Dispose()
         {
-            _sessionFile = $"{sessionTag}.dat";
+            _semaphore?.Dispose();
+
+            _fileStream?.Dispose();
         }
-        
-        [return:AllowNull]
+
+        [return: AllowNull]
         public async Task<byte[]> Load()
         {
             Log.Debug($"Load session for sessionTag = {_sessionFile}");
@@ -37,9 +39,9 @@
             {
                 return null;
             }
-            
+
             var buffer = new byte[2048];
-            
+
             await _semaphore.WaitAsync().ConfigureAwait(false);
 
             _fileStream.Position = 0;
@@ -79,6 +81,11 @@
             _semaphore.Release();
         }
 
+        public void SetSessionTag(string sessionTag)
+        {
+            _sessionFile = $"{sessionTag}.dat";
+        }
+
         private async Task EnsureStreamOpen()
         {
             if (_fileStream == null)
@@ -92,13 +99,6 @@
 
                 _semaphore.Release();
             }
-        }
-
-        public void Dispose()
-        {
-            _semaphore?.Dispose();
-            
-            _fileStream?.Dispose();
         }
     }
 }
