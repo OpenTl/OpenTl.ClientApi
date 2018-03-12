@@ -18,7 +18,12 @@
             
         }
 
-        public async Task Auth(string phone)
+        public async Task LogOut()
+        {
+            await _clientApi.AuthService.LogoutAsync().ConfigureAwait(false);
+        }
+        
+        public async Task SignIn(string phone)
         {
             var sentCode = await _clientApi.AuthService.SendCodeAsync(phone).ConfigureAwait(false);
 

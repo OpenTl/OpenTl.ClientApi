@@ -1,7 +1,6 @@
 ﻿namespace OpenTl.ClientApi.Extensions
 {
-    using System;
-
+    using OpenTl.ClientApi.Exceptions;
     using OpenTl.ClientApi.MtProto;
 
     public static class SettingsExtensions
@@ -10,7 +9,7 @@
         {
             if (!clientSession.IsUserAuthorized())
             {
-                throw new InvalidOperationException("Authorize user first!");
+                throw new UserNotAuthorizeException();
             }
         }
 

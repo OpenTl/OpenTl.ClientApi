@@ -88,6 +88,18 @@
         }
 
         /// <inheritdoc />
+        public async Task LogoutAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var request = new RequestLogOut();
+
+            await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+
+            ClientSettings.ClientSession.UserId = null;
+            ClientSettings.ClientSession.AuthKey = null;
+            await SessionWriter.Save(ClientSettings.ClientSession);
+        }
+
+        /// <inheritdoc />
         public async Task<TUser> SignInAsync(string phoneNumber, ISentCode sentCode, string code, CancellationToken cancellationToken = default(CancellationToken))
         {
             Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
@@ -137,6 +149,7 @@
             await OnUserAuthenticated(user).ConfigureAwait(false);
             return user;
         }
+        
 
         private async Task OnUserAuthenticated(TUser user)
         {
