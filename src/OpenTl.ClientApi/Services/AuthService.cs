@@ -8,8 +8,11 @@
 
     using BarsGroup.CodeGuard;
 
+    using log4net;
+
     using OpenTl.ClientApi.MtProto;
     using OpenTl.ClientApi.Services.Interfaces;
+    using OpenTl.ClientApi.Settings;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
     using OpenTl.Schema.Account;
@@ -20,12 +23,16 @@
     [SingleInstance(typeof(IAuthService))]
     internal sealed class AuthService : IAuthService
     {
-        public IPackageSender PackageSender { get; set; }
+        private static readonly ILog Log = LogManager.GetLogger(typeof(AuthService));
+
+        public IRequestSender RequestSender { get; set; }
 
         public IClientSettings ClientSettings { get; set; }
 
         public ISessionWriter SessionWriter { get; set; }
 
+        public ILogoutService LogoutService { get; set; }
+        
         /// <inheritdoc />
         public long? CurrentUserId => ClientSettings.ClientSession.UserId;
 
@@ -36,7 +43,7 @@
 
             var passwordBytes = Encoding.UTF8.GetBytes(password);
 
-            var pwd = (TPassword)await PackageSender.SendRequestAsync(new RequestGetPassword(), cancellationToken).ConfigureAwait(false);
+            var pwd = (TPassword)await RequestSender.SendRequestAsync(new RequestGetPassword(), cancellationToken).ConfigureAwait(false);
             var rv = pwd.CurrentSalt.Concat(passwordBytes).Concat(pwd.CurrentSalt);
 
             byte[] passwordHash;
@@ -49,7 +56,7 @@
                           {
                               PasswordHash = passwordHash
                           };
-            var result = (TAuthorization)await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            var result = (TAuthorization)await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
 
             var user = result.User.Cast<TUser>();
 
@@ -67,7 +74,7 @@
                                         {
                                             PhoneNumber = phoneNumber
                                         };
-            var response = await PackageSender.SendRequestAsync(authCheckPhoneRequest, cancellationToken).ConfigureAwait(false);
+            var response = await RequestSender.SendRequestAsync(authCheckPhoneRequest, cancellationToken).ConfigureAwait(false);
 
             return response.PhoneRegistered;
         }
@@ -84,19 +91,13 @@
                               ApiHash = ClientSettings.AppHash
                           };
 
-            return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task LogoutAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            var request = new RequestLogOut();
-
-            await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
-
-            ClientSettings.ClientSession.UserId = null;
-            ClientSettings.ClientSession.AuthKey = null;
-            await SessionWriter.Save(ClientSettings.ClientSession);
+            await LogoutService.Logout(cancellationToken);
         }
 
         /// <inheritdoc />
@@ -112,7 +113,7 @@
                               PhoneCode = code
                           };
 
-            var result = (TAuthorization)await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            var result = (TAuthorization)await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
 
             var user = result.User.Cast<TUser>();
 
@@ -142,7 +143,7 @@
                               FirstName = firstName,
                               LastName = lastName
                           };
-            var result = (TAuthorization)await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            var result = (TAuthorization)await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
 
             var user = result.User.Cast<TUser>();
 

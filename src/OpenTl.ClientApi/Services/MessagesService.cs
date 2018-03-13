@@ -24,7 +24,7 @@
 
         public IClientSettings ClientSettings { get; set; }
 
-        public IPackageSender PackageSender { get; set; }
+        public IRequestSender RequestSender { get; set; }
 
         /// <inheritdoc />
         public async Task<IUpdates> AddChatUserAsync(int chatId, IInputUser user, int limit, CancellationToken cancellationToken = default(CancellationToken))
@@ -38,7 +38,7 @@
                               FwdLimit = limit
                           };
 
-            return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -52,7 +52,7 @@
                               Users = new TVector<IInputUser>(users.ToArray())
                           };
 
-            return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -66,7 +66,7 @@
                               UserId = user
                           };
 
-            return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -81,7 +81,7 @@
                                     MaxId = maxId
                                 };
 
-            return await PackageSender.SendRequestAsync(deleteHistory, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(deleteHistory, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -95,7 +95,7 @@
                                      Revoke = revoke
                                  };
 
-            return await PackageSender.SendRequestAsync(deleteMessages, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(deleteMessages, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -109,7 +109,7 @@
                               Photo = photo
                           };
 
-            return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -123,7 +123,7 @@
                               Title = title
                           };
 
-            return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -138,7 +138,7 @@
                                      RandomId = Random.NextLong()
                                  };
 
-            return await PackageSender.SendRequestAsync(forwardMessage, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(forwardMessage, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -162,7 +162,7 @@
                                       RandomId = new TVector<long>(Random.NextLong())
                                   };
 
-            return await PackageSender.SendRequestAsync(forwardMessages, cancellationToken);
+            return await RequestSender.SendRequestAsync(forwardMessages, cancellationToken);
         }
 
         /// <inheritdoc />
@@ -172,7 +172,7 @@
 
             var request = new RequestGetChats { Id = new TVector<int>(ids.ToArray()) };
 
-            return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -182,7 +182,7 @@
 
             var request = new RequestGetFullChat { ChatId = chatId };
 
-            return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -197,7 +197,7 @@
                           MaxId = maxId,
                           Limit = limit
                       };
-            return await PackageSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -210,7 +210,7 @@
                                          Id = new TVector<int>(ids.ToArray())
                                      };
 
-            return await PackageSender.SendRequestAsync(getMessagesRequest, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(getMessagesRequest, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -225,7 +225,7 @@
                                  Limit = limit
                              };
 
-            return await PackageSender.SendRequestAsync(getDialogs, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(getDialogs, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -239,7 +239,7 @@
                                   MaxId = maxId
                               };
 
-            return await PackageSender.SendRequestAsync(readHistory, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(readHistory, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -252,7 +252,7 @@
                                           Id = new TVector<int>(ids.ToArray())
                                       };
 
-            return await PackageSender.SendRequestAsync(readMessageContents, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(readMessageContents, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -265,7 +265,7 @@
                                        MaxId = maxId
                                    };
 
-            var result = await PackageSender.SendRequestAsync(receivedMessages, cancellationToken).ConfigureAwait(false);
+            var result = await RequestSender.SendRequestAsync(receivedMessages, cancellationToken).ConfigureAwait(false);
             return result.Items;
         }
 
@@ -283,7 +283,7 @@
                                 ClearDraft = false
                             };
 
-            return await PackageSender.SendRequestAsync(sendMedia, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(sendMedia, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -291,7 +291,7 @@
         {
             ClientSettings.EnsureUserAuthorized();
 
-            return await PackageSender.SendRequestAsync(
+            return await RequestSender.SendRequestAsync(
                        new RequestSendMessage
                        {
                            Peer = peer,
@@ -310,7 +310,7 @@
                           Peer = peer
                       };
 
-            return await PackageSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -338,7 +338,7 @@
                               Peer = peer
                           };
 
-            return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -358,7 +358,7 @@
                                       },
                               Peer = peer
                           };
-            return await PackageSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
         }
     }
 }

@@ -9,5 +9,7 @@ namespace OpenTl.ClientApi.MtProto
         int Port { get; set; }
 
         int TimeOffset { get; set; }
+
+        IClientSession RecreateSession();
     }
 }

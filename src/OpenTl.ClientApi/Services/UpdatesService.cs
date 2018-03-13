@@ -16,7 +16,7 @@
     {
         public IClientSettings ClientSettings { get; set; }
 
-        public IPackageSender SenderService { get; set; }
+        public IRequestSender SenderService { get; set; }
 
         /// <inheritdoc />
         public async Task<IState> GetCurrentState(CancellationToken cancellationToken = default(CancellationToken))

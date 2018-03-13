@@ -17,49 +17,27 @@
 
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
-        private FileStream _fileStream;
-
         private string _sessionFile;
 
         public void Dispose()
         {
             _semaphore?.Dispose();
-
-            _fileStream?.Dispose();
         }
 
         [return: AllowNull]
-        public async Task<byte[]> Load()
+        public byte[] Load()
         {
             Log.Debug($"Load session for sessionTag = {_sessionFile}");
 
-            await EnsureStreamOpen().ConfigureAwait(false);
-
-            if (_fileStream.Length == 0)
-            {
-                return null;
-            }
-
-            var buffer = new byte[2048];
-
-            await _semaphore.WaitAsync().ConfigureAwait(false);
-
-            _fileStream.Position = 0;
-
-            await _fileStream.ReadAsync(buffer, 0, 2048).ConfigureAwait(false);
-
-            _semaphore.Release();
-
-            return buffer;
+            return File.Exists(_sessionFile)
+                       ? File.ReadAllBytes(_sessionFile)
+                       : null;
         }
 
         public Task Remove()
         {
             if (File.Exists(_sessionFile))
             {
-                _fileStream.Dispose();
-                _fileStream = null;
-
                 File.Delete(_sessionFile);
             }
 
@@ -70,13 +48,9 @@
         {
             Log.Debug($"Save session into {_sessionFile}");
 
-            await EnsureStreamOpen().ConfigureAwait(false);
-
             await _semaphore.WaitAsync().ConfigureAwait(false);
 
-            _fileStream.Position = 0;
-            await _fileStream.WriteAsync(session, 0, session.Length).ConfigureAwait(false);
-            await _fileStream.FlushAsync().ConfigureAwait(false);
+            File.WriteAllBytes(_sessionFile, session);
 
             _semaphore.Release();
         }
@@ -84,21 +58,6 @@
         public void SetSessionTag(string sessionTag)
         {
             _sessionFile = $"{sessionTag}.dat";
-        }
-
-        private async Task EnsureStreamOpen()
-        {
-            if (_fileStream == null)
-            {
-                await _semaphore.WaitAsync().ConfigureAwait(false);
-
-                if (_fileStream == null)
-                {
-                    _fileStream = new FileStream(_sessionFile, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                }
-
-                _semaphore.Release();
-            }
         }
     }
 }

@@ -30,7 +30,7 @@
                               ApiHash = settings.AppHash
                           };
             
-            var sentCode = (TSentCode) await PackageSender.SendRequestAsync(requestSendCode, CancellationToken.None).ConfigureAwait(false);
+            var sentCode = (TSentCode) await RequestSender.SendRequestAsync(requestSendCode, CancellationToken.None).ConfigureAwait(false);
             
             var requestSignIn = new RequestSignIn
                           {
@@ -39,7 +39,7 @@
                               PhoneCode = PhoneCode
                           };
 
-            var result = (TAuthorization)await PackageSender.SendRequestAsync(requestSignIn, CancellationToken.None).ConfigureAwait(false);
+            var result = (TAuthorization)await RequestSender.SendRequestAsync(requestSignIn, CancellationToken.None).ConfigureAwait(false);
         }
  
         [Fact]
@@ -57,7 +57,7 @@
                                       ApiHash = settings.AppHash
                                   };
             
-            var sentCode = (TSentCode) await PackageSender.SendRequestAsync(requestSendCode, CancellationToken.None).ConfigureAwait(false);
+            var sentCode = (TSentCode) await RequestSender.SendRequestAsync(requestSendCode, CancellationToken.None).ConfigureAwait(false);
             
             var requestSignIn = new RequestSignIn
                                 {
@@ -66,7 +66,7 @@
                                     PhoneCode = PhoneCode
                                 };
 
-            var result = (TAuthorization)await PackageSender.SendRequestAsync(requestSignIn, CancellationToken.None).ConfigureAwait(false);
+            var result = (TAuthorization)await RequestSender.SendRequestAsync(requestSignIn, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }

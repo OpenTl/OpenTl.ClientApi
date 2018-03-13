@@ -23,35 +23,6 @@
 
     public sealed class TopHandlerAdapterTest: UnitTest
     {
-        [Fact]
-        public void WaitForInitizalize()
-        {
-            this.RegisterType<TopHandlerAdapter>();
-
-            var mSettings =  this.BuildClientSettingsProps();
-            mSettings.Object.ClientSession.AuthKey = null;
-            
-            var resultTaskSource = new TaskCompletionSource<object>();
-            
-            var request = new RequestPing();
-
-            this.Resolve<Mock<IRequestService>>()
-                .BuildRegisterRequest<RequestPing>(resultTaskSource.Task);
-
-            var handlerAdapter = this.Resolve<TopHandlerAdapter>();
-
-            var channel = new EmbeddedChannel(handlerAdapter);
-
-            // ---
-
-            var resultTask = handlerAdapter.SendRequestAsync(request, CancellationToken.None);
-            
-            // ---
-
-            Assert.Null(channel.ReadOutbound<object>());
-            
-            Assert.Equal(TaskStatus.WaitingForActivation, resultTask.Status);
-        }
         
         [Fact]
         public void InitfConnection_SaveConfig()
@@ -83,42 +54,6 @@
         }
         
         [Fact]
-        public void InitWithExistSession()
-        {
-            this.RegisterType<TopHandlerAdapter>();
-
-            var msession = this.BuildClientSettingsProps();
-
-            msession.Object.ClientSession.AuthKey = new AuthKey(Fixture.CreateMany<byte>(256).ToArray());
-            var resultTaskSource = new TaskCompletionSource<object>();
-            
-            this.Resolve<Mock<IRequestService>>()
-                .BuildRegisterRequest<RequestPing>(resultTaskSource.Task)
-                .BuildRegisterRequest<RequestInvokeWithLayer>(Task.FromResult((object)new TConfig()));
-
-            var handlerAdapter = this.Resolve<TopHandlerAdapter>();
-
-            var channel = new EmbeddedChannel(handlerAdapter);
-
-            var request = new RequestPing();
-            var response = new TPong();
-
-            // ---
-
-            var resultTask = handlerAdapter.SendRequestAsync(request, CancellationToken.None);
-
-            resultTaskSource.SetResult(response);
-            
-            // ---
-            Assert.NotNull(channel.ReadOutbound<RequestInvokeWithLayer>());
-            
-            Assert.Equal(request, channel.ReadOutbound<RequestPing>());
-
-            Assert.Equal(response, resultTask.Result);
-        }
-        
-        
-        [Fact]
         public void SendAfterInit()
         {
             this.RegisterType<TopHandlerAdapter>();
@@ -133,7 +68,6 @@
             var response = new TPong();
             
             this.Resolve<Mock<IRequestService>>()
-                .BuildRegisterRequest<RequestPing>(resultTaskSource.Task)
                 .BuildGetAllRequestToReply(request)
                 .BuildRegisterRequest<RequestInvokeWithLayer>(Task.FromResult((object)new TConfig()));
             
@@ -149,16 +83,12 @@
 
             channel.Pipeline.FireUserEventTriggered(ESystemNotification.HandshakeComplete);
             
-            var resultTask = handlerAdapter.SendRequestAsync(request, CancellationToken.None);
-            
             resultTaskSource.SetResult(response);
             
             // ---
             Assert.NotNull(channel.ReadOutbound<RequestInvokeWithLayer>());
             
             Assert.Equal(request, channel.ReadOutbound<RequestPing>());
-
-            Assert.Equal(response, resultTask.Result);
         }
     }
 

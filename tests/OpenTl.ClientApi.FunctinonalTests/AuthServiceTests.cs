@@ -54,12 +54,20 @@
         {
             if (!ClientApi.AuthService.CurrentUserId.HasValue)
             {
+                Log.Debug("Authenticate");
+                
                 await Authenticate().ConfigureAwait(false);
             }
 
+            await ClientApi.ContactsService.SearchUserAsync("test");
+
             await ClientApi.AuthService.LogoutAsync().ConfigureAwait(false);
 
-            await Assert.ThrowsAsync<UserNotAuthorizeException>( () => ClientApi.ContactsService.GetContactsAsync());
+            await Assert.ThrowsAsync<UserNotAuthorizeException>( () => ClientApi.ContactsService.SearchUserAsync("test"));
+            
+            await Authenticate().ConfigureAwait(false);
+            
+            await ClientApi.ContactsService.SearchUserAsync("test");
         }
     }
 }

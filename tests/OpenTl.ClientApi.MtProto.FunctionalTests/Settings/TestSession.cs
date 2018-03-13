@@ -27,5 +27,10 @@
         public int Port { get; set; }
 
         public int TimeOffset { get; set; }
+
+        public IClientSession RecreateSession()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

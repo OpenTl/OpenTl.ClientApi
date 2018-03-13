@@ -10,7 +10,7 @@
 
     public abstract class BaseTest
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(BaseTest));
+        protected static readonly ILog Log = LogManager.GetLogger(typeof(BaseTest));
 
         private readonly LogOutputTester _logOutputTester;
 

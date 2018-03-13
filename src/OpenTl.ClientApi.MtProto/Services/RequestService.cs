@@ -8,6 +8,8 @@
 
     using log4net;
 
+    using NullGuard;
+
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
@@ -18,6 +20,61 @@
         private static readonly ILog Log = LogManager.GetLogger(typeof(RequestService));
 
         private readonly LinkedList<RequestCacheItem> _requestQueue = new LinkedList<RequestCacheItem>();
+
+        public void AttachRequestToMessageId(IRequest request, long messageId)
+        {
+            var cacheItem = _requestQueue.FirstOrDefault(item => item.Request == request);
+
+            if (cacheItem == null)
+            {
+                return;
+            }
+
+            var timer = new Timer(
+                _ =>
+                {
+                    if (!cacheItem.TaskSource.Task.IsCompleted)
+                    {
+                        Log.Warn($"Message response result timed out for messageid '{messageId}'");
+
+                        _requestQueue.Remove(cacheItem);
+
+                        cacheItem.TaskSource.TrySetCanceled();
+                    }
+                },
+                null,
+                TimeSpan.FromMinutes(1),
+                TimeSpan.Zero);
+
+            cacheItem.MessageId = messageId;
+            cacheItem.Timer = timer;
+        }
+
+        public IEnumerable<IRequest> GetAllRequestToReply()
+        {
+            foreach (var cacheItem in _requestQueue)
+            {
+                cacheItem.Timer?.Dispose();
+                cacheItem.Timer = null;
+            }
+
+            return _requestQueue.Select(item => item.Request);
+        }
+
+        public IRequest GetRequestToReply(long messageId)
+        {
+            var cacheItem = _requestQueue.FirstOrDefault(item => item.MessageId == messageId);
+
+            if (cacheItem == null)
+            {
+                return null;
+            }
+
+            cacheItem.Timer.Dispose();
+            cacheItem.Timer = null;
+
+            return cacheItem.Request;
+        }
 
         public Task<object> RegisterRequest(IRequest request, CancellationToken cancellationToken)
         {
@@ -35,60 +92,9 @@
                     });
             }
 
-            _requestQueue.AddLast(new RequestCacheItem(request, tcs)); 
-            
+            _requestQueue.AddLast(new RequestCacheItem(request, tcs));
+
             return tcs.Task;
-        }
-        
-        public void AttachRequestToMessageId(IRequest request, long messageId)
-        {
-            var cacheItem = _requestQueue.FirstOrDefault(item => item.Request == request);
-            
-            if (cacheItem == null)
-            {
-                return;
-            }
-
-            var timer = new Timer( _ =>
-            {
-                if (!cacheItem.TaskSource.Task.IsCompleted)
-                {
-                    Log.Warn($"Message response result timed out for messageid '{messageId}'");
-                        
-                    _requestQueue.Remove(cacheItem);
-                        
-                    cacheItem.TaskSource.TrySetCanceled();
-                }
-            }, null, TimeSpan.FromMinutes(1), TimeSpan.Zero);
-
-            cacheItem.MessageId = messageId;
-            cacheItem.Timer = timer;
-        }
-
-        public IEnumerable<IRequest> GetAllRequestToReply()
-        {
-            foreach (var cacheItem in _requestQueue)
-            {
-                cacheItem.Timer?.Dispose();
-                cacheItem.Timer = null;
-            }
-
-            return _requestQueue.Select(item => item.Request);
-        }
-        
-        public IRequest GetRequestToReply(long messageId)
-        {
-            var cacheItem = _requestQueue.FirstOrDefault(item => item.MessageId == messageId);
-            
-            if (cacheItem == null)
-            {
-                return null;
-            }
-
-            cacheItem.Timer.Dispose();
-            cacheItem.Timer = null;
-            
-            return cacheItem.Request;
         }
 
         public void ReturnException(long messageId, Exception exception)
@@ -100,9 +106,9 @@
                 _requestQueue.Remove(cacheItem);
 
                 cacheItem.Timer.Dispose();
-                
+
                 cacheItem.TaskSource.TrySetException(exception);
-                
+
                 Log.Error($"Request was processed with error", exception);
             }
             else
@@ -117,10 +123,12 @@
 
             foreach (var cacheItem in _requestQueue)
             {
-               cacheItem.Timer.Dispose();
-                
-               cacheItem.TaskSource.TrySetException(exception);
+                cacheItem.Timer.Dispose();
+
+                cacheItem.TaskSource.TrySetException(exception);
             }
+            
+            _requestQueue.Clear();
         }
 
         public void ReturnResult(long messageId, object obj)
@@ -131,7 +139,7 @@
                 _requestQueue.Remove(cacheItem);
 
                 cacheItem.Timer.Dispose();
-                
+
                 cacheItem.TaskSource.TrySetResult(obj);
             }
             else
@@ -139,23 +147,24 @@
                 Log.Error($"Callback for request with Id {messageId} wasn't found");
             }
         }
-        
+
         private sealed class RequestCacheItem
         {
-            public RequestCacheItem(IRequest request, TaskCompletionSource<object> taskSource)
-            {
-                Request = request;
-                
-                TaskSource = taskSource;
-            }
-            
             public long MessageId { get; set; }
-            
+
+            [AllowNull]
             public Timer Timer { get; set; }
 
             public IRequest Request { get; }
 
             public TaskCompletionSource<object> TaskSource { get; }
+
+            public RequestCacheItem(IRequest request, TaskCompletionSource<object> taskSource)
+            {
+                Request = request;
+
+                TaskSource = taskSource;
+            }
         }
     }
 }

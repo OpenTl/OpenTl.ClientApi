@@ -14,7 +14,7 @@
     [SingleInstance(typeof(IContactsService))]
     internal class ContactsService : IContactsService
     {
-        public IPackageSender PackageSender { get; set; }
+        public IRequestSender RequestSender { get; set; }
 
         public IClientSettings ClientSettings { get; set; }
 
@@ -25,7 +25,7 @@
 
             var req = new RequestGetContacts { Hash = 0 };
 
-            return (TContacts)await PackageSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
+            return (TContacts)await RequestSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
         }
 
         public async Task<IReadOnlyList<TContactStatus>> GetStatusesAsync(CancellationToken cancellationToken = default(CancellationToken))
@@ -33,7 +33,7 @@
             ClientSettings.EnsureUserAuthorized();
             var req = new RequestGetStatuses();
 
-            var result = await PackageSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
+            var result = await RequestSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
 
             return result.Items;
         }
@@ -49,7 +49,7 @@
                         Limit = limit
                     };
 
-            return await PackageSender.SendRequestAsync(r, cancellationToken).ConfigureAwait(false);
+            return await RequestSender.SendRequestAsync(r, cancellationToken).ConfigureAwait(false);
         }
     }
 }

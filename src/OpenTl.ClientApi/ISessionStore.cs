@@ -5,7 +5,7 @@
 
     public interface ISessionStore : IDisposable
     {
-        Task<byte[]> Load();
+        byte[] Load();
 
         Task Remove();
 

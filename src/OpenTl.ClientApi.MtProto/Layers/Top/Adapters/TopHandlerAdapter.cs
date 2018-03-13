@@ -13,36 +13,39 @@
 
     using OpenTl.ClientApi.MtProto.Enums;
     using OpenTl.ClientApi.MtProto.Extensions;
+    using OpenTl.ClientApi.MtProto.Interfaces;
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
+    using OpenTl.Schema.Auth;
     using OpenTl.Schema.Help;
 
-    [SingleInstance(typeof(ITopLevelHandler), typeof(IPackageSender))]
+    [SingleInstance(typeof(ITopLevelHandler), typeof(IContextGetter))]
     internal sealed class TopHandlerAdapter : SimpleChannelInboundHandler<IObject>,
-                                       ITopLevelHandler,
-                                       IPackageSender
+                                              ITopLevelHandler,
+                                              IContextGetter
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(TopHandlerAdapter));
 
-        private IChannelHandlerContext _context;
+        public IChannelHandlerContext Context { get; private set; }
 
         public IRequestService RequestService { get; set; }
 
         public IClientSettings ClientSettings { get; set; }
 
         public override bool IsSharable { get; } = true;
-        
+
+
         public override void ChannelActive(IChannelHandlerContext context)
         {
-            _context = context;
+            Context = context;
 
             base.ChannelActive(context);
 
             if (ClientSettings.ClientSession.SessionWasHandshaked())
             {
                 Log.Debug("Session was found.");
-                
+
                 UserEventTriggered(context, ESystemNotification.HandshakeComplete);
             }
         }
@@ -54,16 +57,16 @@
             RequestService.ReturnException(exception);
         }
 
-        public async Task<TResult> SendRequestAsync<TResult>(IRequest<TResult> request, CancellationToken cancellationToken)
+        public override void UserEventTriggered(IChannelHandlerContext context, object evt)
         {
-            var resultTask = RequestService.RegisterRequest(request, cancellationToken);
-
-            if (ClientSettings.ConnectionWasInitialize())
+            switch (evt)
             {
-                await _context.WriteAndFlushAsync(request);
-            }
+                case ESystemNotification.HandshakeComplete:
+                    Log.Debug("Handshake is complete");
 
-            return (TResult)await resultTask;
+                    SendInitConnectionRequest().ConfigureAwait(false);
+                    break;
+            }
         }
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, IObject msg)
@@ -71,22 +74,10 @@
             Log.Warn($"Unhandled message {msg}");
         }
 
-        public override void UserEventTriggered(IChannelHandlerContext context, object evt)
-        {
-            switch (evt)
-            {
-                 case ESystemNotification.HandshakeComplete:
-                     Log.Debug("Handshake is complete");
-                     
-                     SendInitConnectionRequest().ConfigureAwait(false);
-                 break;
-            }
-        }
-
         private async Task SendInitConnectionRequest()
         {
             Log.Debug("Send init connection request");
-            
+
             try
             {
                 Guard.That(ClientSettings.AppId).IsNotDefault();
@@ -115,18 +106,18 @@
 
                 var resultTask = RequestService.RegisterRequest(request, CancellationToken.None);
 
-                await _context.WriteAndFlushAsync(request).ConfigureAwait(false);
+                await Context.WriteAndFlushAsync(request).ConfigureAwait(false);
 
                 ClientSettings.Config = (IConfig)await resultTask.ConfigureAwait(false);
 
                 foreach (var replyRequest in RequestService.GetAllRequestToReply())
                 {
 #pragma warning disable 4014
-                    _context.WriteAsync(replyRequest);
+                    Context.WriteAsync(replyRequest);
 #pragma warning restore 4014
                 }
 
-                _context.Flush();
+                Context.Flush();
             }
             catch (Exception e)
             {

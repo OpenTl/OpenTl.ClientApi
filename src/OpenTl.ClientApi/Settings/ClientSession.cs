@@ -22,6 +22,7 @@
 
         public int SequenceNumber { get; set; }
 
+        [AllowNull]
         public byte[] ServerSalt { get; set; }
 
         public long? UserId { get; set; }
@@ -31,5 +32,14 @@
         public int Port { get; set; }
 
         public int TimeOffset { get; set; }
+
+        public IClientSession RecreateSession()
+        {
+            return new ClientSession
+                   {
+                       Port = Port,
+                       ServerAddress = ServerAddress
+                   };
+        }
     }
 }

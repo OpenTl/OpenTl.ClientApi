@@ -26,7 +26,7 @@
 
         private readonly int DownloadPhotoPartSize = 64 * 1024; // 64kb for photo
 
-        public IPackageSender PackageSender { get; set; }
+        public IRequestSender RequestSender { get; set; }
 
         public IClientSettings ClientSettings { get; set; }
 
@@ -39,7 +39,7 @@
                                    : DownloadPhotoPartSize;
 
             //TODO: Add handle FileMigrationException
-            return await PackageSender.SendRequestAsync(
+            return await RequestSender.SendRequestAsync(
                        new RequestGetFile
                        {
                            Location = location,
@@ -112,7 +112,7 @@
 
                 if (isBigFileUpload)
                 {
-                    await PackageSender.SendRequestAsync(
+                    await RequestSender.SendRequestAsync(
                         new RequestSaveBigFilePart
                         {
                             FileId = fileId,
@@ -124,7 +124,7 @@
                 }
                 else
                 {
-                    await PackageSender.SendRequestAsync(
+                    await RequestSender.SendRequestAsync(
                         new RequestSaveFilePart
                         {
                             FileId = fileId,

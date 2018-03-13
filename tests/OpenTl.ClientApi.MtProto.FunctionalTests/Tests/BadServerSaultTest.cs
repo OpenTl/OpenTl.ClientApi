@@ -23,13 +23,13 @@
         [Fact]
         public async Task BadServerSault()
         {
-            var resultBefore = await PackageSender.SendRequestAsync(new RequestGetConfig(), CancellationToken.None).ConfigureAwait(false);
+            var resultBefore = await RequestSender.SendRequestAsync(new RequestGetConfig(), CancellationToken.None).ConfigureAwait(false);
 
             var settings = Container.Resolve<IClientSettings>();
             
             settings.ClientSession.ServerSalt = BitConverter.GetBytes(Random.NextLong()); 
 
-            var resultAfter = await PackageSender.SendRequestAsync(new RequestGetConfig(), CancellationToken.None).ConfigureAwait(false);
+            var resultAfter = await RequestSender.SendRequestAsync(new RequestGetConfig(), CancellationToken.None).ConfigureAwait(false);
 
             Assert.Equal(resultBefore.Date, resultAfter.Date);
         }

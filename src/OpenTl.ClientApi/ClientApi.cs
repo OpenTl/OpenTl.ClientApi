@@ -16,7 +16,7 @@
     public interface IClientApi : IDisposable
     {
         /// <summary>Send a custom requests</summary>
-        IPackageSender CustomRequestsService { get; }
+        IRequestSender CustomRequestsService { get; }
 
         /// <summary>Automatic and manual updates</summary>
         IUpdatesService UpdatesService { get; }
@@ -50,7 +50,7 @@
         public IUpdatesService UpdatesService { get; set; }
 
         /// <inheritdoc />
-        public IPackageSender CustomRequestsService { get; set; }
+        public IRequestSender CustomRequestsService { get; set; }
 
         /// <inheritdoc />
         public IAuthService AuthService { get; set; }

@@ -30,7 +30,7 @@ namespace OpenTl.ClientApi.MtProto.FunctionalTests.Framework
 
         private static readonly IConfigurationRoot Configuration;
 
-        protected IPackageSender PackageSender { get; }
+        protected IRequestSender RequestSender { get; }
         
         static FunctionalTest()
         {
@@ -48,7 +48,7 @@ namespace OpenTl.ClientApi.MtProto.FunctionalTests.Framework
 
             Container.Resolve<INettyBootstrapper>().Init();
 
-            PackageSender = Container.Resolve<IPackageSender>();
+            RequestSender = Container.Resolve<IRequestSender>();
         }
 
 
