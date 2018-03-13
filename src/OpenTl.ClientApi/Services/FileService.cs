@@ -34,15 +34,9 @@
         {
             ClientSettings.EnsureUserAuthorized();
 
-            int filePartSize;
-            if (location is TInputDocumentFileLocation)
-            {
-                filePartSize = DownloadDocumentPartSize;
-            }
-            else
-            {
-                filePartSize = DownloadPhotoPartSize;
-            }
+            var filePartSize = location is TInputDocumentFileLocation
+                                   ? DownloadDocumentPartSize
+                                   : DownloadPhotoPartSize;
 
             //TODO: Add handle FileMigrationException
             return await PackageSender.SendRequestAsync(

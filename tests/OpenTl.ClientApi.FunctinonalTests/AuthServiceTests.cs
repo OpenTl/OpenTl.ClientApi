@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
 
+    using OpenTl.ClientApi.Exceptions;
     using OpenTl.ClientApi.MtProto.Exceptions;
     using OpenTl.ClientApi.MtProto.FunctionalTests.Framework;
     using OpenTl.Schema;
@@ -44,9 +45,21 @@
             catch (PhoneCodeInvalidException ex)
             {
             }
-            
 
             Assert.NotNull(user);
+        }
+        
+        [Fact]
+        public async Task Logout()
+        {
+            if (!ClientApi.AuthService.CurrentUserId.HasValue)
+            {
+                await Authenticate().ConfigureAwait(false);
+            }
+
+            await ClientApi.AuthService.LogoutAsync().ConfigureAwait(false);
+
+            await Assert.ThrowsAsync<UserNotAuthorizeException>( () => ClientApi.ContactsService.GetContactsAsync());
         }
     }
 }

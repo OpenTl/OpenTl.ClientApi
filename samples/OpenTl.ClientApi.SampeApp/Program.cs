@@ -51,9 +51,10 @@
             {
                 var input = ReadLineHelper.Read("(prompt)>");
 
-                Parser.Default.ParseArguments<AuthOptions>(input.Split(' '))
-                      .MapResult(
-                          opt => client.Auth(opt.Phone),
+                Parser.Default.ParseArguments<SignInOptions, LogOutOptions>(input.Split(' '))
+                      .MapResult<SignInOptions, LogOutOptions, Task>(
+                          opt => client.SignIn(opt.Phone),
+                          opt => client.LogOut(),
                           errors => Task.FromResult(1))
                       .Wait();
             }

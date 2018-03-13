@@ -2,6 +2,7 @@
 {
     using System;
     using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
 
     using DotNetty.Transport.Channels;
 
@@ -34,28 +35,36 @@
         {
             Log.Debug($"Process RpcResult  with request id = '{msg.ReqMsgId}'");
 
-            ctx.WriteAsync(
-                new TMsgsAck
-                {
-                    MsgIds = new TVector<long>(msg.ReqMsgId)
-                });
-            
             switch (msg.Result)
             {
-                    case TRpcError error:
+                case TRpcError error:
+                    SendConfirm(ctx, msg);
+
                     HandleRpcError(ctx, msg.ReqMsgId, error);
                     break;
-
                 case TgZipPacked zipPacked:
                     Log.Debug($"Try unzip");
 
                     var obj = UnzippedService.UnzipPackage(zipPacked);
                     RequestService.ReturnResult(msg.ReqMsgId, obj);
+                    
+                    SendConfirm(ctx, msg);
                     break;
                 default:
                     RequestService.ReturnResult(msg.ReqMsgId, msg.Result);
+
+                    SendConfirm(ctx, msg);
                     break;
             }
+        }
+
+        private static Task SendConfirm(IChannelHandlerContext ctx, TRpcResult msg)
+        {
+            return ctx.WriteAsync(
+                new TMsgsAck
+                {
+                    MsgIds = new TVector<long>(msg.ReqMsgId)
+                });
         }
 
         private void HandleRpcError(IChannelHandlerContext ctx, long messageReqMsgId, TRpcError error)
@@ -85,7 +94,6 @@
 
                     SessionWriter.Save(ClientSettings.ClientSession)
                         .ContinueWith(_ => ctx.DisconnectAsync());
-                    
                     break;
                 case var fileMigrate when fileMigrate.StartsWith("FILE_MIGRATE_"):
                     var fileMigrateDcNumber = Regex.Match(fileMigrate, @"\d+").Value;

@@ -62,5 +62,12 @@
                                 string firstName,
                                 string lastName,
                                 CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Log out the current user
+        /// </summary>
+        /// <param name="cancellationToken">Сancellation token</param>
+        /// <returns>Logout succeess</returns>
+        Task LogoutAsync(CancellationToken cancellationToken = default(CancellationToken));
     }
 }
