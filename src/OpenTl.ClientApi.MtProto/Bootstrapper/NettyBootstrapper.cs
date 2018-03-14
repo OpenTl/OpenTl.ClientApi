@@ -44,13 +44,13 @@
                         {
                             var pipeline = channel.Pipeline;
 
+                            pipeline.AddLast(new LoggingHandler(LogLevel.DEBUG));
                             pipeline.AddLast(new LengthFieldBasedFrameDecoder(ByteOrder.LittleEndian, int.MaxValue, 0, 4, -4, 0, true));
                             pipeline.AddLast(new TcpLayerHandlerAdapter());
                             pipeline.AddLast(Container.ResolveAll<IHandshakeHandler>());
                             pipeline.AddLast(Container.ResolveAll<ISecureHandler>());
                             pipeline.AddLast(Container.ResolveAll<IMessageHandler>());
                             pipeline.AddLast(Container.ResolveAll<ITopLevelHandler>());
-                            pipeline.AddLast(new LoggingHandler(LogLevel.TRACE));
                         })
                 );
 

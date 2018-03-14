@@ -64,7 +64,7 @@
                                 CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
-        /// Log out the current user
+        /// Logout the current user
         /// </summary>
         /// <param name="cancellationToken">Сancellation token</param>
         /// <returns>Logout succeess</returns>
