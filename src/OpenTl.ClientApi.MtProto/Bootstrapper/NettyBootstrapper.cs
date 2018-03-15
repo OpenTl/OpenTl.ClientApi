@@ -22,7 +22,7 @@
     using OpenTl.ClientApi.MtProto.Layers.Tcp;
     using OpenTl.ClientApi.MtProto.Layers.Top;
     using OpenTl.Common.IoC;
-    // using OpenTl.Netty.Socks.Handlers;
+    using OpenTl.Netty.Socks.Handlers;
 
     [SingleInstance(typeof(INettyBootstrapper))]
     internal sealed class NettyBootstrapper : INettyBootstrapper
@@ -53,8 +53,11 @@
                             {
                                 pipeline.AddFirst(new LoggingHandler(LogLevel.DEBUG));
                             }
-                            
-                            // pipeline.AddFirst(new Socks5ProxyHandler(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1080)));
+
+                            if (ClientSettings.Socks5Proxy != null)
+                            {
+                                pipeline.AddFirst(new Socks5ProxyHandler(ClientSettings.Socks5Proxy.Endpoint, ClientSettings.Socks5Proxy.Username, ClientSettings.Socks5Proxy.Password));
+                            }
 
                             pipeline.AddLast(new LengthFieldBasedFrameDecoder(ByteOrder.LittleEndian, int.MaxValue, 0, 4, -4, 0, true));
                             pipeline.AddLast(Container.ResolveAll<ITcpHandler>());

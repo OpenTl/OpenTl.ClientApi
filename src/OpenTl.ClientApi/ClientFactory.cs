@@ -13,8 +13,12 @@
     using OpenTl.ClientApi.Settings;
     using OpenTl.Common.IoC;
 
+    /// <summary>Entry point to working with the library</summary>
     public static class ClientFactory
     {
+        /// <summary>Build the client</summary>
+        /// <param name="factorySettings">Settings</param>
+        /// <returns>Client</returns>
         public static async Task<IClientApi> BuildClient(IFactorySettings factorySettings)
         {
             var container = WindsorFactory.Create(typeof(INettyBootstrapper).GetTypeInfo().Assembly, typeof(IClientApi).GetTypeInfo().Assembly);
@@ -42,6 +46,7 @@
             settings.PublicKey = factorySettings.ServerPublicKey;
 
             settings.ApplicationProperties = factorySettings.Properties;
+            settings.Socks5Proxy = factorySettings.ProxyConfig;
 
             if (factorySettings.SessionStore != null)
             {

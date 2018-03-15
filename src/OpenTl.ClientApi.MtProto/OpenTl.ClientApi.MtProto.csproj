@@ -18,8 +18,6 @@
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="NullGuard.Fody" Version="1.7.1" />
     <PackageReference Include="OpenTl.Common" Version="1.0.14" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\OpenTl.DotNetty.Socksx\src\OpenTl.DotNetty.Socksx\OpenTl.DotNetty.Socksx.csproj" />
+    <PackageReference Include="OpenTl.Netty.Socks" Version="1.0.1" />
   </ItemGroup>
 </Project>

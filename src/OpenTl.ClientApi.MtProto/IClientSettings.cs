@@ -11,7 +11,9 @@
         string PublicKey { get; set; }
 
         IApplicationProperties ApplicationProperties {get; set; }
-             
+
+        ISocks5Proxy Socks5Proxy { get; set; }
+        
         IClientSession ClientSession { get; set; }
         
         IConfig Config { get; set; }

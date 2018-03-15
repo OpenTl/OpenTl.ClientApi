@@ -50,6 +50,7 @@
 
         public IWindsorContainer Container { get; set; }
 
+        /// <inheritdoc />
         public IUpdatesService UpdatesService { get; set; }
 
         /// <inheritdoc />

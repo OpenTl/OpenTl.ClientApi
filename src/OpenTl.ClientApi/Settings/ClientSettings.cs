@@ -17,6 +17,9 @@
 
         public IApplicationProperties ApplicationProperties { get; set; }
 
+        [AllowNull]
+        public ISocks5Proxy Socks5Proxy { get; set; }
+
         public IClientSession ClientSession { get; set; }
 
         [AllowNull]

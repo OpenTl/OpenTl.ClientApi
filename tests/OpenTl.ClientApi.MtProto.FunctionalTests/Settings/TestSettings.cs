@@ -12,6 +12,8 @@
 
         public IApplicationProperties ApplicationProperties { get; set; } = new TestApplicationProperties();
 
+        public ISocks5Proxy Socks5Proxy { get; set; }
+
         public IClientSession ClientSession { get; set; } = new TestSession();
 
         public IConfig Config { get; set; }
