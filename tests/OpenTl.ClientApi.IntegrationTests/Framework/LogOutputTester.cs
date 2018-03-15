@@ -1,4 +1,4 @@
-﻿namespace OpenTl.ClientApi.MtProto.FunctionalTests.Framework
+﻿namespace OpenTl.ClientApi.IntegrationTests.Framework
 {
     using System;
     using System.IO;

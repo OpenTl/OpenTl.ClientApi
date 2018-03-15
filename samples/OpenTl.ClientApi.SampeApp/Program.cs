@@ -16,6 +16,7 @@
 
     using OpenTl.ClientApi.MtProto;
     using OpenTl.ClientApi.SampeApp.Commands;
+    using OpenTl.ClientApi.SampeApp.Helpers;
     using OpenTl.Common.Testing.Logger;
 
     internal static class Program

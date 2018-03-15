@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using OpenTl.ClientApi.MtProto.Exceptions;
+    using OpenTl.ClientApi.SampeApp.Helpers;
     using OpenTl.Schema;
 
     public sealed class Client

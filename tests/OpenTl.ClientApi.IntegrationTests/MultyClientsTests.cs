@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using OpenTl.ClientApi.MtProto.FunctionalTests.Framework;
+    using OpenTl.ClientApi.IntegrationTests.Framework;
     using OpenTl.Schema;
     using OpenTl.Schema.Contacts;
 

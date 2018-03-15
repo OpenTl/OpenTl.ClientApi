@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    using OpenTl.ClientApi.MtProto.FunctionalTests.Framework;
+    using OpenTl.ClientApi.FunctinonalTests.Framework;
 
     using Xunit;
     using Xunit.Abstractions;

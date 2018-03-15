@@ -1,4 +1,4 @@
-﻿namespace OpenTl.ClientApi.SampeApp
+﻿namespace OpenTl.ClientApi.SampeApp.Helpers
 {
     using System;
 
