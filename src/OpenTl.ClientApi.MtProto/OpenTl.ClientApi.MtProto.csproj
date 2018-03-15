@@ -17,9 +17,6 @@
     <PackageReference Include="DotNetty.Handlers" Version="0.4.7" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="NullGuard.Fody" Version="1.7.1" />
-    <PackageReference Include="OpenTl.Common" Version="1.0.12" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\OpenTl.Common\src\OpenTl.Common\OpenTl.Common.csproj" />
+    <PackageReference Include="OpenTl.Common" Version="1.0.14" />
   </ItemGroup>
 </Project>
