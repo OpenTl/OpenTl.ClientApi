@@ -17,11 +17,13 @@
 
         public int Order { get; } = 100;
 
+        public IClientSettings ClientSettings { get; set; }
+
         public override bool IsSharable { get; } = true;
         
         protected override void ChannelRead0(IChannelHandlerContext ctx, TFutureSalts msg)
         {
-            Log.Debug($"Handle Future Salts for request {msg.ReqMsgId}");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Handle Future Salts for request {msg.ReqMsgId}");
 
             throw new NotImplementedException("The future sault does not supported yet");
         }

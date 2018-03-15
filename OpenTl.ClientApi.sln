@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTl.ClientApi.SampeApp",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTl.ClientApi.FunctinonalTests", "tests\OpenTl.ClientApi.FunctinonalTests\OpenTl.ClientApi.FunctinonalTests.csproj", "{55C54274-EA9C-4DE9-82C1-6F0561712DDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTl.ClientApi.IntegrationTests", "tests\OpenTl.ClientApi.IntegrationTests\OpenTl.ClientApi.IntegrationTests.csproj", "{2BD19571-52D4-4574-BC51-68D121D6873E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{55C54274-EA9C-4DE9-82C1-6F0561712DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55C54274-EA9C-4DE9-82C1-6F0561712DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55C54274-EA9C-4DE9-82C1-6F0561712DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BD19571-52D4-4574-BC51-68D121D6873E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BD19571-52D4-4574-BC51-68D121D6873E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BD19571-52D4-4574-BC51-68D121D6873E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BD19571-52D4-4574-BC51-68D121D6873E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{94412B1F-F2C6-4D9F-9A21-71DDE8B0A8AF} = {D00B3015-1481-4D88-A077-9CE92D335B8A}
@@ -56,5 +62,6 @@ Global
 		{C044C5EB-8B65-4FAF-8B08-9133D799AED9} = {D00B3015-1481-4D88-A077-9CE92D335B8A}
 		{E0D72839-8F3E-441C-A743-60C614EAC794} = {4A6149D6-3B27-46D1-BCCC-B131C8A9D563}
 		{55C54274-EA9C-4DE9-82C1-6F0561712DDF} = {010B628D-D347-4318-98DA-91E8F9E3EA01}
+		{2BD19571-52D4-4574-BC51-68D121D6873E} = {010B628D-D347-4318-98DA-91E8F9E3EA01}
 	EndGlobalSection
 EndGlobal

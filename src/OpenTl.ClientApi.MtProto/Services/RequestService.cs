@@ -21,6 +21,8 @@
 
         private readonly LinkedList<RequestCacheItem> _requestQueue = new LinkedList<RequestCacheItem>();
 
+        public IClientSettings ClientSettings { get; set; }
+
         public void AttachRequestToMessageId(IRequest request, long messageId)
         {
             var cacheItem = _requestQueue.FirstOrDefault(item => item.Request == request);
@@ -35,7 +37,7 @@
                 {
                     if (!cacheItem.TaskSource.Task.IsCompleted)
                     {
-                        Log.Warn($"Message response result timed out for messageid '{messageId}'");
+                        Log.Warn($"#{ClientSettings.ClientSession.SessionId}: Message response result timed out for messageid '{messageId}'");
 
                         _requestQueue.Remove(cacheItem);
 
@@ -109,17 +111,17 @@
 
                 cacheItem.TaskSource.TrySetException(exception);
 
-                Log.Error($"Request was processed with error", exception);
+                Log.Error($"#{ClientSettings.ClientSession.SessionId}: Request was processed with error", exception);
             }
             else
             {
-                Log.Error($"Callback for request with Id {messageId} wasn't found");
+                Log.Error($"#{ClientSettings.ClientSession.SessionId}: Callback for request with Id {messageId} wasn't found");
             }
         }
 
         public void ReturnException(Exception exception)
         {
-            Log.Error($"All requests was processed with error", exception);
+            Log.Error($"#{ClientSettings.ClientSession.SessionId}: All requests was processed with error", exception);
 
             foreach (var cacheItem in _requestQueue)
             {
@@ -144,7 +146,7 @@
             }
             else
             {
-                Log.Error($"Callback for request with Id {messageId} wasn't found");
+                Log.Error($"#{ClientSettings.ClientSession.SessionId}: Callback for request with Id {messageId} wasn't found");
             }
         }
 

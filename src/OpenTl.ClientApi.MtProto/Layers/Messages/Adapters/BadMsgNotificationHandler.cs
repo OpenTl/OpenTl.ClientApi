@@ -24,7 +24,8 @@
         public override bool IsSharable { get; } = true;
 
         public IRequestService RequestService { get; set; }
-        
+
+        public IClientSettings ClientSettings { get; set; }
         protected override void ChannelRead0(IChannelHandlerContext ctx, TBadMsgNotification msg)
         {
             switch (msg.ErrorCode)
@@ -41,7 +42,7 @@
                 case 48:
                 case 64:
                     var jUpdate = JsonConvert.SerializeObject(msg);
-                    Log.Error($"Handle a bad message notification for request id = {msg.BadMsgId} and seqNo = {msg.BadMsgSeqno} :\n {jUpdate}");
+                    Log.Error($"#{ClientSettings.ClientSession.SessionId}: Handle a bad message notification for request id = {msg.BadMsgId} and seqNo = {msg.BadMsgSeqno} :\n {jUpdate}");
 
                     var request = RequestService.GetRequestToReply(msg.BadMsgId);
                     if (request != null)
@@ -51,7 +52,7 @@
                     break;
                 default:
                     var exception = new UnhandledException($"Wrong TBadMsgNotification code {msg.ErrorCode}");
-                    Log.Error($"Handle a bad message notification for request id = {msg.BadMsgId} and seqNo = {msg.BadMsgSeqno}", exception);
+                    Log.Error($"#{ClientSettings.ClientSession.SessionId}: Handle a bad message notification for request id = {msg.BadMsgId} and seqNo = {msg.BadMsgSeqno}", exception);
 
                     RequestService.ReturnException(msg.BadMsgId, exception);
                     break;

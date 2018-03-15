@@ -8,6 +8,8 @@
 
     using log4net;
 
+    using Newtonsoft.Json;
+
     using OpenTl.ClientApi.MtProto.Exceptions;
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.Common.IoC;
@@ -33,7 +35,7 @@
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, TRpcResult msg)
         {
-            Log.Debug($"Process RpcResult  with request id = '{msg.ReqMsgId}'");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Process RpcResult  with request id = '{msg.ReqMsgId}'");
 
             switch (msg.Result)
             {
@@ -43,7 +45,7 @@
                     HandleRpcError(ctx, msg.ReqMsgId, error);
                     break;
                 case TgZipPacked zipPacked:
-                    Log.Debug($"Try unzip");
+                    Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Try unzip");
 
                     var obj = UnzippedService.UnzipPackage(zipPacked);
                     RequestService.ReturnResult(msg.ReqMsgId, obj);
@@ -69,8 +71,13 @@
 
         private void HandleRpcError(IChannelHandlerContext ctx, long messageReqMsgId, TRpcError error)
         {
-            Log.Warn($"Recieve error from server: {error.ErrorMessage}");
-
+            Log.Warn($"#{ClientSettings.ClientSession.SessionId}: Recieve error from server: {error.ErrorMessage}");
+            if (Log.IsDebugEnabled)
+            {
+                var jMessages = JsonConvert.SerializeObject(error);
+                Log.Debug(jMessages);
+            }
+            
             // Exception exception;
             switch (error.ErrorMessage)
             {

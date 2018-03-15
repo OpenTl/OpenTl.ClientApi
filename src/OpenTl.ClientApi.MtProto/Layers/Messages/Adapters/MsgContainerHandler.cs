@@ -21,9 +21,11 @@
 
         public override bool IsSharable { get; } = true;
         
+        public IClientSettings ClientSettings { get; set; }
+
         protected override void Decode(IChannelHandlerContext context, TMsgContainer message, List<object> output)
         {
-            Log.Debug($"Process MsgContainer message with {message.Messages.Length} items");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Process MsgContainer message with {message.Messages.Length} items");
 
             output.AddRange(message.Messages.Select(m => m.Body));
         }

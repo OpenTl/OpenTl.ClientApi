@@ -9,14 +9,20 @@
 
     using log4net;
 
+    using OpenTl.Common.IoC;
+
     using Crc32 = OpenTl.Common.Crypto.Crc32;
 
-    internal sealed class TcpLayerHandlerAdapter: ChannelHandlerAdapter
+    [TransientInstance(typeof(ITcpHandler))]
+    internal sealed class TcpLayerHandlerAdapter: ChannelHandlerAdapter,
+                                                  ITcpHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(TcpLayerHandlerAdapter));
 
         private int _sequenceNumber;
-        
+
+        public IClientSettings ClientSettings { get; set; }
+
         public override void ChannelActive(IChannelHandlerContext context)
         {
             _sequenceNumber = 0;
@@ -52,7 +58,7 @@
             
             buffer.WriteIntLE((int)Crc32.Compute(data));
 
-            Log.Debug($"Send the message with sequence number {sequenceNumer}");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Send the message with sequence number {sequenceNumer}");
 
             return context.WriteAsync(buffer);
         }
@@ -74,12 +80,12 @@
 
             CheckChecksum(input, packageLength);
             
-            Log.Debug($"Recieve the message with sequence number {sequenceNumber}");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Recieve the message with sequence number {sequenceNumber}");
 
             if (dataLength == 4)
             {
                 var code = data.ReadIntLE();
-                Log.Error($"Recieve the message with {code}");
+                Log.Error($"#{ClientSettings.ClientSession.SessionId}: Recieve the message with {code}");
             }
             
             context.FireChannelRead(data);

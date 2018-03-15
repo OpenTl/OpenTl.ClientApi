@@ -30,6 +30,9 @@
         /// <summary>Working with contacts</summary>
         IContactsService ContactsService { get; }
 
+        /// <summary>Working with users</summary>
+        IUsersService UsersService { get; }
+
         /// <summary>Working with files</summary>
         IFileService FileService { get; }
 
@@ -57,6 +60,9 @@
 
         /// <inheritdoc />
         public IContactsService ContactsService { get; set; }
+
+        /// <inheritdoc />
+        public IUsersService UsersService { get; set; }
 
         /// <inheritdoc />
         public IMessagesService MessagesService { get; set; }

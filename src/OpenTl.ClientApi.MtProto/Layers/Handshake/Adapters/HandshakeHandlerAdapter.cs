@@ -41,7 +41,7 @@
 
             if (ClientSettings.ClientSession.AuthKey == null)
             {
-                Log.Info("Try do authentication");
+                Log.Info($"#{ClientSettings.ClientSession.SessionId}: Try do authentication");
 
                 var step1 = Step1ClientHelper.GetRequest();
                 
@@ -58,13 +58,13 @@
                 case TResPQ resPq:
                     Guard.That(resPq.Nonce).IsItemsEquals(_nonce);
 
-                    Log.Debug("TResPQ step complete");
+                    Log.Debug($"#{ClientSettings.ClientSession.SessionId}: TResPQ step complete");
 
                     var requestReqDhParams = Step2ClientHelper.GetRequest(resPq, ClientSettings.PublicKey, out _newNonce);
                     ctx.WriteAndFlushAsync(requestReqDhParams);
                     break;
                 case TServerDHParamsOk dhParamsOk:
-                    Log.Debug("TServerDHParamsOk step complete");
+                    Log.Debug($"#{ClientSettings.ClientSession.SessionId}: TServerDHParamsOk step complete");
 
                     var request = Step3ClientHelper.GetRequest(dhParamsOk, _newNonce, out _clientAgree, out var serverTime);
                     ClientSettings.ClientSession.TimeOffset = serverTime - (int)DateTimeOffset.Now.ToUnixTimeSeconds();
@@ -74,7 +74,7 @@
                     
                     break;
                 case TDhGenOk dhGenOk:
-                    Log.Debug("TDhGenOk step complete");
+                    Log.Debug($"#{ClientSettings.ClientSession.SessionId}: TDhGenOk step complete");
 
                     ClientSettings.ClientSession.AuthKey = new AuthKey(_clientAgree);
                     ClientSettings.ClientSession.ServerSalt = SaltHelper.ComputeSalt(_newNonce, dhGenOk.ServerNonce);

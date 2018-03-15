@@ -19,4 +19,7 @@
     <PackageReference Include="NullGuard.Fody" Version="1.7.1" />
     <PackageReference Include="OpenTl.Common" Version="1.0.12" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\OpenTl.Common\src\OpenTl.Common\OpenTl.Common.csproj" />
+  </ItemGroup>
 </Project>

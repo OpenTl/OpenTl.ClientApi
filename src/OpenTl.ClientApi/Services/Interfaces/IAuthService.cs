@@ -11,14 +11,14 @@
     public interface IAuthService
     {
         /// <summary>Returns the current user ID. Null - if the session is not authenticated</summary>
-        long? CurrentUserId { get; }
+        int? CurrentUserId { get; }
 
         /// <summary>
         ///     Sends a cloud password if an exception <inheritdoc cref="CloudPasswordNeededException" /> is caught in the
         ///     previous step <inheritdoc cref="SignInAsync" />
         /// </summary>
         /// <param name="password"></param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="cancellationToken">Сancellation token</param>
         /// <returns></returns>
         Task<TUser> CheckCloudPasswordAsync(string password, CancellationToken cancellationToken = default(CancellationToken));
 

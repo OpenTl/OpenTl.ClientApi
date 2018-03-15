@@ -19,12 +19,14 @@
 
         public override bool IsSharable { get; } = true;
         
+        public IClientSettings ClientSettings { get; set; }
+
         protected override void ChannelRead0(IChannelHandlerContext ctx, TMsgsAck msg)
         {
             if (Log.IsDebugEnabled)
             {
                 var jMessages = JsonConvert.SerializeObject(msg.MsgIds.Items);
-                Log.Debug($"Receiving confirmation of the messages: {jMessages}");
+                Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Receiving confirmation of the messages: {jMessages}");
             }
         }
     }

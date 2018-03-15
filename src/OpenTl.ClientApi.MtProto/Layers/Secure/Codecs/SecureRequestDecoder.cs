@@ -35,7 +35,7 @@
 
             var message = Serializer.Deserialize(decodeBuffer);
 
-            Log.Debug($"Recieve the secure message {message}");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Recieve the secure message {message}");
 
             output.Add(message);
         }

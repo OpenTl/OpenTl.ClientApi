@@ -17,9 +17,11 @@
 
         public override bool IsSharable { get; } = true;
         
+        public IClientSettings ClientSettings { get; set; }
+
         protected override void ChannelRead0(IChannelHandlerContext ctx, TNewSessionCreated msg)
         {
-            Log.Debug("Handle a new session was created");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Handle a new session was created");
         }
     }
 }

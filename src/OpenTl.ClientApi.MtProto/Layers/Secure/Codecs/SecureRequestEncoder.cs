@@ -56,7 +56,7 @@
                 messageBuffer.Release();
             }
 
-            Log.Debug($"Send secure message {message} with messageId = {messageId} and sequenceNumber = {sequenceNumber}");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Send secure message {message} with messageId = {messageId} and sequenceNumber = {sequenceNumber}");
             
             if (isRequest)
             {

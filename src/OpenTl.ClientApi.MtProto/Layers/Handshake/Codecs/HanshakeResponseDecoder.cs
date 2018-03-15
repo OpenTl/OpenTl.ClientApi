@@ -20,6 +20,8 @@ namespace OpenTl.ClientApi.MtProto.Layers.Handshake.Codecs
 
         public IWindsorContainer Container { get; set; }
 
+        public IClientSettings ClientSettings { get; set; }
+        
         protected override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
         {
             if (input is EmptyByteBuffer)
@@ -40,7 +42,7 @@ namespace OpenTl.ClientApi.MtProto.Layers.Handshake.Codecs
 
             var message = Serializer.Deserialize(input);
         
-            Log.Debug($"Recieve the message {message} with id: {messageId}");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Recieve the message {message} with id: {messageId}");
         
             output.Add(message);
         }

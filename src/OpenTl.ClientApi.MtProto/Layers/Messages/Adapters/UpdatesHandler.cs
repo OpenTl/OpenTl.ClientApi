@@ -21,12 +21,14 @@
         
         public IUpdatesRaiser UpdateRaiser { get; set; }
 
+        public IClientSettings ClientSettings { get; set; }
+
         protected override void ChannelRead0(IChannelHandlerContext ctx, IUpdates msg)
         {
             if (Log.IsDebugEnabled)
             {
                 var jUpdate = JsonConvert.SerializeObject(msg);
-                Log.Debug($"Recieve Updates \n{jUpdate}");
+                Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Recieve Updates \n{jUpdate}");
             }
 
             UpdateRaiser.OnUpdateRecieve(msg);

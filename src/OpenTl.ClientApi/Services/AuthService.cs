@@ -34,7 +34,7 @@
         public ILogoutService LogoutService { get; set; }
         
         /// <inheritdoc />
-        public long? CurrentUserId => ClientSettings.ClientSession.UserId;
+        public int? CurrentUserId => ClientSettings.ClientSession.UserId;
 
         /// <inheritdoc />
         public async Task<TUser> CheckCloudPasswordAsync(string password, CancellationToken cancellationToken = default(CancellationToken))

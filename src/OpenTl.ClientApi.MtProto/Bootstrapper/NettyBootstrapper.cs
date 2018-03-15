@@ -14,6 +14,8 @@
     using DotNetty.Transport.Channels;
     using DotNetty.Transport.Channels.Sockets;
 
+    using log4net;
+
     using OpenTl.ClientApi.MtProto.Layers.Handshake;
     using OpenTl.ClientApi.MtProto.Layers.Messages;
     using OpenTl.ClientApi.MtProto.Layers.Secure;
@@ -24,6 +26,8 @@
     [SingleInstance(typeof(INettyBootstrapper))]
     internal sealed class NettyBootstrapper : INettyBootstrapper
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(NettyBootstrapper));
+
         private readonly Bootstrap _bootstrap = new Bootstrap();
 
         public IWindsorContainer Container { get; set; }
@@ -44,13 +48,17 @@
                         {
                             var pipeline = channel.Pipeline;
 
-                            pipeline.AddLast(new LoggingHandler(LogLevel.DEBUG));
                             pipeline.AddLast(new LengthFieldBasedFrameDecoder(ByteOrder.LittleEndian, int.MaxValue, 0, 4, -4, 0, true));
-                            pipeline.AddLast(new TcpLayerHandlerAdapter());
+                            pipeline.AddLast(Container.ResolveAll<ITcpHandler>());
                             pipeline.AddLast(Container.ResolveAll<IHandshakeHandler>());
                             pipeline.AddLast(Container.ResolveAll<ISecureHandler>());
                             pipeline.AddLast(Container.ResolveAll<IMessageHandler>());
                             pipeline.AddLast(Container.ResolveAll<ITopLevelHandler>());
+                           
+                            if (Log.IsDebugEnabled)
+                            {
+                                pipeline.AddLast(new LoggingHandler(LogLevel.DEBUG));
+                            }
                         })
                 );
 

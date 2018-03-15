@@ -1,13 +1,24 @@
 ﻿namespace OpenTl.ClientApi.Services.Interfaces
 {
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
+    using OpenTl.Schema;
     using OpenTl.Schema.Contacts;
 
     // <summary>Working with contacts</summary>
     public interface IContactsService
     {
+        /// <summary>
+        /// Import contacts to the server
+        /// </summary>
+        /// <param name="contacts">Importing contacts</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Imported contacts</returns>
+        Task<IImportedContacts> ImportContactsAsync(IReadOnlyList<TInputPhoneContact> contacts, CancellationToken cancellationToken = default(CancellationToken));
+
+        
         /// <summary>Returns the current user’s contact list</summary>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Contacts</returns>

@@ -28,7 +28,7 @@
         
         protected override void ChannelRead0(IChannelHandlerContext ctx, TBadServerSalt msg)
         {
-            Log.Info($"Bad server sault detected! message id = {msg.BadMsgId} ");
+            Log.Info($"#{ClientSettings.ClientSession.SessionId}: Bad server sault detected! message id = {msg.BadMsgId} ");
 
             ClientSettings.ClientSession.ServerSalt = BitConverter.GetBytes(msg.NewServerSalt);
            

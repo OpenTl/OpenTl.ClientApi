@@ -28,6 +28,8 @@
 
         public override bool IsSharable { get; } = true;
         
+        public IClientSettings ClientSettings { get; set; }
+
         protected override void Decode(IChannelHandlerContext context, TgZipPacked message, List<object> output)
         {
             var unzippedObj = UnzipPackage(message);
@@ -37,7 +39,7 @@
 
         public IObject UnzipPackage(TgZipPacked message)
         {
-            Log.Debug($"Process TgZipPacked message");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Process TgZipPacked message");
             
             using (var decompressStream = new MemoryStream())
             {
@@ -60,7 +62,7 @@
                     if (Log.IsDebugEnabled)
                     {
                         var jObject = JsonConvert.SerializeObject(unzippedObj);
-                        Log.Debug($"Recived Gzip message {unzippedObj}: {jObject}");
+                        Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Recived Gzip message {unzippedObj}: {jObject}");
                     }
 
                     return unzippedObj;

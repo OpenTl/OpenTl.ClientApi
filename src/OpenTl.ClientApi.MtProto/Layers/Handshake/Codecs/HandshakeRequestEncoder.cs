@@ -30,7 +30,7 @@
             var newMessageId = ClientSettings.ClientSession.GenerateMessageId();
             SessionWriter.Save(ClientSettings.ClientSession);
             
-            Log.Debug($"Send handshake message {message} with id : {newMessageId}");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Send handshake message {message} with id : {newMessageId}");
 
             var dataBuffer = PooledByteBufferAllocator.Default.Buffer();
             Serializer.Serialize(message, dataBuffer);

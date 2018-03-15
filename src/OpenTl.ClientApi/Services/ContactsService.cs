@@ -1,6 +1,7 @@
 ﻿namespace OpenTl.ClientApi.Services
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -26,6 +27,16 @@
             var req = new RequestGetContacts { Hash = 0 };
 
             return (TContacts)await RequestSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
+        }
+        
+        /// <inheritdoc />
+        public async Task<IImportedContacts> ImportContactsAsync(IReadOnlyList<TInputPhoneContact> contacts,  CancellationToken cancellationToken = default(CancellationToken))
+        {
+            ClientSettings.EnsureUserAuthorized();
+
+            var req = new RequestImportContacts {Contacts = new TVector<IInputContact>(contacts.ToArray())};
+
+            return await RequestSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
         }
 
         public async Task<IReadOnlyList<TContactStatus>> GetStatusesAsync(CancellationToken cancellationToken = default(CancellationToken))

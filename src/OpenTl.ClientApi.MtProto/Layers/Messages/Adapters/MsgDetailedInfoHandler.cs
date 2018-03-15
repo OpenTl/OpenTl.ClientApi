@@ -18,13 +18,15 @@
         public int Order { get; } = 100;
 
         public override bool IsSharable { get; } = true;
-        
+
+        public IClientSettings ClientSettings { get; set; }
+
         protected override void ChannelRead0(IChannelHandlerContext ctx, TMsgDetailedInfo msg)
         {
             if (Log.IsDebugEnabled)
             {
                 var jMessages = JsonConvert.SerializeObject(msg);
-                Log.Debug($"Receiving MsgDetailedInfo message: {jMessages}");
+                Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Receiving MsgDetailedInfo message: {jMessages}");
             }
         }
     }

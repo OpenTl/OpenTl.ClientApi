@@ -20,9 +20,11 @@
         
         public IRequestService RequestService { get; set; }
 
+        public IClientSettings ClientSettings { get; set; }
+
         protected override void ChannelRead0(IChannelHandlerContext ctx, TPong msg)
         {
-            Log.Debug("Handle pong");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Handle pong");
             
             RequestService.ReturnResult(msg.MsgId, msg);
         }

@@ -44,7 +44,7 @@
 
             if (ClientSettings.ClientSession.SessionWasHandshaked())
             {
-                Log.Debug("Session was found.");
+                Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Session was found.");
 
                 UserEventTriggered(context, ESystemNotification.HandshakeComplete);
             }
@@ -52,7 +52,7 @@
 
         public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
         {
-            Log.ErrorExt($"Caught exception", exception);
+            Log.ErrorExt($"#{ClientSettings.ClientSession.SessionId}: Caught exception", exception);
 
             RequestService.ReturnException(exception);
         }
@@ -62,7 +62,7 @@
             switch (evt)
             {
                 case ESystemNotification.HandshakeComplete:
-                    Log.Debug("Handshake is complete");
+                    Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Handshake is complete");
 
                     SendInitConnectionRequest().ConfigureAwait(false);
                     break;
@@ -71,12 +71,12 @@
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, IObject msg)
         {
-            Log.Warn($"Unhandled message {msg}");
+            Log.Warn($"#{ClientSettings.ClientSession.SessionId}: Unhandled message {msg}");
         }
 
         private async Task SendInitConnectionRequest()
         {
-            Log.Debug("Send init connection request");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Send init connection request");
 
             try
             {

@@ -8,6 +8,7 @@
 
     using NullGuard;
 
+    using OpenTl.ClientApi.MtProto;
     using OpenTl.Common.IoC;
 
     [SingleInstance(typeof(ISessionStore))]
