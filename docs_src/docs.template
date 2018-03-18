@@ -1,0 +1,14 @@
+server {
+   listen ${NGINX_PORT};
+   index index.html;
+   server_name localhost;
+   error_log  /var/log/nginx/error.log;
+   
+   location / {
+      root /usr/share/nginx/html;
+   }
+
+   location /OpenTl.ClientApi {
+      alias /usr/share/nginx/html;
+   }
+}

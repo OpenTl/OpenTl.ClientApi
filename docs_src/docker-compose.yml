@@ -1,0 +1,11 @@
+web:
+  image: nginx
+  volumes:
+   - ./docs.template:/etc/nginx/conf.d/docs.template
+   - ../docs:/usr/share/nginx/html
+  ports:
+   - "80:80"
+  environment:
+   - NGINX_HOST=localhost
+   - NGINX_PORT=80
+  command: /bin/bash -c "envsubst < /etc/nginx/conf.d/docs.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"

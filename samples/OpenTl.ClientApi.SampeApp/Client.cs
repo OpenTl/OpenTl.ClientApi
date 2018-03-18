@@ -15,7 +15,7 @@
 
         public async Task Init(IFactorySettings factorySettings)
         {
-            _clientApi = await ClientFactory.BuildClient(factorySettings);
+            _clientApi = await ClientFactory.BuildClient(factorySettings).ConfigureAwait(false);
             
         }
 

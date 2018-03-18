@@ -6,5 +6,6 @@ Settings[DocsKeys.Title] = "OpenTl.ClientApi";
 Settings[Keys.LinkRoot] = "/OpenTl.ClientApi";
 Settings[DocsKeys.ImplicitInheritDoc] = true;
 Settings[Keys.LinkHideExtensions] = false;
+Settings[DocsKeys.ValidateRelativeLinks] = true;
 Settings[DocsKeys.SourceFiles] = @"../../src/**/{!bin,!obj,!packages,!*.Tests,}/**/*.cs";
 // Add any pipeline customizations here

@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+        <meta name="description" />
+        <meta name="keywords" content="static content generator,static site generator,static site,HTML,web development,.NET,C#,Razor,Markdown,YAML" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
+        <title>OpenTl.ClientApi - Quickstart</title>
+        <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
+        <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
+        <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
+        <link href="/OpenTl.ClientApi/assets/css/adminlte/AdminLTE.css" rel="stylesheet" />
+        <link href="/OpenTl.ClientApi/assets/css/theme/theme.css" rel="stylesheet" />
+        <link href="//fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,400i,700,700i" rel="stylesheet">
+        <link href="/OpenTl.ClientApi/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="/OpenTl.ClientApi/assets/css/override.css" rel="stylesheet" />
+        <script src="/OpenTl.ClientApi/assets/js/jquery-2.2.3.min.js"></script>
+        <script src="/OpenTl.ClientApi/assets/js/bootstrap.min.js"></script>        
+        <script src="/OpenTl.ClientApi/assets/js/app.min.js"></script>         
+        <script src="/OpenTl.ClientApi/assets/js/highlight.pack.js"></script>   
+        <script src="/OpenTl.ClientApi/assets/js/jquery.slimscroll.min.js"></script>
+        <script src="/OpenTl.ClientApi/assets/js/jquery.sticky-kit.min.js"></script>
+        <script src="/OpenTl.ClientApi/assets/js/mermaid.min.js"></script>
+        <!--[if lt IE 9]>
+        <script src="/OpenTl.ClientApi/assets/js/html5shiv.min.js"></script>
+        <script src="/OpenTl.ClientApi/assets/js/respond.min.js"></script>
+        <![endif]-->  
+
+        
+    </head>
+    <body class="hold-transition wyam layout-boxed  ">    
+        <div class="top-banner"></div>
+        <div class="wrapper with-container">
+            <!-- Header -->
+            <header class="main-header">   
+                     
+                <a href="/OpenTl.ClientApi/" class="logo">
+                            <span>OpenTl.ClientApi</span>
+                </a>   
+                         
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                        <a href="#" class="sidebar-toggle visible-xs-block" data-toggle="offcanvas" role="button">
+                            <span class="sr-only">Toggle side menu</span>
+                            <i class="fa fa-chevron-circle-right"></i>
+                        </a>
+                                        
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <span class="sr-only">Toggle side menu</span>
+                            <i class="fa fa-chevron-circle-down"></i>
+                        </button>
+                    </div>
+            
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                        <ul class="nav navbar-nav">                            
+                                    <li class="active"><a href="/OpenTl.ClientApi/Documentation">Documentation</a></li>
+        <li><a href="/OpenTl.ClientApi/api">API</a></li>
+ 
+                        </ul>       
+                    </div>
+                    <!-- /.navbar-collapse -->
+                
+                    <!-- Navbar Right Menu -->
+                </nav>
+            </header>
+            
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar ">
+                <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
+                    	
+    <div id="infobar-headings"></div>
+
+                </section>
+                <section class="sidebar">    
+                                     
+                    
+
+                    <ul class="sidebar-menu">
+                        
+                <li class="selected"><a href="/OpenTl.ClientApi/Documentation/QuickStart.html">Quickstart</a></li>
+
+                    </ul>
+                            
+                </section>                
+            </aside>
+            
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                
+
+
+
+	<section class="content-header">
+		<h1>Quickstart</h1>
+	</section>
+	<section class="content">
+		<html><head></head><body><h2 id="you-can-get-the-settings-for-telegram-here">You can get the settings for Telegram <a href="https://my.telegram.org/apps">here</a></h2>
+<h2 id="init-connection-and-authenticate">Init connection and authenticate</h2>
+<pre><code class="language-C#">using OpenTl.ClientApi;
+using OpenTl.ClientApi.MtProto.Exceptions;
+using OpenTl.Schema;
+
+var settings = new <a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/FactorySettings">FactorySettings</a>
+    {
+        AppHash = //e.g 456a6654ad8f52c54bc4542505884cad
+        AppId = // e.g 12345
+        ServerAddress = //e.g 149.154.167.50
+        ServerPublicKey = // e.g -----BEGIN RSA PUBLIC KEY-----\nMIIBCgKCAQEAwVACPi9w23mF3tBk...
+        ServerPort = // e.g 443
+        SessionTag = "session", // by defaut
+        Properties = new <a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/ApplicationProperties">ApplicationProperties</a>
+                        {
+                            AppVersion = "1.0.0", // You can leave as in the example
+                            DeviceModel = "PC", // You can leave as in the example
+                            LangCode = "en", // You can leave as in the example
+                            LangPack = "tdesktop", // You can leave as in the example
+                            SystemLangCode = "en", // You can leave as in the example
+                            SystemVersion = "Win 10 Pro" // You can leave as in the example
+                        }
+    };
+
+//Create the client
+var clientApi = await ClientFactory.BuildClient(settings).ConfigureAwait(false);
+
+// If the user is not authenticated
+if (!clientApi.CurrentUserId.HasValue){
+    // Auth
+    var phone = "+7555555555"; // User phone number with plus
+    var sentCode = await clientApi.AuthService.SendCodeAsync(phone).ConfigureAwait(false);
+
+    var code = "1234321" // Sent code
+
+    TUser user;
+    try
+    {
+        user = await clientApi.AuthService.SignInAsync(phone, sentCode, code).ConfigureAwait(false);
+    }
+    // If the user has a cloud password
+    catch (CloudPasswordNeededException)
+    {
+        var passwordStr = "qweasd" // User cloud password
+        user = await clientApi.AuthService.CheckCloudPasswordAsync(passwordStr).ConfigureAwait(false);
+    }
+    // If the phone code is invalid
+    catch (PhoneCodeInvalidException ex)
+    {
+    }
+}
+</code></pre>
+<h2 id="send-the-message">Send the message</h2>
+<pre><code class="language-C#">// Send message to myself
+await clientApi.MessagesService.SendMessageAsync(new TInputPeerSelf(), "Hello").ConfigureAwait(false);
+
+// Send message to user. User must be added to contacts. See ContactsService.ImportContactsAsync
+TUser toUser = null; // Must be set
+var inputUser = new TInputPeerUser
+                {
+                    UserId = toUser.Id,
+                    AccessHash = toUser.AccessHash
+                }
+await clientApi.MessagesService.SendMessageAsync(inputUser, "Hello").ConfigureAwait(false);
+</code></pre>
+<h2 id="recive-message">Recive message</h2>
+<h3 id="subscribe-to-event-updatesservice.recieveupdates">Subscribe to event UpdatesService.RecieveUpdates</h3>
+<p>The additional logic from the developer is not required. Updates come at once. If you miss an update, it will no longer come</p>
+<pre><code class="language-C#">// Send message to myself
+await clientApi.UpdatesService += update =&gt;
+{
+    // handle updates
+     switch (update)
+        {
+            case TUpdates updates:
+                break;
+            case TUpdatesCombined updatesCombined:
+                break;
+            case TUpdateShort updateShort:
+                break;
+            case TUpdateShortChatMessage updateShortChatMessage:
+                break;
+            case TUpdateShortMessage updateShortMessage:
+                break;
+            case TUpdateShortSentMessage updateShortSentMessage:
+                break;
+            case TUpdatesTooLong updatesTooLong:
+                break;
+        }
+};
+</code></pre>
+<h3 id="receive-updates-by-states-manually">Receive updates by states (manually)</h3>
+<p>It does not depend on whether there is a connection or not. The application can be turned off. The developer implements the logic of updating the status and requesting updates himself.</p>
+<pre><code class="language-C#">
+// Get the current state
+var currentState = await clientApi.UpdatesService.GetCurrentStateAsync().ConfigureAwait(false);
+
+// ...
+// Any time after
+// ...
+
+// Get updates from the state
+var updatesFromState = await client.UpdatesService.GetUpdatesAsync(currentState).ConfigureAwait(false);
+
+ // handle updates
+switch (updatesFromState)
+{
+    case TUpdates updates:
+        break;
+    case TUpdatesCombined updatesCombined:
+        break;
+    case TUpdateShort updateShort:
+        break;
+    case TUpdateShortChatMessage updateShortChatMessage:
+        break;
+    case TUpdateShortMessage updateShortMessage:
+        break;
+    case TUpdateShortSentMessage updateShortSentMessage:
+        break;
+    case TUpdatesTooLong updatesTooLong:
+        break;
+}
+</code></pre>
+</body></html>
+	</section>
+                
+            </div>           
+            
+            <!-- Footer -->
+            <footer class="main-footer">
+            </footer>
+            
+        </div>
+        <div class="wrapper bottom-wrapper">
+            <footer class="bottom-footer">
+                Generated by <a href="https://wyam.io">Wyam</a>
+            </footer>
+        </div>
+        <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+        
+        <script>           
+            // Close the sidebar if we select an anchor link
+            $(".main-sidebar a[href^='#']:not('.expand')").click(function(){
+                $(document.body).removeClass('sidebar-open');
+            });
+            
+            $(document).load(function() {
+                mermaid.initialize(
+                {
+                    flowchart:
+                    {
+                        htmlLabels: false,
+                        useMaxWidth:false
+                    }
+                });  
+                mermaid.init(undefined, ".mermaid")
+                $('svg').addClass('img-responsive');
+                
+                $('pre code').each(function(i, block) {
+                    hljs.highlightBlock(block);
+                });  
+            });
+            hljs.initHighlightingOnLoad();
+
+            // Back to top
+            $(window).scroll(function() {
+                if ($(this).scrollTop() >= 200) {        // If page is scrolled more than 50px
+                    $('#return-to-top').fadeIn(1000);    // Fade in the arrow
+                } else {
+                    $('#return-to-top').fadeOut(1000);   // Else fade out the arrow
+                }
+            });
+            $('#return-to-top').click(function() {      // When arrow is clicked
+                $('body,html').animate({
+                    scrollTop : 0                       // Scroll to top of body
+                }, 500);
+            });
+        </script>
+    </body>
+</html>

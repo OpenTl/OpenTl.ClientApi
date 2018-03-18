@@ -11,7 +11,7 @@
     using OpenTl.Schema.Updates;
 
     [SingleInstance(typeof(IUpdatesService), typeof(IUpdatesRaiser))]
-    internal class UpdatesApiService : IUpdatesService,
+    internal class UpdatesService : IUpdatesService,
                                        IUpdatesRaiser
     {
         public IClientSettings ClientSettings { get; set; }
@@ -19,7 +19,7 @@
         public IRequestSender SenderService { get; set; }
 
         /// <inheritdoc />
-        public async Task<IState> GetCurrentState(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IState> GetCurrentStateAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
 
@@ -27,7 +27,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<IDifference> GetUpdates(IState currentState, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IDifference> GetUpdatesFromState(IState currentState, CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
 
