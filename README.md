@@ -1,4 +1,5 @@
 # OpenTl.ClientApi
+
 [![Build status](https://ci.appveyor.com/api/projects/status/nh3ek3735uqscqhx/branch/master?svg=true)](https://ci.appveyor.com/project/vik_borisov/opentl-clientapi/branch/master)
 [![NuGet version](https://badge.fury.io/nu/OpenTl.ClientApi.svg)](https://badge.fury.io/nu/OpenTl.ClientApi)
 [![Telegram group](https://img.shields.io/badge/TELEGRAM-GROUP-green.svg)](https://t.me/joinchat/D1EEGBGwdrHcoNbzXALYPg)
@@ -11,23 +12,30 @@ It's a perfect fit for any developer who would like to send data directly to Tel
 
 :star2: If you :heart: library, please star it! :star2:
 
-# How do I add this to my project?
+## How do I add this to my project?
 
 Install via NuGet
 
 ```
 	> Install-Package OpenTl.ClientApi
 ```
+
 ## Feature request
+
 If you want the desired function to appear in the library faster - [create feature request](http://feathub.com/OpenTl/OpenTl.ClientApi), the more votes it gets, the higher the priority
 
 [![Feature Requests](http://feathub.com/OpenTl/OpenTl.ClientApi?format=svg)](http://feathub.com/OpenTl/OpenTl.ClientApi)
 
+## [Library Documentation](https://opentl.github.io/OpenTl.ClientApi/)
 
-## [Library Documentation](https://opentl.github.io/OpenTl.ClientApi/api/)
+## [Quick Start](https://opentl.github.io/OpenTl.ClientApi/Documentation/QuickStart)
+
 ## [Schema Documentation](https://opentl.github.io/OpenTl.Schema/api/)
+
 ## [Code of Conduct](./CODE_OF_CONDUCT.md)
-#### Nothing helps
+
+### Nothing helps
+
 Ask your question at telegram group or create an issue in project bug tracker.
 
 **Attach following information**:
@@ -36,4 +44,4 @@ Ask your question at telegram group or create an issue in project bug tracker.
 * Stack-trace
 * Your code that runs in to this exception
 
-Without information listen above your issue will be closed. 
+Without information listen above your issue will be closed.
