@@ -30,7 +30,7 @@ var settings = new FactorySettings
 var clientApi = await ClientFactory.BuildClient(settings).ConfigureAwait(false);
 
 // If the user is not authenticated
-if (!clientApi.CurrentUserId.HasValue){
+if (!clientApi.AuthService.CurrentUserId.HasValue){
     // Auth
     var phone = "+7555555555"; // User phone number with plus
     var sentCode = await clientApi.AuthService.SendCodeAsync(phone).ConfigureAwait(false);
@@ -107,7 +107,6 @@ await clientApi.UpdatesService += update =>
 It does not depend on whether there is a connection or not. The application can be turned off. The developer implements the logic of updating the status and requesting updates himself.
 
 ``` C#
-
 // Get the current state
 var currentState = await clientApi.UpdatesService.GetCurrentStateAsync().ConfigureAwait(false);
 
