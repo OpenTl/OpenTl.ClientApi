@@ -28,6 +28,11 @@
         /// <returns></returns>
         Task<bool> IsPhoneRegisteredAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>Logout the current user</summary>
+        /// <param name="cancellationToken">Сancellation token</param>
+        /// <returns>Logout succeess</returns>
+        Task LogoutAsync(CancellationToken cancellationToken = default(CancellationToken));
+
         /// <summary>The first stage of authentication or registration. Request to send a verification code</summary>
         /// <param name="phoneNumber">Phone number</param>
         /// <param name="cancellationToken">Сancellation token</param>
@@ -62,12 +67,5 @@
                                 string firstName,
                                 string lastName,
                                 CancellationToken cancellationToken = default(CancellationToken));
-
-        /// <summary>
-        /// Logout the current user
-        /// </summary>
-        /// <param name="cancellationToken">Сancellation token</param>
-        /// <returns>Logout succeess</returns>
-        Task LogoutAsync(CancellationToken cancellationToken = default(CancellationToken));
     }
 }

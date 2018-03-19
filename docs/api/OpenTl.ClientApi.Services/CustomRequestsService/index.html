@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
-        <title>OpenTl.ClientApi - API - IClientApi.UpdatesService Property</title>
+        <title>OpenTl.ClientApi - API - CustomRequestsService Class</title>
         <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
@@ -71,9 +71,10 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Summary">Summary</a></p>
-<p><a href="#Syntax">Syntax</a></p>
-<p><a href="#Value">Value</a></p>
+	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Syntax">Syntax</a></p>
+<p><a href="#Attributes">Attributes</a></p>
+<p><a href="#Properties">Properties</a></p>
+<p><a href="#Methods">Methods</a></p>
 <hr class="infobar-hidden">
 </div>
 
@@ -133,21 +134,11 @@
                     <ul class="sidebar-menu">
                         
 			<li class="header">Namespace</li>
-		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi">OpenTl<wbr>.ClientApi</a></li>
-		<li class="header">Type</li>
-		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi">IClientApi</a></li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services">OpenTl<wbr>.ClientApi<wbr>.Services</a></li>
 		<li role="separator" class="divider"></li>
-			<li class="header">Property Members</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/517A9FB9.html">AuthService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/FCF58CE0.html">ContactsService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/5BCF506E.html">Custom<wbr>Requests<wbr>Service</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/0CFB2B21.html">FileService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/CB0F3A5D.html">HelpService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/71EE2BEA.html">MessagesService</a></li>
-				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/B0847592.html">UpdatesService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/FFB9076F.html">UsersService</a></li>
-			<li class="header">Method Members</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/A3C8B547.html">KeepAliveConnection<wbr>()<wbr></a></li>
+			<li class="header">Class Types</li>
+				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService">Custom<wbr>Requests<wbr>Service</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService">UsersService</a></li>
 
 
                     </ul>
@@ -162,37 +153,60 @@
 
 
 <section class="content-header">
-			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi">IClientApi</a>.</h3>
-	<h1>UpdatesService <small>Property</small></h1>
+	<h1>Custom<wbr>Requests<wbr>Service <small>Class</small></h1>
 </section>
 <section class="content">
 	
 	
-		<h1 id="Summary">Summary</h1>
-	<div class="lead">Automatic and manual updates</div>
-
+	
 		<div class="panel panel-default">
   			<div class="panel-body">
-				<dl class="dl-horizontal">	
-						
-						<dt>Namespace</dt>
-						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi">OpenTl<wbr>.ClientApi</a></dd>
-					
-						<dt>Containing Type</dt>
-						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi">IClientApi</a></dd>		
-					
-				</dl>
+				<div class="row">
+					<div class="col-md-6">
+						<dl class="dl-horizontal">		
+
+								<dt>Namespace</dt>
+								<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services">OpenTl<wbr>.ClientApi<wbr>.Services</a></dd>
+											
+								<dt>Interfaces</dt>
+								<dd>
+									<ul class="list-unstyled">
+											<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService">I<wbr>Custom<wbr>Requests<wbr>Service</a></li>								
+									</ul>
+								</dd>
+							
+								<dt>Base Types</dt>
+								<dd>
+									<ul class="list-unstyled">										
+											<li>object</li>								
+									</ul>
+								</dd>				
+							
+							
+						</dl>
+					</div>		
+					<div class="col-md-6">
+						<div class="mermaid">
+							graph TD
+	Base0["object"]--&gt;Type
+	Interface0["ICustomRequestsService"]-.-&gt;Type
+	click Interface0 "/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService"
+	Type["CustomRequestsService"]
+class Type type-node
+
+						</div>
+					</div>
+				</div>
   			</div>
 		</div>
 
 	<h1 id="Syntax">Syntax</h1>
-	<pre><code>IUpdatesService UpdatesService { get; }</code></pre>
+	<pre><code>[SingleInstance(typeof (ICustomRequestsService))]
+public class CustomRequestsService : ICustomRequestsService</code></pre>
 
 
 
-
-
-	<h1 id="Value">Value</h1>
+	<h1 id="Attributes">Attributes</h1>
 	<div class="box">
 		<div class="box-body no-padding table-responsive">
 			<table class="table table-striped table-hover two-cols">
@@ -202,13 +216,99 @@
 						<th>Description</th>
 					</tr>
 				</thead>
-				<tbody><tr>
-					<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService">IUpdatesService</a></td>
-					<td></td>
-				</tr>
+					<tbody><tr>
+						<td>SingleInstance</td>
+						<td></td>
+					</tr>
 			</tbody></table>
 		</div>
 	</div>	
+
+
+
+
+
+
+			<h1 id="Properties">Properties</h1>
+			<div class="box">
+				<div class="box-body no-padding table-responsive">
+					<table class="table table-striped table-hover three-cols">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Value</th>
+								<th>Summary</th>
+							</tr>
+						</thead>
+							<tbody><tr>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService/27A61241.html">ClientSettings</a></td>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings">IClientSettings</a></td>
+								<td>
+									<div></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService/D781ACDD.html">ContextGetter</a></td>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Interfaces/IContextGetter">IContextGetter</a></td>
+								<td>
+									<div></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService/8A05696A.html">RequestSender</a></td>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IRequestSender">IRequestSender</a></td>
+								<td>
+									<div></div>
+								</td>
+							</tr>
+					</tbody></table>
+				</div>
+			</div>
+		
+
+			<h1 id="Methods">Methods</h1>
+			<div class="box">
+				<div class="box-body no-padding table-responsive">
+					<table class="table table-striped table-hover three-cols">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Value</th>
+								<th>Summary</th>
+							</tr>
+						</thead>
+							<tbody><tr>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService/4C06A11D.html">SendRequestAsync<wbr>&lt;TResult&gt;<wbr><wbr>(IRequest<wbr>&lt;TResult&gt;<wbr>, <wbr>CancellationToken)<wbr></a></td>
+								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>
+									<div>
+    Send custom requests
+    </div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService/1068D576.html">Send<wbr>Request<wbr>To<wbr>Other<wbr>Dc<wbr>Async<wbr>&lt;TResult&gt;<wbr><wbr>(int, <wbr>Func<wbr>&lt;Task<wbr>&lt;TResult&gt;<wbr>&gt;<wbr>, <wbr>CancellationToken)<wbr></a></td>
+								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>
+									<div>
+    Send custom requests to the other DC
+    </div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService/F6DBED08.html">Send<wbr>Request<wbr>To<wbr>Other<wbr>Dc<wbr>Async<wbr>&lt;TResult&gt;<wbr><wbr>(int, <wbr>IRequest<wbr>&lt;TResult&gt;<wbr>, <wbr>CancellationToken)<wbr></a></td>
+								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>
+									<div>
+    Send custom requests to the other DC
+    </div>
+								</td>
+							</tr>
+					</tbody></table>
+				</div>
+			</div>
+		
+
 
 
 	

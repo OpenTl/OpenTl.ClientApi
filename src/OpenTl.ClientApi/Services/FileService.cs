@@ -12,9 +12,11 @@
 
     using OpenTl.ClientApi.Extensions;
     using OpenTl.ClientApi.MtProto;
+    using OpenTl.ClientApi.MtProto.Exceptions;
     using OpenTl.ClientApi.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
+    using OpenTl.Schema.Auth;
     using OpenTl.Schema.Upload;
 
     [SingleInstance(typeof(IFileService))]
@@ -26,11 +28,11 @@
 
         private readonly int DownloadPhotoPartSize = 64 * 1024; // 64kb for photo
 
-        public IRequestSender RequestSender { get; set; }
+        public ICustomRequestsService RequestService { get; set; }
 
         public IClientSettings ClientSettings { get; set; }
 
-        public async Task<IFile> DownloadFile(IInputFileLocation location, int offset = 0, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IFile> DownloadFileAsync(IInputFileLocation location, int offset = 0, CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
 
@@ -38,62 +40,23 @@
                                    ? DownloadDocumentPartSize
                                    : DownloadPhotoPartSize;
 
-            //TODO: Add handle FileMigrationException
-            return await RequestSender.SendRequestAsync(
-                       new RequestGetFile
-                       {
-                           Location = location,
-                           Limit = filePartSize,
-                           Offset = offset
-                       },
-                       cancellationToken).ConfigureAwait(false);
-
-            // try
-            // {
-            //     return await PackageSender.SendRequestAsync(
-            //                new RequestGetFile
-            //                {
-            //                    Location = location,
-            //                    Limit = filePartSize,
-            //                    Offset = offset
-            //                },
-            //                cancellationToken).ConfigureAwait(false);
-            // }
-            // catch (FileMigrationException ex)
-            // {
-            //     var exportedAuth = (TExportedAuthorization)await PackageSender.SendRequestAsync(
-            //                                                    new RequestExportAuthorization
-            //                                                    {
-            //                                                        DcId = ex.Dc
-            //                                                    },
-            //                                                    cancellationToken).ConfigureAwait(false);
-
-            // //     var authKey = ClientSettings.Session.AuthKey;
-            //     var timeOffset = ClientSettings.Session.TimeOffset;
-            //     var serverAddress = ClientSettings.Session.ServerAddress;
-            //     var serverPort = ClientSettings.Session.Port;
-
-            // //     await ConnectApiService.ReconnectToDcAsync(ex.Dc).ConfigureAwait(false);
-            //     await PackageSender.SendRequestAsync(
-            //         new RequestImportAuthorization
-            //         {
-            //             Bytes = exportedAuth.Bytes,
-            //             Id = exportedAuth.Id
-            //         },
-            //         cancellationToken).ConfigureAwait(false);
-            //     var result = await GetFile(location, offset, cancellationToken).ConfigureAwait(false);
-
-            // //     ClientSettings.Session.AuthKey = authKey;
-            //     ClientSettings.Session.TimeOffset = timeOffset;
-            //     ClientSettings.Session.ServerAddress = serverAddress;
-            //     ClientSettings.Session.Port = serverPort;
-            //     await ConnectApiService.ConnectAsync().ConfigureAwait(false);
-
-            // //     return result;
-            // }
+            var requestGetFile = new RequestGetFile
+                                 {
+                                     Location = location,
+                                     Limit = filePartSize,
+                                     Offset = offset
+                                 };
+            try
+            {
+                return await RequestService.SendRequestAsync(requestGetFile, cancellationToken).ConfigureAwait(false);
+            }
+            catch (FileMigrationException ex)
+            {
+                return await RequestService.SendRequestToOtherDcAsync(ex.Dc, requestGetFile, cancellationToken).ConfigureAwait(false);
+            }
         }
 
-        public async Task<IInputFile> UploadFile(string name, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IInputFile> UploadFileAsync(string name, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
 
@@ -112,7 +75,7 @@
 
                 if (isBigFileUpload)
                 {
-                    await RequestSender.SendRequestAsync(
+                    await RequestService.SendRequestAsync(
                         new RequestSaveBigFilePart
                         {
                             FileId = fileId,
@@ -124,7 +87,7 @@
                 }
                 else
                 {
-                    await RequestSender.SendRequestAsync(
+                    await RequestService.SendRequestAsync(
                         new RequestSaveFilePart
                         {
                             FileId = fileId,

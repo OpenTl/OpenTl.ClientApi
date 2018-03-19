@@ -1,6 +1,7 @@
 ﻿namespace OpenTl.ClientApi.FunctinonalTests
 {
     using System;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -8,11 +9,12 @@
 
     using OpenTl.ClientApi.FunctinonalTests.Framework;
     using OpenTl.Schema;
+    using OpenTl.Schema.Help;
 
     using Xunit;
     using Xunit.Abstractions;
 
-    public sealed class CustomRequestServiceTests: BaseTest
+    public sealed class CustomRequestServiceTests: TestWithAuth
     {
         private static readonly Random Random = new Random();
         
@@ -28,6 +30,21 @@
             var pong = await ClientApi.CustomRequestsService.SendRequestAsync(requestPing, CancellationToken.None).ConfigureAwait(false);
             
             Assert.Equal(requestPing.PingId, pong.PingId);
+        }
+        
+        [Fact]
+        public async Task SendoOtherDc()
+        {
+            var config = await ClientApi.HelpService.GetConfig().ConfigureAwait(false);
+
+            var otherDc = config.DcOptions.Items.First(d => d.Id != config.ThisDc);
+
+            var otherConfig = await ClientApi.CustomRequestsService.SendRequestToOtherDcAsync(otherDc.Id, async () => await ClientApi.HelpService.GetConfig().ConfigureAwait(false)).ConfigureAwait(false);
+
+            var config2 = await ClientApi.HelpService.GetConfig().ConfigureAwait(false);
+            
+            Assert.Equal(otherDc.Id, otherConfig.ThisDc);
+            Assert.Equal(config.ThisDc, config2.ThisDc);
         }
     }
 }

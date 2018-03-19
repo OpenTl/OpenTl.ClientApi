@@ -31,6 +31,8 @@
 
         private readonly Bootstrap _bootstrap = new Bootstrap();
 
+        private static readonly MultithreadEventLoopGroup MultithreadEventLoopGroup = new MultithreadEventLoopGroup();
+
         public IWindsorContainer Container { get; set; }
         
         public IClientSettings ClientSettings { get; set; }
@@ -41,7 +43,7 @@
             Guard.That(ClientSettings.ClientSession.Port).IsNotDefault();
 
             _bootstrap
-                .Group(new MultithreadEventLoopGroup())
+                .Group(MultithreadEventLoopGroup)
                 .Channel<TcpSocketChannel>()
                 .Handler(
                     new ActionChannelInitializer<ISocketChannel>(

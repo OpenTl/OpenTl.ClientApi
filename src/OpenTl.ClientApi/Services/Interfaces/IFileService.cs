@@ -14,13 +14,13 @@
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>File</returns>
-        Task<IFile> DownloadFile(IInputFileLocation location, int offset = 0, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IFile> DownloadFileAsync(IInputFileLocation location, int offset = 0, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>Upload file</summary>
         /// <param name="name">File name</param>
         /// <param name="stream">File stream</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns></returns>
-        Task<IInputFile> UploadFile(string name, Stream stream, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IInputFile> UploadFileAsync(string name, Stream stream, CancellationToken cancellationToken = default(CancellationToken));
     }
 }
