@@ -25,7 +25,7 @@
 
         public void AttachRequestToMessageId(IRequest request, long messageId)
         {
-            var cacheItem = _requestQueue.FirstOrDefault(item => item.Request == request);
+            var cacheItem = _requestQueue.ToArray().FirstOrDefault(item => item.Request == request);
 
             if (cacheItem == null)
             {
@@ -72,7 +72,7 @@
                 return null;
             }
 
-            cacheItem.Timer.Dispose();
+            cacheItem.Timer?.Dispose();
             cacheItem.Timer = null;
 
             return cacheItem.Request;
@@ -107,7 +107,7 @@
             {
                 _requestQueue.Remove(cacheItem);
 
-                cacheItem.Timer.Dispose();
+                cacheItem.Timer?.Dispose();
 
                 cacheItem.TaskSource.TrySetException(exception);
 
@@ -125,7 +125,7 @@
 
             foreach (var cacheItem in _requestQueue)
             {
-                cacheItem.Timer.Dispose();
+                cacheItem.Timer?.Dispose();
 
                 cacheItem.TaskSource.TrySetException(exception);
             }
@@ -140,7 +140,7 @@
             {
                 _requestQueue.Remove(cacheItem);
 
-                cacheItem.Timer.Dispose();
+                cacheItem.Timer?.Dispose();
 
                 cacheItem.TaskSource.TrySetResult(obj);
             }
