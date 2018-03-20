@@ -27,7 +27,7 @@ var settings = new FactorySettings
     };
 
 //Create the client
-var clientApi = await ClientFactory.BuildClient(settings).ConfigureAwait(false);
+var clientApi = await ClientFactory.BuildClientAsync(settings).ConfigureAwait(false);
 
 // If the user is not authenticated
 if (!clientApi.AuthService.CurrentUserId.HasValue){

@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
-        <title>OpenTl.ClientApi - API - CustomRequestsService.SendRequestToOtherDcAsync&lt;TResult&gt;(int, Func&lt;Task&lt;TResult&gt;&gt;, CancellationToken) Method</title>
+        <title>OpenTl.ClientApi - API - ICustomRequestsService.SendRequestToOtherDcAsync&lt;TResult&gt;(int, Func&lt;IClientApi, Task&lt;TResult&gt;&gt;, CancellationToken) Method</title>
         <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
@@ -135,18 +135,14 @@
                     <ul class="sidebar-menu">
                         
 			<li class="header">Namespace</li>
-		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services">OpenTl<wbr>.ClientApi<wbr>.Services</a></li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces">OpenTl<wbr>.ClientApi<wbr>.Services<wbr>.Interfaces</a></li>
 		<li class="header">Type</li>
-		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService">Custom<wbr>Requests<wbr>Service</a></li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService">I<wbr>Custom<wbr>Requests<wbr>Service</a></li>
 		<li role="separator" class="divider"></li>
-			<li class="header">Property Members</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService/27A61241.html">ClientSettings</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService/D781ACDD.html">ContextGetter</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService/8A05696A.html">RequestSender</a></li>
 			<li class="header">Method Members</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService/4C06A11D.html">SendRequestAsync<wbr>&lt;TResult&gt;<wbr><wbr>(IRequest<wbr>&lt;TResult&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
-				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService/1068D576.html">Send<wbr>Request<wbr>To<wbr>Other<wbr>Dc<wbr>Async<wbr>&lt;TResult&gt;<wbr><wbr>(int, <wbr>Func<wbr>&lt;Task<wbr>&lt;TResult&gt;<wbr>&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService/F6DBED08.html">Send<wbr>Request<wbr>To<wbr>Other<wbr>Dc<wbr>Async<wbr>&lt;TResult&gt;<wbr><wbr>(int, <wbr>IRequest<wbr>&lt;TResult&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService/B020A0F3.html">SendRequestAsync<wbr>&lt;TResult&gt;<wbr><wbr>(IRequest<wbr>&lt;TResult&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService/DE9BB628.html">Send<wbr>Request<wbr>To<wbr>Other<wbr>Dc<wbr>Async<wbr>&lt;TResult&gt;<wbr><wbr>(int, <wbr>IRequest<wbr>&lt;TResult&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
+				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService/CE49FC0F.html">Send<wbr>Request<wbr>To<wbr>Other<wbr>Dc<wbr>Async<wbr>&lt;TResult&gt;<wbr><wbr>(int, <wbr>Func<wbr>&lt;IClientApi, <wbr>Task<wbr>&lt;TResult&gt;<wbr>&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
 
 
                     </ul>
@@ -161,8 +157,8 @@
 
 
 <section class="content-header">
-			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService">Custom<wbr>Requests<wbr>Service</a>.</h3>
-	<h1>Send<wbr>Request<wbr>To<wbr>Other<wbr>Dc<wbr>Async<wbr>&lt;TResult&gt;<wbr><wbr>(int, <wbr>Func<wbr>&lt;Task<wbr>&lt;TResult&gt;<wbr>&gt;<wbr>, <wbr>CancellationToken)<wbr> <small>Method</small></h1>
+			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService">I<wbr>Custom<wbr>Requests<wbr>Service</a>.</h3>
+	<h1>Send<wbr>Request<wbr>To<wbr>Other<wbr>Dc<wbr>Async<wbr>&lt;TResult&gt;<wbr><wbr>(int, <wbr>Func<wbr>&lt;IClientApi, <wbr>Task<wbr>&lt;TResult&gt;<wbr>&gt;<wbr>, <wbr>CancellationToken)<wbr> <small>Method</small></h1>
 </section>
 <section class="content">
 	
@@ -177,17 +173,17 @@
 				<dl class="dl-horizontal">	
 						
 						<dt>Namespace</dt>
-						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services">OpenTl<wbr>.ClientApi<wbr>.Services</a></dd>
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces">OpenTl<wbr>.ClientApi<wbr>.Services<wbr>.Interfaces</a></dd>
 					
 						<dt>Containing Type</dt>
-						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService">Custom<wbr>Requests<wbr>Service</a></dd>		
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService">I<wbr>Custom<wbr>Requests<wbr>Service</a></dd>		
 					
 				</dl>
   			</div>
 		</div>
 
 	<h1 id="Syntax">Syntax</h1>
-	<pre><code>public Task&lt;TResult&gt; SendRequestToOtherDcAsync&lt;TResult&gt;(int dcId, Func&lt;Task&lt;TResult&gt;&gt; requestFunc, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+	<pre><code>Task&lt;TResult&gt; SendRequestToOtherDcAsync&lt;TResult&gt;(int dcId, Func&lt;IClientApi, Task&lt;TResult&gt;&gt; requestFunc, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
 
 
 
@@ -228,7 +224,7 @@
 					</tr>
 					<tr>
 						<td>requestFunc</td>
-						<td>Func<wbr>&lt;TResult&gt;<wbr></td>
+						<td>Func<wbr>&lt;T, <wbr>TResult&gt;<wbr></td>
 						<td>Request function</td>
 					</tr>
 					<tr>
