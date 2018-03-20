@@ -19,7 +19,7 @@
         /// <summary>Build the client</summary>
         /// <param name="factorySettings">Settings</param>
         /// <returns>Client</returns>
-        public static async Task<IClientApi> BuildClient(IFactorySettings factorySettings)
+        public static async Task<IClientApi> BuildClientAsync(IFactorySettings factorySettings)
         {
             var container = WindsorFactory.Create(typeof(INettyBootstrapper).GetTypeInfo().Assembly, typeof(IClientApi).GetTypeInfo().Assembly);
 

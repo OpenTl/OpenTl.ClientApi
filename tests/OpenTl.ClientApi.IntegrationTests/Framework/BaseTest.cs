@@ -36,7 +36,7 @@
 
         protected async Task<IClientApi> GenerateClientApi(int index)
         {
-            return await ClientFactory.BuildClient(
+            return await ClientFactory.BuildClientAsync(
                 new FactorySettings
                 {
                     AppHash = Configuration["AppHash"],

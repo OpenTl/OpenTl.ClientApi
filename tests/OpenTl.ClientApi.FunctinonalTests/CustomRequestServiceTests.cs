@@ -39,11 +39,10 @@
 
             var otherDc = config.DcOptions.Items.First(d => d.Id != config.ThisDc);
 
-            var otherConfig = await ClientApi.CustomRequestsService.SendRequestToOtherDcAsync(otherDc.Id, async () => await ClientApi.HelpService.GetConfig().ConfigureAwait(false)).ConfigureAwait(false);
+            var contacts = await ClientApi.CustomRequestsService.SendRequestToOtherDcAsync(otherDc.Id, async clienApi => await clienApi.ContactsService.GetContactsAsync().ConfigureAwait(false)).ConfigureAwait(false);
 
             var config2 = await ClientApi.HelpService.GetConfig().ConfigureAwait(false);
             
-            Assert.Equal(otherDc.Id, otherConfig.ThisDc);
             Assert.Equal(config.ThisDc, config2.ThisDc);
         }
     }

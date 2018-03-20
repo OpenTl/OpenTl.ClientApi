@@ -35,6 +35,6 @@
         /// <param name="cancellationToken">Cancellation token</param>
         /// <typeparam name="TResult">Request result type</typeparam>
         /// <returns>Result</returns>
-        Task<TResult> SendRequestToOtherDcAsync<TResult>(int dcId, Func<Task<TResult>> requestFunc, CancellationToken cancellationToken = default(CancellationToken));
+        Task<TResult> SendRequestToOtherDcAsync<TResult>(int dcId, Func<IClientApi, Task<TResult>> requestFunc, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

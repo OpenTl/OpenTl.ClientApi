@@ -29,7 +29,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<TResult> SendRequestToOtherDcAsync<TResult>(int dcId, Func<Task<TResult>> requestFunc, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<TResult> SendRequestToOtherDcAsync<TResult>(int dcId, Func<IClientApi, Task<TResult>> requestFunc, CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
 
@@ -39,35 +39,31 @@
                                              };
             var exportedAuth = (TExportedAuthorization)await RequestSender.SendRequestAsync(requestExportAuthorization, cancellationToken).ConfigureAwait(false);
 
-            var authKey = ClientSettings.ClientSession.AuthKey;
-            var timeOffset = ClientSettings.ClientSession.TimeOffset;
-            var serverAddress = ClientSettings.ClientSession.ServerAddress;
-            var serverPort = ClientSettings.ClientSession.Port;
-
+            
             var dc = ClientSettings.Config.DcOptions.Items.First(d => d.Id == dcId);
-            ClientSettings.ClientSession.ServerAddress = dc.IpAddress;
-            ClientSettings.ClientSession.Port = dc.Port;
-            ClientSettings.ClientSession.AuthKey = null;
-            ClientSettings.Config = null;
 
-            await ContextGetter.Context.DisconnectAsync();
-
+            var client = await ClientFactory.BuildClientAsync(
+                new FactorySettings
+                {
+                    AppHash = ClientSettings.AppHash,
+                    AppId = ClientSettings.AppId,
+                    Properties = (ApplicationProperties)ClientSettings.ApplicationProperties,
+                    ProxyConfig = (Socks5ProxyConfig)ClientSettings.Socks5Proxy,
+                    ServerAddress = dc.IpAddress,
+                    ServerPort = dc.Port,
+                    ServerPublicKey = ClientSettings.PublicKey,
+                    SessionTag = "temp"
+                });
+            
             var requestImportAuthorization = new RequestImportAuthorization
                                              {
                                                  Bytes = exportedAuth.Bytes,
                                                  Id = exportedAuth.Id
                                              };
-            await SendRequestAsync(requestImportAuthorization, cancellationToken).ConfigureAwait(false);
 
-            var result = await requestFunc();
+            await client.CustomRequestsService.SendRequestAsync(requestImportAuthorization, cancellationToken).ConfigureAwait(false);
 
-            ClientSettings.ClientSession.AuthKey = authKey;
-            ClientSettings.ClientSession.TimeOffset = timeOffset;
-            ClientSettings.ClientSession.ServerAddress = serverAddress;
-            ClientSettings.ClientSession.Port = serverPort;
-            ClientSettings.Config = null;
-
-            await ContextGetter.Context.DisconnectAsync();
+            var result = await requestFunc(client);
 
             return result;
         }
@@ -75,7 +71,7 @@
         /// <inheritdoc />
         public async Task<TResult> SendRequestToOtherDcAsync<TResult>(int dcId, IRequest<TResult> request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return await SendRequestToOtherDcAsync(dcId, async () => await SendRequestAsync(request, cancellationToken).ConfigureAwait(false), cancellationToken).ConfigureAwait(false);
+            return await SendRequestToOtherDcAsync(dcId, async clienApi => await clienApi.CustomRequestsService.SendRequestAsync(request, cancellationToken).ConfigureAwait(false), cancellationToken).ConfigureAwait(false);
         }
     }
 }

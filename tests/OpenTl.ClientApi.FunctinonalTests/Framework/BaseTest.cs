@@ -43,7 +43,7 @@
 
         private void PrepareToTesting()
         {
-            var clientTask = ClientFactory.BuildClient(
+            var clientTask = ClientFactory.BuildClientAsync(
                 new FactorySettings
                 {
                     AppHash = Configuration["AppHash"],
