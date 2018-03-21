@@ -5,6 +5,8 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    using NullGuard;
+
     using OpenTl.ClientApi.Extensions;
     using OpenTl.ClientApi.MtProto;
     using OpenTl.ClientApi.MtProto.Interfaces;
@@ -20,15 +22,15 @@
 
         public IClientSettings ClientSettings { get; set; }
 
-        public IContextGetter ContextGetter { get; set; }
-
         /// <inheritdoc />
+        [return:AllowNull]        
         public Task<TResult> SendRequestAsync<TResult>(IRequest<TResult> request, CancellationToken cancellationToken = default(CancellationToken))
         {
             return RequestSender.SendRequestAsync(request, cancellationToken);
         }
 
         /// <inheritdoc />
+        [return:AllowNull]        
         public async Task<TResult> SendRequestToOtherDcAsync<TResult>(int dcId, Func<IClientApi, Task<TResult>> requestFunc, CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
