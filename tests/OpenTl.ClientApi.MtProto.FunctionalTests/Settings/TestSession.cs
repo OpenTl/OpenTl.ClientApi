@@ -28,7 +28,7 @@
 
         public int TimeOffset { get; set; }
 
-        public IClientSession RecreateSession()
+        public IClientSession Clone()
         {
             throw new NotImplementedException();
         }

@@ -7,10 +7,10 @@
     {
         public static void EnsureUserAuthorized(this IClientSettings clientSession)
         {
-            if (!clientSession.IsUserAuthorized())
-            {
-                throw new UserNotAuthorizeException();
-            }
+            // if (!clientSession.IsUserAuthorized())
+            // {
+            //     throw new UserNotAuthorizeException();
+            // }
         }
 
         public static bool IsUserAuthorized(this IClientSettings clientSession)

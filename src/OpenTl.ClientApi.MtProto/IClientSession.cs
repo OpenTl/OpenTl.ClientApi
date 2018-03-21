@@ -10,6 +10,6 @@ namespace OpenTl.ClientApi.MtProto
 
         int TimeOffset { get; set; }
 
-        IClientSession RecreateSession();
+        IClientSession Clone();
     }
 }

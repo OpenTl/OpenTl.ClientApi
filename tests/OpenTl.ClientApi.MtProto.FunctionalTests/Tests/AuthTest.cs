@@ -14,7 +14,7 @@
         public AuthTest(ITestOutputHelper output) : base(output)
         {
         }
- 
+
         [Fact]
         public async Task TryAuthWithMigration()
         {
@@ -22,26 +22,26 @@
 
             const string PhoneNumber = "9996620000";
             const string PhoneCode = "22222";
-            
+
             var requestSendCode = new RequestSendCode
-                          {
-                              PhoneNumber = PhoneNumber,
-                              ApiId = settings.AppId,
-                              ApiHash = settings.AppHash
-                          };
-            
-            var sentCode = (TSentCode) await RequestSender.SendRequestAsync(requestSendCode, CancellationToken.None).ConfigureAwait(false);
-            
+                                  {
+                                      PhoneNumber = PhoneNumber,
+                                      ApiId = settings.AppId,
+                                      ApiHash = settings.AppHash
+                                  };
+
+            var sentCode = (TSentCode)await RequestSender.SendRequestAsync(requestSendCode, CancellationToken.None).ConfigureAwait(false);
+
             var requestSignIn = new RequestSignIn
-                          {
-                              PhoneNumber = PhoneNumber,
-                              PhoneCodeHash = sentCode.PhoneCodeHash,
-                              PhoneCode = PhoneCode
-                          };
+                                {
+                                    PhoneNumber = PhoneNumber,
+                                    PhoneCodeHash = sentCode.PhoneCodeHash,
+                                    PhoneCode = PhoneCode
+                                };
 
             var result = (TAuthorization)await RequestSender.SendRequestAsync(requestSignIn, CancellationToken.None).ConfigureAwait(false);
         }
- 
+
         [Fact]
         public async Task TryAuthWithoutMigration()
         {
@@ -49,16 +49,16 @@
 
             const string PhoneNumber = "9996610000";
             const string PhoneCode = "11111";
-            
+
             var requestSendCode = new RequestSendCode
                                   {
                                       PhoneNumber = PhoneNumber,
                                       ApiId = settings.AppId,
                                       ApiHash = settings.AppHash
                                   };
-            
-            var sentCode = (TSentCode) await RequestSender.SendRequestAsync(requestSendCode, CancellationToken.None).ConfigureAwait(false);
-            
+
+            var sentCode = (TSentCode)await RequestSender.SendRequestAsync(requestSendCode, CancellationToken.None).ConfigureAwait(false);
+
             var requestSignIn = new RequestSignIn
                                 {
                                     PhoneNumber = PhoneNumber,

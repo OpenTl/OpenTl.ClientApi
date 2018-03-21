@@ -16,7 +16,7 @@
         [AllowNull]
         public AuthKey AuthKey { get; set; }
 
-        public ulong SessionId { get; } = (ulong)Random.NextLong();
+        public ulong SessionId { get; private set; } = (ulong)Random.NextLong();
 
         public int LastMessageId { get; set; }
 
@@ -33,12 +33,11 @@
 
         public int TimeOffset { get; set; }
 
-        public IClientSession RecreateSession()
+        public IClientSession Clone()
         {
             return new ClientSession
                    {
-                       Port = Port,
-                       ServerAddress = ServerAddress
+                       SessionId = SessionId
                    };
         }
     }

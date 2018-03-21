@@ -44,18 +44,7 @@
             
             var dc = ClientSettings.Config.DcOptions.Items.First(d => d.Id == dcId);
 
-            var client = await ClientFactory.BuildClientAsync(
-                new FactorySettings
-                {
-                    AppHash = ClientSettings.AppHash,
-                    AppId = ClientSettings.AppId,
-                    Properties = (ApplicationProperties)ClientSettings.ApplicationProperties,
-                    ProxyConfig = (Socks5ProxyConfig)ClientSettings.Socks5Proxy,
-                    ServerAddress = dc.IpAddress,
-                    ServerPort = dc.Port,
-                    ServerPublicKey = ClientSettings.PublicKey,
-                    SessionTag = "temp"
-                });
+            var client = await ClientFactory.BuildTempClientAsync(ClientSettings, dc.IpAddress, dc.Port).ConfigureAwait(false);
             
             var requestImportAuthorization = new RequestImportAuthorization
                                              {
@@ -65,7 +54,7 @@
 
             await client.CustomRequestsService.SendRequestAsync(requestImportAuthorization, cancellationToken).ConfigureAwait(false);
 
-            var result = await requestFunc(client);
+            var result = await requestFunc(client).ConfigureAwait(false);
 
             return result;
         }

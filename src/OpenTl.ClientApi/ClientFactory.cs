@@ -31,6 +31,34 @@
             return container.Resolve<IClientApi>();
         }
 
+        /// <summary>Build the client from existing settings</summary>
+        /// <param name="clientSettings">Settings</param>
+        /// <param name="ipAddress">Ip address</param>
+        /// <param name="port">Port</param>
+        /// <returns>Client</returns>
+        internal static async Task<IClientApi> BuildTempClientAsync(IClientSettings clientSettings, string ipAddress, int port)
+        {
+            var container = WindsorFactory.Create(typeof(INettyBootstrapper).GetTypeInfo().Assembly, typeof(IClientApi).GetTypeInfo().Assembly);
+
+            container.Register(Component.For<ISessionStore>().ImplementedBy<MemorySessionStore>().IsDefault());
+            
+            var settings = container.Resolve<IClientSettings>();
+            settings.AppHash = clientSettings.AppHash;
+            settings.AppId = clientSettings.AppId;
+            settings.ApplicationProperties = clientSettings.ApplicationProperties;
+            settings.PublicKey = clientSettings.PublicKey;
+            settings.Socks5Proxy = clientSettings.Socks5Proxy;
+            settings.ClientSession = clientSettings.ClientSession.Clone();
+            
+            settings.ClientSession.Port = port;
+            settings.ClientSession.ServerAddress = ipAddress;
+            
+            var bootstrapper = container.Resolve<INettyBootstrapper>();
+            await bootstrapper.Init();
+
+            return container.Resolve<IClientApi>();
+        }
+
         private static void FillSettings(IWindsorContainer container, IFactorySettings factorySettings)
         {
             Guard.That(factorySettings.AppId).IsPositive();
