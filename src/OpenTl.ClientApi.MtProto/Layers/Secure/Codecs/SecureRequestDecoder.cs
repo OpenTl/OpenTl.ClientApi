@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
 
+    using Castle.MicroKernel;
     using Castle.Windsor;
 
     using DotNetty.Buffers;
@@ -10,6 +11,7 @@
 
     using log4net;
 
+    using OpenTl.ClientApi.MtProto.Exceptions;
     using OpenTl.Common.IoC;
     using OpenTl.Common.MtProto;
     using OpenTl.Schema.Serialization;
@@ -29,6 +31,11 @@
             if (input is EmptyByteBuffer)
             {
                 return;
+            }
+
+            if (ClientSettings.ClientSession.AuthKey == null)
+            {
+                throw new UserNotAuthorizeException();
             }
 
             var decodeBuffer = MtProtoHelper.FromServerDecrypt(input, ClientSettings.ClientSession, out var authKeyId, out var serverSalt, out var sessionId, out var messageId, out var seqNumber);

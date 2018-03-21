@@ -35,7 +35,7 @@ namespace OpenTl.ClientApi.MtProto.Layers.Handshake.Codecs
                 return;
             }
 
-            input.SetReaderIndex(8);
+            input.SkipBytes(8);
             
             var messageId = input.ReadLongLE();
             var dataLength = input.ReadIntLE();

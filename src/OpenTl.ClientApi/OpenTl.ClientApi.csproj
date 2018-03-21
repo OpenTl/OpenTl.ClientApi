@@ -20,4 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OpenTl.ClientApi.MtProto\OpenTl.ClientApi.MtProto.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Exceptions" />
+  </ItemGroup>
 </Project>

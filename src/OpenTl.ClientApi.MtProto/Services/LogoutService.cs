@@ -28,8 +28,9 @@
                 await ContextGetter.Context.WriteAndFlushAsync(new RequestLogOut());
 
                 RequestService.ReturnException(new UserLogoutException());
+
+                ClientSettings.ClientSession.UserId = null;
                 
-                ClientSettings.ClientSession = ClientSettings.ClientSession.RecreateSession();
                 await SessionWriter.Save(ClientSettings.ClientSession);
             }
         }

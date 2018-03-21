@@ -114,6 +114,11 @@
                     
                     RequestService.ReturnException(messageReqMsgId, new FloodWaitException(TimeSpan.FromSeconds(seconds)));
                     break;
+                case "AUTH_KEY_UNREGISTERED":
+                    ClientSettings.ClientSession.AuthKey = null;
+                    ClientSettings.ClientSession.UserId = null;
+                    SessionWriter.Save(ClientSettings.ClientSession).ContinueWith(_ => RequestService.ReturnException(messageReqMsgId, new UserNotAuthorizeException()));
+                    break;
                 default:
                     RequestService.ReturnException(messageReqMsgId, new UnhandledException(error.ErrorMessage));
                     break;

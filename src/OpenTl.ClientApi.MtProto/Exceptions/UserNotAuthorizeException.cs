@@ -1,8 +1,8 @@
-﻿namespace OpenTl.ClientApi.Exceptions
+﻿namespace OpenTl.ClientApi.MtProto.Exceptions
 {
     using System;
 
-    public class UserNotAuthorizeException: Exception
+    public sealed class UserNotAuthorizeException: Exception
     {
         public UserNotAuthorizeException(): base("Authorize user first!")
         {

@@ -2,7 +2,6 @@
 {
     using System.Threading.Tasks;
 
-    using OpenTl.ClientApi.Exceptions;
     using OpenTl.ClientApi.FunctinonalTests.Framework;
     using OpenTl.ClientApi.MtProto.Exceptions;
     using OpenTl.Schema;

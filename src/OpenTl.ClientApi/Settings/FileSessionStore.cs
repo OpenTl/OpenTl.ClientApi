@@ -58,7 +58,7 @@
 
         public void SetSessionTag(string sessionTag)
         {
-            _sessionFile = $"{sessionTag}.dat";
+            _sessionFile = Path.Combine(System.AppContext.BaseDirectory, $"{sessionTag}.dat");
         }
     }
 }

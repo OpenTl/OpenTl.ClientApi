@@ -51,11 +51,6 @@
                         {
                             var pipeline = channel.Pipeline;
 
-                            if (Log.IsDebugEnabled)
-                            {
-                                pipeline.AddFirst(new LoggingHandler(LogLevel.DEBUG));
-                            }
-
                             if (ClientSettings.Socks5Proxy != null)
                             {
                                 pipeline.AddFirst(new Socks5ProxyHandler(ClientSettings.Socks5Proxy.Endpoint, ClientSettings.Socks5Proxy.Username, ClientSettings.Socks5Proxy.Password));
