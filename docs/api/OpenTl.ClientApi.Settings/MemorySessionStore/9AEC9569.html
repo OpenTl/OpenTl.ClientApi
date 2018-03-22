@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
-        <title>OpenTl.ClientApi - API - IFileService.DownloadFileAsync(IInputFileLocation, int, CancellationToken) Method</title>
+        <title>OpenTl.ClientApi - API - MemorySessionStore.Save(byte[]) Method</title>
         <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
@@ -134,13 +134,15 @@
                     <ul class="sidebar-menu">
                         
 			<li class="header">Namespace</li>
-		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces">OpenTl<wbr>.ClientApi<wbr>.Services<wbr>.Interfaces</a></li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings">OpenTl<wbr>.ClientApi<wbr>.Settings</a></li>
 		<li class="header">Type</li>
-		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IFileService">IFileService</a></li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore">MemorySessionStore</a></li>
 		<li role="separator" class="divider"></li>
 			<li class="header">Method Members</li>
-				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IFileService/0475856E.html">DownloadFileAsync<wbr>(<wbr>I<wbr>Input<wbr>File<wbr>Location, <wbr>int, <wbr>CancellationToken)<wbr></a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IFileService/59BA9573.html">UploadFileAsync<wbr>(string, <wbr>Stream, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore/7DD6C915.html">Dispose<wbr>()<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore/E9CA7181.html">Load<wbr>()<wbr></a></li>
+				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore/9AEC9569.html">Save<wbr>(byte[])<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore/9686C7F4.html">SetSessionTag<wbr>(string)<wbr></a></li>
 
 
                     </ul>
@@ -155,31 +157,31 @@
 
 
 <section class="content-header">
-			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IFileService">IFileService</a>.</h3>
-	<h1>DownloadFileAsync<wbr>(<wbr>I<wbr>Input<wbr>File<wbr>Location, <wbr>int, <wbr>CancellationToken)<wbr> <small>Method</small></h1>
+			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore">MemorySessionStore</a>.</h3>
+	<h1>Save<wbr>(byte[])<wbr> <small>Method</small></h1>
 </section>
 <section class="content">
 	
 	
 		<h1 id="Summary">Summary</h1>
-	<div class="lead">Download file</div>
+	<div class="lead">Save session</div>
 
 		<div class="panel panel-default">
   			<div class="panel-body">	
 				<dl class="dl-horizontal">	
 						
 						<dt>Namespace</dt>
-						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces">OpenTl<wbr>.ClientApi<wbr>.Services<wbr>.Interfaces</a></dd>
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings">OpenTl<wbr>.ClientApi<wbr>.Settings</a></dd>
 					
 						<dt>Containing Type</dt>
-						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IFileService">IFileService</a></dd>		
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore">MemorySessionStore</a></dd>		
 					
 				</dl>
   			</div>
 		</div>
 
 	<h1 id="Syntax">Syntax</h1>
-	<pre><code>Task&lt;IFile&gt; DownloadFileAsync(IInputFileLocation location, int offset = 0, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+	<pre><code>public Task Save(byte[] session)</code></pre>
 
 
 
@@ -197,19 +199,9 @@
 					</tr>
 				</thead>
 					<tbody><tr>
-						<td>location</td>
-						<td>IInputFileLocation</td>
-						<td>Location</td>
-					</tr>
-					<tr>
-						<td>offset</td>
-						<td>int</td>
-						<td>Offset</td>
-					</tr>
-					<tr>
-						<td>cancellationToken</td>
-						<td>CancellationToken</td>
-						<td>Cancellation token</td>
+						<td>session</td>
+						<td>byte[]</td>
+						<td>Session</td>
 					</tr>
 			</tbody></table>
 		</div>
@@ -226,8 +218,8 @@
 					</tr>
 				</thead>
 				<tbody><tr>
-					<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-					<td>File</td>
+					<td>Task</td>
+					<td>Task</td>
 				</tr>
 			</tbody></table>
 		</div>

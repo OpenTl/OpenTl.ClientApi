@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
-        <title>OpenTl.ClientApi - API - UserNotAuthorizeException Class</title>
+        <title>OpenTl.ClientApi - API - MemorySessionStore.SetSessionTag(string) Method</title>
         <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
@@ -71,8 +71,10 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Syntax">Syntax</a></p>
-<p><a href="#Constructors">Constructors</a></p>
+	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Summary">Summary</a></p>
+<p><a href="#Syntax">Syntax</a></p>
+<p><a href="#Parameters">Parameters</a></p>
+<p><a href="#ReturnValue">Return Value</a></p>
 <hr class="infobar-hidden">
 </div>
 
@@ -132,10 +134,15 @@
                     <ul class="sidebar-menu">
                         
 			<li class="header">Namespace</li>
-		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Exceptions">OpenTl<wbr>.ClientApi<wbr>.Exceptions</a></li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings">OpenTl<wbr>.ClientApi<wbr>.Settings</a></li>
+		<li class="header">Type</li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore">MemorySessionStore</a></li>
 		<li role="separator" class="divider"></li>
-			<li class="header">Class Types</li>
-				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Exceptions/UserNotAuthorizeException">User<wbr>Not<wbr>Authorize<wbr>Exception</a></li>
+			<li class="header">Method Members</li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore/7DD6C915.html">Dispose<wbr>()<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore/E9CA7181.html">Load<wbr>()<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore/9AEC9569.html">Save<wbr>(byte[])<wbr></a></li>
+				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore/9686C7F4.html">SetSessionTag<wbr>(string)<wbr></a></li>
 
 
                     </ul>
@@ -150,87 +157,73 @@
 
 
 <section class="content-header">
-	<h1>User<wbr>Not<wbr>Authorize<wbr>Exception <small>Class</small></h1>
+			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore">MemorySessionStore</a>.</h3>
+	<h1>SetSessionTag<wbr>(string)<wbr> <small>Method</small></h1>
 </section>
 <section class="content">
 	
 	
-	
+		<h1 id="Summary">Summary</h1>
+	<div class="lead">Taging session</div>
+
 		<div class="panel panel-default">
-  			<div class="panel-body">
-				<div class="row">
-					<div class="col-md-6">
-						<dl class="dl-horizontal">		
-
-								<dt>Namespace</dt>
-								<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Exceptions">OpenTl<wbr>.ClientApi<wbr>.Exceptions</a></dd>
-											
-								<dt>Interfaces</dt>
-								<dd>
-									<ul class="list-unstyled">
-											<li>ISerializable</li>								
-											<li>_Exception</li>								
-									</ul>
-								</dd>
-							
-								<dt>Base Types</dt>
-								<dd>
-									<ul class="list-unstyled">										
-											<li>object</li>								
-											<li>Exception</li>								
-									</ul>
-								</dd>				
-							
-							
-						</dl>
-					</div>		
-					<div class="col-md-6">
-						<div class="mermaid">
-							graph TD
-	Base0["Exception"]--&gt;Type
-	Base1["object"]--&gt;Base0
-	Interface0["ISerializable"]-.-&gt;Type
-	Interface1["_Exception"]-.-&gt;Type
-	Type["UserNotAuthorizeException"]
-class Type type-node
-
-						</div>
-					</div>
-				</div>
+  			<div class="panel-body">	
+				<dl class="dl-horizontal">	
+						
+						<dt>Namespace</dt>
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings">OpenTl<wbr>.ClientApi<wbr>.Settings</a></dd>
+					
+						<dt>Containing Type</dt>
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore">MemorySessionStore</a></dd>		
+					
+				</dl>
   			</div>
 		</div>
 
 	<h1 id="Syntax">Syntax</h1>
-	<pre><code>public class UserNotAuthorizeException : Exception, ISerializable, _Exception</code></pre>
+	<pre><code>public void SetSessionTag(string sessionTag)</code></pre>
 
 
 
 
 
+	<h1 id="Parameters">Parameters</h1>
+	<div class="box">
+		<div class="box-body no-padding table-responsive">
+			<table class="table table-striped table-hover three-cols">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+					<tbody><tr>
+						<td>sessionTag</td>
+						<td>string</td>
+						<td>Tag name</td>
+					</tr>
+			</tbody></table>
+		</div>
+	</div>	
 
-			<h1 id="Constructors">Constructors</h1>
-			<div class="box">
-				<div class="box-body no-padding table-responsive">
-					<table class="table table-striped table-hover two-cols">
-						<thead>
-							<tr>
-								<th>Name</th>
-									<th>Summary</th>
-							</tr>
-						</thead>
-							<tbody><tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Exceptions/UserNotAuthorizeException/B229525D.html">User<wbr>Not<wbr>Authorize<wbr>Exception<wbr>()<wbr></a></td>
-									<td></td>
-							</tr>
-					</tbody></table>
-				</div>
-			</div>
-		
-
-
-
-
-
+	<h1 id="ReturnValue">Return Value</h1>
+	<div class="box">
+		<div class="box-body no-padding table-responsive">
+			<table class="table table-striped table-hover two-cols">
+				<thead>
+					<tr>
+						<th>Type</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody><tr>
+					<td>void</td>
+					<td></td>
+				</tr>
+			</tbody></table>
+		</div>
+	</div>	
 
 
 	

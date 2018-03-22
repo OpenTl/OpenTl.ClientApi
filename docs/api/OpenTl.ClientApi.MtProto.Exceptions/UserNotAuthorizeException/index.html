@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
-        <title>OpenTl.ClientApi - API - OpenTl.ClientApi.MtProto.Interfaces Namespace</title>
+        <title>OpenTl.ClientApi - API - UserNotAuthorizeException Class</title>
         <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
@@ -71,7 +71,8 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#InterfaceTypes">Interface Types</a></p>
+	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Syntax">Syntax</a></p>
+<p><a href="#Constructors">Constructors</a></p>
 <hr class="infobar-hidden">
 </div>
 
@@ -130,40 +131,18 @@
 
                     <ul class="sidebar-menu">
                         
-	<li class="header">Namespaces</li>   
-			<li><a href="/OpenTl.ClientApi/api/global">global</a></li>
+			<li class="header">Namespace</li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions">OpenTl<wbr>.ClientApi<wbr>.MtProto<wbr>.Exceptions</a></li>
+		<li role="separator" class="divider"></li>
+			<li class="header">Class Types</li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/CloudPasswordNeededException">Cloud<wbr>Password<wbr>Needed<wbr>Exception</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/FileMigrationException">File<wbr>Migration<wbr>Exception</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/FloodWaitException">FloodWaitException</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/PhoneCodeInvalidException">Phone<wbr>Code<wbr>Invalid<wbr>Exception</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/UnhandledException">UnhandledException</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/UserLogoutException">UserLogoutException</a></li>
+				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/UserNotAuthorizeException">User<wbr>Not<wbr>Authorize<wbr>Exception</a></li>
 
-				<li class="treeview active">
-				<a href="/OpenTl.ClientApi/api/OpenTl">OpenTl</a> <a href="#" class="expand"></a>
-				<ul class="treeview-menu">
-			
-				<li class="treeview active">
-				<a href="/OpenTl.ClientApi/api/OpenTl.ClientApi">OpenTl<wbr>.ClientApi</a> <a href="#" class="expand"></a>
-				<ul class="treeview-menu">
-						<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Extensions">OpenTl<wbr>.ClientApi<wbr>.Extensions</a></li>
-
-				<li class="treeview active">
-				<a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto">OpenTl<wbr>.ClientApi<wbr>.MtProto</a> <a href="#" class="expand"></a>
-				<ul class="treeview-menu">
-						<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Enums">OpenTl<wbr>.ClientApi<wbr>.MtProto<wbr>.Enums</a></li>
-			<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions">OpenTl<wbr>.ClientApi<wbr>.MtProto<wbr>.Exceptions</a></li>
-			<li class=" selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Interfaces">OpenTl<wbr>.ClientApi<wbr>.MtProto<wbr>.Interfaces</a></li>
-
-				<li class="treeview">
-				<a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Layers">OpenTl<wbr>.ClientApi<wbr>.MtProto<wbr>.Layers</a> <a href="#" class="expand"></a>
-				<ul class="treeview-menu">
-						<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Layers.Handshake">OpenTl<wbr>.ClientApi<wbr>.MtProto<wbr>.Layers<wbr>.Handshake</a></li>
-			<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Layers.Messages">OpenTl<wbr>.ClientApi<wbr>.MtProto<wbr>.Layers<wbr>.Messages</a></li>
-			<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Layers.Secure">OpenTl<wbr>.ClientApi<wbr>.MtProto<wbr>.Layers<wbr>.Secure</a></li>
-			<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Layers.Top">OpenTl<wbr>.ClientApi<wbr>.MtProto<wbr>.Layers<wbr>.Top</a></li>
-</ul></li>			<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Services">OpenTl<wbr>.ClientApi<wbr>.MtProto<wbr>.Services</a></li>
-</ul></li>
-				<li class="treeview">
-				<a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services">OpenTl<wbr>.ClientApi<wbr>.Services</a> <a href="#" class="expand"></a>
-				<ul class="treeview-menu">
-						<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces">OpenTl<wbr>.ClientApi<wbr>.Services<wbr>.Interfaces</a></li>
-</ul></li>			<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings">OpenTl<wbr>.ClientApi<wbr>.Settings</a></li>
-</ul></li></ul></li>      
 
                     </ul>
                             
@@ -177,31 +156,89 @@
 
 
 <section class="content-header">
-	<h1>OpenTl<wbr>.ClientApi<wbr>.MtProto<wbr>.Interfaces <small>Namespace</small></h1>
+	<h1>User<wbr>Not<wbr>Authorize<wbr>Exception <small>Class</small></h1>
 </section>
 <section class="content">
 	
 	
 	
+		<div class="panel panel-default">
+  			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-6">
+						<dl class="dl-horizontal">		
 
-			<h1 id="InterfaceTypes">Interface Types</h1>
+								<dt>Namespace</dt>
+								<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions">OpenTl<wbr>.ClientApi<wbr>.MtProto<wbr>.Exceptions</a></dd>
+											
+								<dt>Interfaces</dt>
+								<dd>
+									<ul class="list-unstyled">
+											<li>ISerializable</li>								
+											<li>_Exception</li>								
+									</ul>
+								</dd>
+							
+								<dt>Base Types</dt>
+								<dd>
+									<ul class="list-unstyled">										
+											<li>object</li>								
+											<li>Exception</li>								
+									</ul>
+								</dd>				
+							
+							
+						</dl>
+					</div>		
+					<div class="col-md-6">
+						<div class="mermaid">
+							graph TD
+	Base0["Exception"]--&gt;Type
+	Base1["object"]--&gt;Base0
+	Interface0["ISerializable"]-.-&gt;Type
+	Interface1["_Exception"]-.-&gt;Type
+	Type["UserNotAuthorizeException"]
+class Type type-node
+
+						</div>
+					</div>
+				</div>
+  			</div>
+		</div>
+
+	<h1 id="Syntax">Syntax</h1>
+	<pre><code>public sealed class UserNotAuthorizeException : Exception, ISerializable, _Exception</code></pre>
+
+
+
+
+
+
+			<h1 id="Constructors">Constructors</h1>
 			<div class="box">
 				<div class="box-body no-padding table-responsive">
 					<table class="table table-striped table-hover two-cols">
 						<thead>
 							<tr>
-								<th>Interface</th>
+								<th>Name</th>
 									<th>Summary</th>
 							</tr>
 						</thead>
 							<tbody><tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Interfaces/IContextGetter">IContextGetter</a></td>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/UserNotAuthorizeException/9BC08FD5.html">User<wbr>Not<wbr>Authorize<wbr>Exception<wbr>()<wbr></a></td>
 									<td></td>
 							</tr>
 					</tbody></table>
 				</div>
 			</div>
 		
+
+
+
+
+
+
+
 	
 </section>
                 
