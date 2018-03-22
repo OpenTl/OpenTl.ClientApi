@@ -10,7 +10,7 @@
     using OpenTl.Common.IoC;
 
     [SingleInstance(typeof(ITemploraryClientCache))]
-    public class TemploraryClientCache : ITemploraryClientCache
+    internal class TemploraryClientCache : ITemploraryClientCache
     {
         private readonly MemoryCache _memoryCache = new MemoryCache(new MemoryCacheOptions());
 
