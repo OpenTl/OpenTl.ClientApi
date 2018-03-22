@@ -45,7 +45,7 @@
                     }
                 },
                 null,
-                TimeSpan.FromMinutes(1),
+                TimeSpan.FromMinutes(10),
                 TimeSpan.Zero);
 
             cacheItem.MessageId = messageId;
@@ -63,6 +63,7 @@
             return _requestQueue.Select(item => item.Request);
         }
 
+        [return:AllowNull]
         public IRequest GetRequestToReply(long messageId)
         {
             var cacheItem = _requestQueue.FirstOrDefault(item => item.MessageId == messageId);
