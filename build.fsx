@@ -40,6 +40,7 @@ Target "Build" (fun _ ->
 Target "PublishNuget" (fun _ -> 
    Paket.Push (fun nugetParams -> 
     { nugetParams with
+        PublishUrl = "https://www.myget.org/F/opentl/api/v2"
         ApiKey = apikey
         WorkingDir = buildDir
     }
