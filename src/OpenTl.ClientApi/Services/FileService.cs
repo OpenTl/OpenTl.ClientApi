@@ -10,6 +10,8 @@
 
     using DotNetty.Common.Utilities;
 
+    using NullGuard;
+
     using OpenTl.ClientApi.Extensions;
     using OpenTl.ClientApi.MtProto;
     using OpenTl.ClientApi.MtProto.Exceptions;
@@ -20,22 +22,63 @@
     using OpenTl.Schema.Upload;
 
     [SingleInstance(typeof(IFileService))]
-    internal class FileService : IFileService
+    internal sealed class FileService : IFileService
     {
         private static readonly Random Random = new Random();
 
-        private readonly int DownloadDocumentPartSize = 128 * 1024; // 128kb for document
+        private static readonly int DownloadDocumentPartSize = 128 * 1024; // 128kb for document
 
-        private readonly int DownloadPhotoPartSize = 64 * 1024; // 64kb for photo
+        private static readonly int DownloadPhotoPartSize = 64 * 1024; // 64kb for photo
 
         public ICustomRequestsService RequestService { get; set; }
 
         public IClientSettings ClientSettings { get; set; }
 
-        public async Task<IFile> DownloadFileAsync(IInputFileLocation location, int offset = 0, CancellationToken cancellationToken = default(CancellationToken))
+        /// <inheritdoc />
+        [return:AllowNull]
+        public async Task<byte[]> DownloadFullFileAsync(IInputFileLocation location, CancellationToken cancellationToken = default(CancellationToken)) 
         {
             ClientSettings.EnsureUserAuthorized();
 
+            try
+            {
+                return await DownloadAllFilePartsAsync(location, cancellationToken);         
+            }
+            catch (FileMigrationException ex)
+            {
+                return await RequestService.SendRequestToOtherDcAsync(ex.Dc, api => api.FileService.DownloadAllFilePartsAsync(location, cancellationToken), cancellationToken).ConfigureAwait(false);
+            }
+        }
+
+        /// <inheritdoc />
+        [return:AllowNull]
+        public async Task<byte[]> DownloadAllFilePartsAsync(IInputFileLocation location, CancellationToken cancellationToken)
+        {
+            var filePartSize = location is TInputDocumentFileLocation
+                                   ? DownloadDocumentPartSize
+                                   : DownloadPhotoPartSize;
+            
+            var offset = 0;
+            var bytes = new List<byte>();
+            while (true)
+            {
+               
+                    var file = await DownloadFilePartAsync(location, offset, cancellationToken).ConfigureAwait(false);
+                    if (file == null)
+                        return null;
+
+                    bytes.AddRange(file.Bytes);
+                    if (file.Bytes.Length < filePartSize)
+                    {
+                        return bytes.ToArray();
+                    }
+
+                    offset += file.Bytes.Length;
+            }
+        }
+
+        private async Task<TFile> DownloadFilePartAsync(IInputFileLocation location, int offset, CancellationToken cancellationToken)
+        {
             var filePartSize = location is TInputDocumentFileLocation
                                    ? DownloadDocumentPartSize
                                    : DownloadPhotoPartSize;
@@ -46,16 +89,10 @@
                                      Limit = filePartSize,
                                      Offset = offset
                                  };
-            try
-            {
-                return await RequestService.SendRequestAsync(requestGetFile, cancellationToken).ConfigureAwait(false);
-            }
-            catch (FileMigrationException ex)
-            {
-                return await RequestService.SendRequestToOtherDcAsync(ex.Dc, requestGetFile, cancellationToken).ConfigureAwait(false);
-            }
+            return (TFile) await RequestService.SendRequestAsync(requestGetFile, cancellationToken).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<IInputFile> UploadFileAsync(string name, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();

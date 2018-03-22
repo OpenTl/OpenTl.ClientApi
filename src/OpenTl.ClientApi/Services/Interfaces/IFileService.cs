@@ -4,17 +4,23 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    using OpenTl.ClientApi.MtProto.Exceptions;
     using OpenTl.Schema;
     using OpenTl.Schema.Upload;
 
     public interface IFileService
     {
-        /// <summary>Download file</summary>
+        /// <summary>Download full file</summary>
         /// <param name="location">Location</param>
-        /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>File</returns>
-        Task<IFile> DownloadFileAsync(IInputFileLocation location, int offset = 0, CancellationToken cancellationToken = default(CancellationToken));
+        Task<byte[]> DownloadFullFileAsync(IInputFileLocation location, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>Download file without handle <see cref="FileMigrationException"/></summary>
+        /// <param name="location">Location</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>File</returns>
+        Task<byte[]> DownloadAllFilePartsAsync(IInputFileLocation location, CancellationToken cancellationToken);
 
         /// <summary>Upload file</summary>
         /// <param name="name">File name</param>
