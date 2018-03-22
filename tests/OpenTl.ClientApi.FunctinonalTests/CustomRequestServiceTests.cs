@@ -39,7 +39,8 @@
 
             var otherDc = config.DcOptions.Items.First(d => d.Id != config.ThisDc);
 
-            var contacts = await ClientApi.CustomRequestsService.SendRequestToOtherDcAsync(otherDc.Id, async clienApi => await clienApi.ContactsService.GetContactsAsync().ConfigureAwait(false)).ConfigureAwait(false);
+            var otherConfig1 = await ClientApi.CustomRequestsService.SendRequestToOtherDcAsync(otherDc.Id, async clienApi => await clienApi.HelpService.GetConfig().ConfigureAwait(false)).ConfigureAwait(false);
+            var otherConfig2 = await ClientApi.CustomRequestsService.SendRequestToOtherDcAsync(otherDc.Id, async clienApi => await clienApi.HelpService.GetConfig().ConfigureAwait(false)).ConfigureAwait(false);
 
             var config2 = await ClientApi.HelpService.GetConfig().ConfigureAwait(false);
             

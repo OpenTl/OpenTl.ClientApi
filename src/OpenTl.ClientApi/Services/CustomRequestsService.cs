@@ -7,9 +7,9 @@
 
     using NullGuard;
 
+    using OpenTl.ClientApi.Client.Interfaces;
     using OpenTl.ClientApi.Extensions;
     using OpenTl.ClientApi.MtProto;
-    using OpenTl.ClientApi.MtProto.Interfaces;
     using OpenTl.ClientApi.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
@@ -22,6 +22,8 @@
 
         public IClientSettings ClientSettings { get; set; }
 
+        public ITemploraryClientCache ClientCache { get; set; }
+        
         /// <inheritdoc />
         [return:AllowNull]        
         public Task<TResult> SendRequestAsync<TResult>(IRequest<TResult> request, CancellationToken cancellationToken = default(CancellationToken))
@@ -44,7 +46,7 @@
             
             var dc = ClientSettings.Config.DcOptions.Items.First(d => d.Id == dcId);
 
-            var client = await ClientFactory.BuildTempClientAsync(ClientSettings, dc.IpAddress, dc.Port).ConfigureAwait(false);
+            var client = await ClientCache.GetOrCreate(ClientSettings, dc.IpAddress, dc.Port).ConfigureAwait(false);
             
             var requestImportAuthorization = new RequestImportAuthorization
                                              {
