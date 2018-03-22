@@ -22,7 +22,7 @@
 
         public IClientSettings ClientSettings { get; set; }
 
-        internal ITemploraryClientCache ClientCache { get; set; }
+        public ITemploraryClientCache ClientCache { get; set; }
         
         /// <inheritdoc />
         [return:AllowNull]        

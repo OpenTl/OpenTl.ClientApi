@@ -4,7 +4,7 @@
 
     using OpenTl.ClientApi.MtProto;
 
-    internal interface ITemploraryClientCache
+    public interface ITemploraryClientCache
     {
         Task<IClientApi> GetOrCreate(IClientSettings clientSettings, string ipAddress, int port);
     }
