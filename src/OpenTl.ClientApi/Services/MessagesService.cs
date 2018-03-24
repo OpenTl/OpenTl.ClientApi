@@ -257,7 +257,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<IUpdates> SendMediaAsync(IInputPeer peer, IInputMedia media, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IUpdates> SendMediaAsync(IInputPeer peer, IInputMedia media, string message, CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
 
@@ -266,6 +266,7 @@
                                 RandomId = Random.NextLong(),
                                 Peer = peer,
                                 Media = media,
+                                Message = message,
                                 Background = false,
                                 ClearDraft = false
                             };
@@ -305,6 +306,7 @@
                                                               IInputFile document,
                                                               string mimeType,
                                                               IReadOnlyList<IDocumentAttribute> attributes,
+                                                              string message,
                                                               [AllowNull] IInputFile thumb = null,
                                                               CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -315,6 +317,7 @@
                               RandomId = Random.NextLong(),
                               Background = false,
                               ClearDraft = false,
+                              Message = message,
                               Media = new TInputMediaUploadedDocument
                                       {
                                           File = document,
@@ -329,7 +332,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<IUpdates> SendUploadedPhotoAsync(IInputPeer peer, IInputFile photo, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IUpdates> SendUploadedPhotoAsync(IInputPeer peer, IInputFile photo, string message, CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
 
@@ -338,6 +341,7 @@
                               RandomId = Random.NextLong(),
                               Background = false,
                               ClearDraft = false,
+                              Message = message,
                               Media = new TInputMediaUploadedPhoto
                                       {
                                           File = photo,

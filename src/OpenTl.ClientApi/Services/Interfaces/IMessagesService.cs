@@ -143,10 +143,11 @@ namespace OpenTl.ClientApi.Services.Interfaces
 
         /// <summary>Sends a non-text message.</summary>
         /// <param name="peer">User or group to receive the message</param>
-        /// <param name="media">Message contents</param>
+        /// <param name="media">Content</param>
+        /// <param name="message">Message</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Returns a <see cref="IUpdates" /> object containing a service message sent during the action.</returns>
-        Task<IUpdates> SendMediaAsync(IInputPeer peer, IInputMedia media, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IUpdates> SendMediaAsync(IInputPeer peer, IInputMedia media, string message, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>Sends a text message.</summary>
         /// <param name="peer">User or chat where a message will be sent</param>
@@ -166,6 +167,7 @@ namespace OpenTl.ClientApi.Services.Interfaces
         /// <param name="document">Document</param>
         /// <param name="mimeType">MimeType</param>
         /// <param name="attributes">Attributes</param>
+        /// <param name="message">Message</param>
         /// <param name="thumb">The thumb</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Updates</returns>
@@ -173,14 +175,16 @@ namespace OpenTl.ClientApi.Services.Interfaces
                                                  IInputFile document,
                                                  string mimeType,
                                                  IReadOnlyList<IDocumentAttribute> attributes,
+                                                 string message,
                                                  IInputFile thumb = null,
                                                  CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>Sends a photo to user or chat</summary>
         /// <param name="peer">User or chat where a message will be sent</param>
         /// <param name="photo">Photo</param>
+        /// <param name="message">Message</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Updates</returns>
-        Task<IUpdates> SendUploadedPhotoAsync(IInputPeer peer, IInputFile photo, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IUpdates> SendUploadedPhotoAsync(IInputPeer peer, IInputFile photo, string message, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

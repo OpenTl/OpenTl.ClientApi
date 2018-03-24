@@ -71,7 +71,7 @@
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, IObject msg)
         {
-            Log.Warn($"#{ClientSettings.ClientSession.SessionId}: Unhandled message {msg}");
+            Log.Error($"#{ClientSettings.ClientSession.SessionId}: Unhandled message {msg}");
         }
 
         private async Task SendInitConnectionRequest()
