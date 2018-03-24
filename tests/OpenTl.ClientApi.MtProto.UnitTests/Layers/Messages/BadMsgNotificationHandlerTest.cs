@@ -31,6 +31,8 @@
         [InlineData(64)]
         public void HandleError(int errorCode)
         {
+            this.BuildClientSettingsProps();
+
             this.RegisterType<BadMsgNotificationHandler>();
 
             var requestEncoder = this.Resolve<BadMsgNotificationHandler>();

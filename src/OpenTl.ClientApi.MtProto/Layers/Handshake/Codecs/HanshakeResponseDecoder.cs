@@ -6,6 +6,7 @@ namespace OpenTl.ClientApi.MtProto.Layers.Handshake.Codecs
 
     using DotNetty.Buffers;
     using DotNetty.Codecs;
+    using DotNetty.Common.Utilities;
     using DotNetty.Transport.Channels;
 
     using log4net;
@@ -32,6 +33,7 @@ namespace OpenTl.ClientApi.MtProto.Layers.Handshake.Codecs
             if (input.GetLongLE(0) != 0)
             {
                 context.FireChannelRead(input.Retain());
+                
                 return;
             }
 

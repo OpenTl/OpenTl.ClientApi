@@ -31,7 +31,7 @@
 
             var resultAfter = await RequestSender.SendRequestAsync(new RequestGetConfig(), CancellationToken.None).ConfigureAwait(false);
 
-            Assert.Equal(resultBefore.Date, resultAfter.Date);
+            Assert.Equal(resultBefore.MeUrlPrefix, resultAfter.MeUrlPrefix);
         }
     }
 }

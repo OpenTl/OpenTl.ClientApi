@@ -10,6 +10,8 @@ namespace OpenTl.ClientApi.MtProto.FunctionalTests.Framework
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
 
+    using DotNetty.Common;
+
     using log4net;
 
     using Microsoft.Extensions.Configuration;
@@ -42,6 +44,8 @@ namespace OpenTl.ClientApi.MtProto.FunctionalTests.Framework
 
         protected FunctionalTest(ITestOutputHelper output)
         {
+            ResourceLeakDetector.Level = ResourceLeakDetector.DetectionLevel.Advanced;
+
             _logOutputTester = new LogOutputTester(output);
 
             PrepareToTesting();

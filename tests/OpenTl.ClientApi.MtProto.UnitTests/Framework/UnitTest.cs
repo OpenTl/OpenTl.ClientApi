@@ -5,6 +5,8 @@
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
 
+    using DotNetty.Common;
+
     using Moq;
 
     using OpenTl.ClientApi.MtProto.UnitTests.Framework.IoC;
@@ -19,6 +21,8 @@
 
         protected UnitTest()
         {
+            ResourceLeakDetector.Level = ResourceLeakDetector.DetectionLevel.Paranoid;
+            
             Container.Kernel.Resolver.AddSubResolver(new AutoMoqResolver(Container.Kernel));
             Container.Register(Component.For(typeof(Mock<>)));
         }        

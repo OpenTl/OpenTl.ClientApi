@@ -28,6 +28,7 @@
         [InlineData("NETWORK_MIGRATE_")]
         public async Task ReturnError_Migration(string errorMessage)
         {
+            this.BuildClientSettingsProps();
             this.RegisterType<RpcResultHandler>();
 
             var mSettings = this.BuildClientSettingsProps();
@@ -80,6 +81,8 @@
         [InlineData("SOME_EXCEPTION", typeof(UnhandledException))]
         public void ReturnError_SimpleCases(string errorMessage, Type exceptionType)
         {
+            this.BuildClientSettingsProps();
+            
             this.RegisterType<RpcResultHandler>();
 
             var messageId = Fixture.Create<long>();
@@ -119,6 +122,8 @@
         [Fact]
         public void ReturnResult()
         {
+            this.BuildClientSettingsProps();
+            
             this.RegisterType<RpcResultHandler>();
 
             var messageId = Fixture.Create<long>();
@@ -155,6 +160,8 @@
         [Fact]
         public void ReturnZippedResult()
         {
+            this.BuildClientSettingsProps();
+            
             this.RegisterType<RpcResultHandler>();
 
             var messageId = Fixture.Create<long>();

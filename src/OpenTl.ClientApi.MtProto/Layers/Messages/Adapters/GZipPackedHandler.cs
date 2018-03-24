@@ -6,6 +6,7 @@
 
     using DotNetty.Buffers;
     using DotNetty.Codecs;
+    using DotNetty.Common.Utilities;
     using DotNetty.Transport.Channels;
 
     using log4net;
@@ -69,7 +70,7 @@
                 }
                 finally
                 {
-                    buffer.Release();
+                    buffer.SafeRelease();
                 }
             }
         }

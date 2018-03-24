@@ -7,6 +7,7 @@
 
     using DotNetty.Buffers;
     using DotNetty.Codecs;
+    using DotNetty.Common.Utilities;
     using DotNetty.Transport.Channels;
 
     using log4net;
@@ -14,6 +15,7 @@
     using OpenTl.ClientApi.MtProto.Exceptions;
     using OpenTl.Common.IoC;
     using OpenTl.Common.MtProto;
+    using OpenTl.Schema;
     using OpenTl.Schema.Serialization;
 
     [TransientInstance(typeof(ISecureHandler))]

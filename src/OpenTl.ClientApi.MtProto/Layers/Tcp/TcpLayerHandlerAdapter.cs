@@ -5,17 +5,18 @@
     using BarsGroup.CodeGuard;
 
     using DotNetty.Buffers;
+    using DotNetty.Common.Utilities;
     using DotNetty.Transport.Channels;
 
     using log4net;
 
+    using OpenTl.Common.Crypto;
+    using OpenTl.Common.Extesions;
     using OpenTl.Common.IoC;
 
-    using Crc32 = OpenTl.Common.Crypto.Crc32;
-
     [TransientInstance(typeof(ITcpHandler))]
-    internal sealed class TcpLayerHandlerAdapter: ChannelHandlerAdapter,
-                                                  ITcpHandler
+    internal sealed class TcpLayerHandlerAdapter : ChannelHandlerAdapter,
+                                                   ITcpHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(TcpLayerHandlerAdapter));
 
@@ -26,11 +27,51 @@
         public override void ChannelActive(IChannelHandlerContext context)
         {
             _sequenceNumber = 0;
-            
+
             base.ChannelActive(context);
         }
 
-        public override  Task WriteAsync(IChannelHandlerContext context, object message)
+        public override void ChannelRead(IChannelHandlerContext context, object message)
+        {
+            if (message is EmptyByteBuffer emptyByteBuffer)
+            {
+                emptyByteBuffer.SafeRelease();    
+            }
+            
+            if (!(message is IByteBuffer input))
+            {
+                return;
+            }
+
+            try
+            {
+                var length = input.ReadIntLE();
+                var packageLength = length - 4;
+                var dataLength = packageLength - 4 - 4;
+
+                var sequenceNumber = input.ReadIntLE();
+
+                var dataBuffer = input.ReadBytes(dataLength);
+                
+                CheckChecksum(input, packageLength);
+
+                Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Recieve the message with sequence number {sequenceNumber}");
+
+                if (dataLength == 4)
+                {
+                    var code = dataBuffer.ReadIntLE();
+                    Log.Error($"#{ClientSettings.ClientSession.SessionId}: Recieve the message with {code}");
+                }
+                
+                context.FireChannelRead(dataBuffer);
+            }
+            finally
+            {
+                input.SafeRelease();
+            }
+        }
+
+        public override Task WriteAsync(IChannelHandlerContext context, object message)
         {
             var sequenceNumer = _sequenceNumber++;
 
@@ -44,18 +85,26 @@
                 (the first packet sent is numbered 0, the next one 1, etc.),
                 and 4 CRC32 bytes at the end (length, sequence number, and payload together).
             */
-            
+
             var dataLength = inputBuffer.ReadableBytes + 4 + 4;
             var packageLength = dataLength + 4;
+
             var buffer = PooledByteBufferAllocator.Default.Buffer(dataLength, packageLength);
 
-            buffer.WriteIntLE(packageLength);
-            buffer.WriteIntLE(sequenceNumer);
-            buffer.WriteBytes(inputBuffer);
+            try
+            {
+                buffer.WriteIntLE(packageLength);
+                buffer.WriteIntLE(sequenceNumer);
+                buffer.WriteBytes(inputBuffer);
+            }
+            finally
+            {
+                inputBuffer.SafeRelease();
+            }
 
             var data = new byte[dataLength];
             buffer.GetBytes(0, data);
-            
+
             buffer.WriteIntLE((int)Crc32.Compute(data));
 
             Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Send the message with sequence number {sequenceNumer}");
@@ -63,45 +112,16 @@
             return context.WriteAsync(buffer);
         }
 
-        public override void ChannelRead(IChannelHandlerContext context, object message)
-        {
-            if (message is EmptyByteBuffer || !(message is IByteBuffer input))
-            {
-                return;
-            }
-
-            var length = input.ReadIntLE();
-            var packageLength = length - 4;
-            var dataLength = packageLength - 4 - 4;
-
-            var sequenceNumber = input.ReadIntLE();
-
-            var data = input.ReadBytes(dataLength);
-
-            CheckChecksum(input, packageLength);
-            
-            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Recieve the message with sequence number {sequenceNumber}");
-
-            if (dataLength == 4)
-            {
-                var code = data.ReadIntLE();
-                Log.Error($"#{ClientSettings.ClientSession.SessionId}: Recieve the message with {code}");
-            }
-            
-            context.FireChannelRead(data);
-        }
-        
         private static void CheckChecksum(IByteBuffer buffer, int length)
         {
             buffer.ResetReaderIndex();
 
-            var checksumData = new byte[length];
-            var checksumBuffer = buffer.ReadBytes(checksumData);
-            
+            var checksumData = buffer.ToArray(length);
+
             var checksum = buffer.ReadUnsignedIntLE();
-            
+
             var computeChecksum = Crc32.Compute(checksumData);
-            
+
             Guard.That(computeChecksum).IsEqual(checksum);
         }
     }

@@ -44,11 +44,10 @@
             
             SessionWriter.Save(ClientSettings.ClientSession);
             
-            var messageBuffer = PooledByteBufferAllocator.Default.Buffer();
+            var messageBuffer = Serializer.Serialize(message);
+
             try
             {
-                Serializer.Serialize(message, messageBuffer);
-            
                 MtProtoHelper.ToServerEncrypt(messageBuffer, ClientSettings.ClientSession, messageId, sequenceNumber, output);
             }
             finally

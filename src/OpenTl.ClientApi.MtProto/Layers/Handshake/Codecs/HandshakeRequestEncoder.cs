@@ -2,6 +2,7 @@
 {
     using DotNetty.Buffers;
     using DotNetty.Codecs;
+    using DotNetty.Common.Utilities;
     using DotNetty.Transport.Channels;
 
     using log4net;
@@ -32,13 +33,19 @@
             
             Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Send handshake message {message} with id : {newMessageId}");
 
-            var dataBuffer = PooledByteBufferAllocator.Default.Buffer();
-            Serializer.Serialize(message, dataBuffer);
-
             output.WriteLongLE(0);
             output.WriteLongLE(newMessageId);
-            output.WriteIntLE(dataBuffer.ReadableBytes);
-            output.WriteBytes(dataBuffer);
+
+            var dataBuffer = Serializer.Serialize(message);
+            try
+            {
+                output.WriteIntLE(dataBuffer.ReadableBytes);
+                output.WriteBytes(dataBuffer);
+            }
+            finally
+            {
+                dataBuffer.SafeRelease();
+            }
         }
     }
 }
