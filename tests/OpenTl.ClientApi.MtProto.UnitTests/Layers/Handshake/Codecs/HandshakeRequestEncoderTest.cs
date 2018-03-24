@@ -29,17 +29,17 @@
             
             var channel = new EmbeddedChannel(requestEncoder);
 
-            var requestReqPqMulty = new RequestReqPqMulty
+            var requestReqPqMulti = new RequestReqPqMulti
                                     {
                                         Nonce = new byte[16]
                                     };
             
-            requestReqPqMulty.Nonce = new byte[16];
-            Random.NextBytes(requestReqPqMulty.Nonce);
+            requestReqPqMulti.Nonce = new byte[16];
+            Random.NextBytes(requestReqPqMulti.Nonce);
 
             // ---
 
-            channel.WriteOutbound(requestReqPqMulty);
+            channel.WriteOutbound(requestReqPqMulti);
 
             var data = channel.ReadOutbound<IByteBuffer>();
             
@@ -53,9 +53,9 @@
 
             var resultRequest = Serializer.Deserialize(data);
             
-            Assert.IsType<RequestReqPqMulty>(resultRequest);
+            Assert.IsType<RequestReqPqMulti>(resultRequest);
 
-            Assert.Equal(requestReqPqMulty.Nonce, ((RequestReqPqMulty)resultRequest).Nonce);
+            Assert.Equal(requestReqPqMulti.Nonce, ((RequestReqPqMulti)resultRequest).Nonce);
         }
     }
 }

@@ -8,6 +8,8 @@
 
     using DotNetty.Common.Utilities;
 
+    using NullGuard;
+
     using OpenTl.ClientApi.Extensions;
     using OpenTl.ClientApi.MtProto;
     using OpenTl.ClientApi.Services.Interfaces;
@@ -127,21 +129,6 @@
         }
 
         /// <inheritdoc />
-        public async Task<IUpdates> ForwardMessageAsync(IInputPeer peer, int messageId, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            ClientSettings.EnsureUserAuthorized();
-
-            var forwardMessage = new RequestForwardMessage
-                                 {
-                                     Peer = peer,
-                                     Id = messageId,
-                                     RandomId = Random.NextLong()
-                                 };
-
-            return await RequestSender.SendRequestAsync(forwardMessage, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
         public async Task<IUpdates> ForwardMessagesAsync(IInputPeer fromPeer,
                                                          IInputPeer toPeer,
                                                          IReadOnlyList<int> ids,
@@ -201,13 +188,13 @@
         }
 
         /// <inheritdoc />
-        public async Task<IMessages> GetMessagesAsync(IReadOnlyList<int> ids, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IMessages> GetMessagesAsync(IReadOnlyList<IInputMessage> inputMessages, CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
 
             var getMessagesRequest = new RequestGetMessages
                                      {
-                                         Id = new TVector<int>(ids.ToArray())
+                                         Id = new TVector<IInputMessage>(inputMessages.ToArray())
                                      };
 
             return await RequestSender.SendRequestAsync(getMessagesRequest, cancellationToken).ConfigureAwait(false);
@@ -316,9 +303,9 @@
         /// <inheritdoc />
         public async Task<IUpdates> SendUploadedDocumentAsync(IInputPeer peer,
                                                               IInputFile document,
-                                                              string caption,
                                                               string mimeType,
                                                               IReadOnlyList<IDocumentAttribute> attributes,
+                                                              [AllowNull] IInputFile thumb = null,
                                                               CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
@@ -331,8 +318,8 @@
                               Media = new TInputMediaUploadedDocument
                                       {
                                           File = document,
-                                          Caption = caption,
                                           MimeType = mimeType,
+                                          Thumb = thumb,
                                           Attributes = new TVector<IDocumentAttribute>(attributes.ToArray())
                                       },
                               Peer = peer
@@ -342,7 +329,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<IUpdates> SendUploadedPhotoAsync(IInputPeer peer, IInputFile photo, string caption, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IUpdates> SendUploadedPhotoAsync(IInputPeer peer, IInputFile photo, CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
 
@@ -354,7 +341,6 @@
                               Media = new TInputMediaUploadedPhoto
                                       {
                                           File = photo,
-                                          Caption = caption
                                       },
                               Peer = peer
                           };

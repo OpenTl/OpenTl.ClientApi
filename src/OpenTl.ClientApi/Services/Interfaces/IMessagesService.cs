@@ -68,13 +68,6 @@ namespace OpenTl.ClientApi.Services.Interfaces
         /// <returns>Returns a <see cref="IUpdates" /> object containing a service message sent during an action.</returns>
         Task<IUpdates> EditChatTitle(int chatId, string title, CancellationToken cancellationToken = default(CancellationToken));
 
-        /// <summary>Forwards single messages.</summary>
-        /// <param name="peer">User or chat where a message will be forwarded</param>
-        /// <param name="messageId">Forwarded message ID</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>Returns a <see cref="IUpdates" /> object containing a service message sent during an action.</returns>
-        Task<IUpdates> ForwardMessageAsync(IInputPeer peer, int messageId, CancellationToken cancellationToken = default(CancellationToken));
-
         /// <summary>Forwards messages by their IDs.</summary>
         /// <param name="fromPeer">User or chat from where a message will be forwarded</param>
         /// <param name="toPeer">User or chat where a message will be forwarded</param>
@@ -115,10 +108,10 @@ namespace OpenTl.ClientApi.Services.Interfaces
         Task<IMessages> GetHistoryAsync(IInputPeer peer, int offset, int maxId, int limit, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>Returns the list of messages by their IDs.</summary>
-        /// <param name="ids">Identifiers of messages</param>
+        /// <param name="inputMessages">messages</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Object contains list of messages</returns>
-        Task<IMessages> GetMessagesAsync(IReadOnlyList<int> ids, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IMessages> GetMessagesAsync(IReadOnlyList<IInputMessage> inputMessages, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>Returns a list of the current user’s conversations</summary>
         /// <param name="limit">Number of list elements to be returned</param>
@@ -171,24 +164,23 @@ namespace OpenTl.ClientApi.Services.Interfaces
         /// <summary>Sends a document with <inheritdoc cref="mimeType" /> to user or chat</summary>
         /// <param name="peer">User or chat where a message will be sent</param>
         /// <param name="document">Document</param>
-        /// <param name="caption">Caption</param>
         /// <param name="mimeType">MimeType</param>
         /// <param name="attributes">Attributes</param>
+        /// <param name="thumb">The thumb</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Updates</returns>
         Task<IUpdates> SendUploadedDocumentAsync(IInputPeer peer,
                                                  IInputFile document,
-                                                 string caption,
                                                  string mimeType,
                                                  IReadOnlyList<IDocumentAttribute> attributes,
+                                                 IInputFile thumb = null,
                                                  CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>Sends a photo to user or chat</summary>
         /// <param name="peer">User or chat where a message will be sent</param>
         /// <param name="photo">Photo</param>
-        /// <param name="caption">Caption</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Updates</returns>
-        Task<IUpdates> SendUploadedPhotoAsync(IInputPeer peer, IInputFile photo, string caption, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IUpdates> SendUploadedPhotoAsync(IInputPeer peer, IInputFile photo, CancellationToken cancellationToken = default(CancellationToken));
     }
 }
