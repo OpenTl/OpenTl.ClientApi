@@ -60,9 +60,9 @@
             }
         }
 
-        private static Task SendConfirm(IChannelHandlerContext ctx, TRpcResult msg)
+        private static void SendConfirm(IChannelHandlerContext ctx, TRpcResult msg)
         {
-            return ctx.WriteAsync(
+            ctx.WriteAsync(
                 new TMsgsAck
                 {
                     MsgIds = new TVector<long>(msg.ReqMsgId)
@@ -78,7 +78,6 @@
                 Log.Debug(jMessages);
             }
             
-            // Exception exception;
             switch (error.ErrorMessage)
             {
                 case "PHONE_CODE_INVALID":

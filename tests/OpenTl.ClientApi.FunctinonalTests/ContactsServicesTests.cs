@@ -28,13 +28,5 @@
             
             Assert.NotNull(found.Users);
         }
-        
-        // [Fact]
-        // public async Task GetStatuses()
-        // {
-        //     var statuses = await TelegramClient.ContactsService.GetStatusesAsync().ConfigureAwait(false);
-        //     
-        //     Assert.NotEmpty(statuses);
-        // }
     }
 }

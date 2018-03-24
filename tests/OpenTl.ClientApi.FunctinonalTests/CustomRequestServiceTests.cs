@@ -45,6 +45,7 @@
             var config2 = await ClientApi.HelpService.GetConfig().ConfigureAwait(false);
             
             Assert.Equal(config.ThisDc, config2.ThisDc);
+            Assert.Equal(otherConfig1.ThisDc, otherConfig2.ThisDc);
         }
     }
 }

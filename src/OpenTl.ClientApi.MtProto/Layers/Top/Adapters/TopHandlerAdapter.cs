@@ -59,13 +59,11 @@
 
         public override void UserEventTriggered(IChannelHandlerContext context, object evt)
         {
-            switch (evt)
+            if (evt is ESystemNotification.HandshakeComplete)
             {
-                case ESystemNotification.HandshakeComplete:
-                    Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Handshake is complete");
+                Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Handshake is complete");
 
-                    SendInitConnectionRequest().ConfigureAwait(false);
-                    break;
+                SendInitConnectionRequest().ConfigureAwait(false);
             }
         }
 

@@ -9,7 +9,7 @@
     using OpenTl.Common.IoC;
 
     [SingleInstance(typeof(ISecureHandler))]
-    internal sealed class AutoFlushHandlerAdapater: ChannelHandlerAdapter, ISecureHandler
+    internal sealed class AutoFlushHandlerAdapater: ChannelHandlerAdapter, ISecureHandler, IDisposable
     {
         private Timer _timer;
 
@@ -45,6 +45,11 @@
             _timer = null;
 
             return base.DisconnectAsync(context);
+        }
+
+        public void Dispose()
+        {
+            _timer?.Dispose();
         }
     }
 }

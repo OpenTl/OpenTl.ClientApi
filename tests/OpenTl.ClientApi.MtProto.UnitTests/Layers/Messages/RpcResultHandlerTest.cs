@@ -37,13 +37,12 @@
                 .BuildSuccessSave();
 
             var dcOption = mSettings.Object.Config.DcOptions.Items.First();
-            errorMessage += dcOption.Id;
 
             var messageId = Fixture.Create<long>();
 
             var result = new TRpcError
                          {
-                             ErrorMessage = errorMessage
+                             ErrorMessage = errorMessage + dcOption.Id
                          };
 
             var request = new TRpcResult

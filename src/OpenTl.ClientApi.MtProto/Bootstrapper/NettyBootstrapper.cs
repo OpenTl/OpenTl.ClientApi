@@ -75,7 +75,7 @@
                         })
                 );
 
-            await Connect();
+            await Connect().ConfigureAwait(false);
         }
 
         public async Task Connect()

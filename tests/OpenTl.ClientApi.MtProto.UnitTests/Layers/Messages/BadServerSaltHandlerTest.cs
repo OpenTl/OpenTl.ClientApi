@@ -81,7 +81,7 @@
 
             channel.WriteInbound(badServerSalt);
 
-            await Task.Delay(500);
+            await Task.Delay(500).ConfigureAwait(false);
             // ---
             
             Assert.Equal(request, channel.ReadOutbound<object>());

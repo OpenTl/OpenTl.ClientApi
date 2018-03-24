@@ -9,10 +9,10 @@
     using Xunit;
     using Xunit.Abstractions;
 
-    public sealed class MessageseTests: TestWithAuth
+    public sealed class MessageseTests : TestWithAuth
     {
-        private Random _random = new Random();
-        
+        private readonly Random _random = new Random();
+
         public MessageseTests(ITestOutputHelper output) : base(output)
         {
         }
@@ -21,17 +21,11 @@
         public async Task UpdatesTest()
         {
             var message = _random.Next().ToString();
-            var recieve = false;
-            
-            ClientApi.UpdatesService.RecieveUpdates += update =>
-            {
-                return Task.CompletedTask;
-            };
 
-            await ClientApi.MessagesService.SendMessageAsync(new TInputPeerUser{UserId = ClientApi.AuthService.CurrentUserId.Value}, message);
-            await Task.Delay(3000);
-            
-            Assert.True(recieve);
+            ClientApi.UpdatesService.RecieveUpdates += update => Task.CompletedTask;
+
+            await ClientApi.MessagesService.SendMessageAsync(new TInputPeerUser { UserId = ClientApi.AuthService.CurrentUserId.Value }, message).ConfigureAwait(false);
+            await Task.Delay(3000).ConfigureAwait(false);
         }
     }
 }

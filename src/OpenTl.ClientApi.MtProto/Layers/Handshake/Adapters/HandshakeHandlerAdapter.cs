@@ -1,6 +1,7 @@
 ﻿namespace OpenTl.ClientApi.MtProto.Layers.Handshake.Adapters
 {
     using System;
+    using System.Threading.Tasks;
 
     using BarsGroup.CodeGuard;
 

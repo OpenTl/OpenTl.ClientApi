@@ -45,7 +45,9 @@
                 if (!clientApi.AuthService.CurrentUserId.HasValue)
                 {
                     var sentCode = await clientApi.AuthService.SendCodeAsync(phoneNumber).ConfigureAwait(false);
-                    await Task.Delay(5000);
+
+                    await Task.Delay(5000).ConfigureAwait(false);
+                        
                     if (await clientApi.AuthService.IsPhoneRegisteredAsync(phoneNumber).ConfigureAwait(false))
                     {
                         user = await clientApi.AuthService.SignInAsync(phoneNumber, sentCode, PhoneCode).ConfigureAwait(false);
@@ -55,7 +57,7 @@
                         user = await clientApi.AuthService.SignUpAsync(phoneNumber, sentCode, PhoneCode, "Test", "Test").ConfigureAwait(false);
                     }
 
-                    await Task.Delay(1000);
+                    await Task.Delay(3000).ConfigureAwait(false);
                 }
                 else
                 {

@@ -18,7 +18,6 @@
     using OpenTl.ClientApi.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
-    using OpenTl.Schema.Auth;
     using OpenTl.Schema.Upload;
 
     [SingleInstance(typeof(IFileService))]
@@ -35,61 +34,48 @@
         public IClientSettings ClientSettings { get; set; }
 
         /// <inheritdoc />
-        [return:AllowNull]
-        public async Task<byte[]> DownloadFullFileAsync(IInputFileLocation location, CancellationToken cancellationToken = default(CancellationToken)) 
-        {
-            ClientSettings.EnsureUserAuthorized();
-
-            try
-            {
-                return await DownloadAllFilePartsAsync(location, cancellationToken);         
-            }
-            catch (FileMigrationException ex)
-            {
-                return await RequestService.SendRequestToOtherDcAsync(ex.Dc, api => api.FileService.DownloadAllFilePartsAsync(location, cancellationToken), cancellationToken).ConfigureAwait(false);
-            }
-        }
-
-        /// <inheritdoc />
-        [return:AllowNull]
+        [return: AllowNull]
         public async Task<byte[]> DownloadAllFilePartsAsync(IInputFileLocation location, CancellationToken cancellationToken)
         {
             var filePartSize = location is TInputDocumentFileLocation
                                    ? DownloadDocumentPartSize
                                    : DownloadPhotoPartSize;
-            
+
             var offset = 0;
             var bytes = new List<byte>();
             while (true)
             {
-               
-                    var file = await DownloadFilePartAsync(location, offset, cancellationToken).ConfigureAwait(false);
-                    if (file == null)
-                        return null;
+                var file = await DownloadFilePartAsync(location, offset, cancellationToken).ConfigureAwait(false);
+                if (file == null)
+                {
+                    return null;
+                }
 
-                    bytes.AddRange(file.Bytes);
-                    if (file.Bytes.Length < filePartSize)
-                    {
-                        return bytes.ToArray();
-                    }
+                bytes.AddRange(file.Bytes);
+                if (file.Bytes.Length < filePartSize)
+                {
+                    return bytes.ToArray();
+                }
 
-                    offset += file.Bytes.Length;
+                offset += file.Bytes.Length;
             }
         }
 
-        private async Task<TFile> DownloadFilePartAsync(IInputFileLocation location, int offset, CancellationToken cancellationToken)
+        /// <inheritdoc />
+        [return: AllowNull]
+        public async Task<byte[]> DownloadFullFileAsync(IInputFileLocation location, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var filePartSize = location is TInputDocumentFileLocation
-                                   ? DownloadDocumentPartSize
-                                   : DownloadPhotoPartSize;
+            ClientSettings.EnsureUserAuthorized();
 
-            var requestGetFile = new RequestGetFile
-                                 {
-                                     Location = location,
-                                     Limit = filePartSize,
-                                     Offset = offset
-                                 };
-            return (TFile) await RequestService.SendRequestAsync(requestGetFile, cancellationToken).ConfigureAwait(false);
+            try
+            {
+                return await DownloadAllFilePartsAsync(location, cancellationToken).ConfigureAwait(false);
+            }
+            catch (FileMigrationException ex)
+            {
+                return await RequestService.SendRequestToOtherDcAsync(ex.Dc, api => api.FileService.DownloadAllFilePartsAsync(location, cancellationToken), cancellationToken)
+                                           .ConfigureAwait(false);
+            }
         }
 
         /// <inheritdoc />
@@ -154,6 +140,21 @@
                        Parts = partsCount,
                        Md5Checksum = GetFileHash(file)
                    };
+        }
+
+        private async Task<TFile> DownloadFilePartAsync(IInputFileLocation location, int offset, CancellationToken cancellationToken)
+        {
+            var filePartSize = location is TInputDocumentFileLocation
+                                   ? DownloadDocumentPartSize
+                                   : DownloadPhotoPartSize;
+
+            var requestGetFile = new RequestGetFile
+                                 {
+                                     Location = location,
+                                     Limit = filePartSize,
+                                     Offset = offset
+                                 };
+            return (TFile)await RequestService.SendRequestAsync(requestGetFile, cancellationToken).ConfigureAwait(false);
         }
 
         private static string GetFileHash(byte[] data)
