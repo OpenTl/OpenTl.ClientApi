@@ -1,7 +1,7 @@
 # OpenTl.ClientApi
 
 [![Build status](https://ci.appveyor.com/api/projects/status/nh3ek3735uqscqhx/branch/master?svg=true)](https://ci.appveyor.com/project/vik_borisov/opentl-clientapi/branch/master)
-[![Prod version](https://img.shields.io/nuget/v/OpenTl.ClientApi.svg?style=flat&label=prod%20version)](https://www.nuget.org/packages/OpenTl.ClientApi/)
+[![Prod version](https://img.shields.io/nuget/v/OpenTl.ClientApi.svg?style=flat&colorB=brightgreen&label=prod%20version)](https://www.nuget.org/packages/OpenTl.ClientApi/)
 [![Dev version](https://img.shields.io/myget/opentl/v/OpenTl.ClientApi.svg?style=flat&label=dev%20version)](https://www.myget.org/feed/opentl/package/nuget/OpenTl.ClientApi)
 [![Telegram group](https://img.shields.io/badge/TELEGRAM-GROUP-green.svg)](https://t.me/joinchat/D1EEGBGwdrHcoNbzXALYPg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cb64069dc0f247829dc01d3e8bb87999)](https://www.codacy.com/app/OpenTl/OpenTl.ClientApi?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OpenTl/OpenTl.ClientApi&amp;utm_campaign=Badge_Grade)
