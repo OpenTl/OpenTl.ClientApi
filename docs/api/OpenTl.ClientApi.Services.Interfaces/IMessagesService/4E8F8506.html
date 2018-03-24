@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
-        <title>OpenTl.ClientApi - API - IMessagesService.SendUploadedPhotoAsync(IInputPeer, IInputFile, string, CancellationToken) Method</title>
+        <title>OpenTl.ClientApi - API - IMessagesService.SendUploadedDocumentAsync(IInputPeer, IInputFile, string, IReadOnlyList&lt;IDocumentAttribute&gt;, IInputFile, CancellationToken) Method</title>
         <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
@@ -146,12 +146,11 @@
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/E8B44C39.html">DeleteMessagesAsync<wbr>(IReadOnlyList<wbr>&lt;int&gt;<wbr>, <wbr>bool, <wbr>CancellationToken)<wbr></a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/76631B9D.html">EditChatPhoto<wbr>(int, <wbr>IInputChatPhoto, <wbr>CancellationToken)<wbr></a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/A161534F.html">EditChatTitle<wbr>(int, <wbr>string, <wbr>CancellationToken)<wbr></a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/55CCEB61.html">ForwardMessageAsync<wbr>(IInputPeer, <wbr>int, <wbr>CancellationToken)<wbr></a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/4CFD209E.html">ForwardMessagesAsync<wbr>(IInputPeer, <wbr>IInputPeer, <wbr>IReadOnlyList<wbr>&lt;int&gt;<wbr>, <wbr>bool, <wbr>bool, <wbr>CancellationToken)<wbr></a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/288B6903.html">GetChatsAsync<wbr>(IReadOnlyList<wbr>&lt;int&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/D6430F11.html">GetFullChatAsync<wbr>(int, <wbr>CancellationToken)<wbr></a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/1DC7C312.html">GetHistoryAsync<wbr>(IInputPeer, <wbr>int, <wbr>int, <wbr>int, <wbr>CancellationToken)<wbr></a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/E5C36AAB.html">GetMessagesAsync<wbr>(IReadOnlyList<wbr>&lt;int&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/AE04145B.html">GetMessagesAsync<wbr>(IReadOnlyList<wbr>&lt;<wbr>I<wbr>Input<wbr>Message&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/6A31F111.html">GetUserDialogsAsync<wbr>(int, <wbr>CancellationToken)<wbr></a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/766646DD.html">ReadHistoryAsync<wbr>(IInputPeer, <wbr>int, <wbr>CancellationToken)<wbr></a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/4540421E.html">Read<wbr>Message<wbr>Contents<wbr>Async<wbr>(IReadOnlyList<wbr>&lt;int&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
@@ -159,8 +158,8 @@
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/1B714CB5.html">SendMediaAsync<wbr>(IInputPeer, <wbr>IInputMedia, <wbr>CancellationToken)<wbr></a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/B7915C0E.html">SendMessageAsync<wbr>(IInputPeer, <wbr>string, <wbr>CancellationToken)<wbr></a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/7C37B7A7.html">SendTypingAsync<wbr>(IInputPeer, <wbr>CancellationToken)<wbr></a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/CAA0CD13.html">Send<wbr>Uploaded<wbr>Document<wbr>Async<wbr>(IInputPeer, <wbr>IInputFile, <wbr>string, <wbr>string, <wbr>IReadOnlyList<wbr>&lt;<wbr>I<wbr>Document<wbr>Attribute&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
-				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/390AA234.html">Send<wbr>Uploaded<wbr>Photo<wbr>Async<wbr>(IInputPeer, <wbr>IInputFile, <wbr>string, <wbr>CancellationToken)<wbr></a></li>
+				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/4E8F8506.html">Send<wbr>Uploaded<wbr>Document<wbr>Async<wbr>(IInputPeer, <wbr>IInputFile, <wbr>string, <wbr>IReadOnlyList<wbr>&lt;<wbr>I<wbr>Document<wbr>Attribute&gt;<wbr>, <wbr>IInputFile, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/2CC447E5.html">Send<wbr>Uploaded<wbr>Photo<wbr>Async<wbr>(IInputPeer, <wbr>IInputFile, <wbr>CancellationToken)<wbr></a></li>
 
 
                     </ul>
@@ -176,13 +175,13 @@
 
 <section class="content-header">
 			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService">IMessagesService</a>.</h3>
-	<h1>Send<wbr>Uploaded<wbr>Photo<wbr>Async<wbr>(IInputPeer, <wbr>IInputFile, <wbr>string, <wbr>CancellationToken)<wbr> <small>Method</small></h1>
+	<h1>Send<wbr>Uploaded<wbr>Document<wbr>Async<wbr>(IInputPeer, <wbr>IInputFile, <wbr>string, <wbr>IReadOnlyList<wbr>&lt;<wbr>I<wbr>Document<wbr>Attribute&gt;<wbr>, <wbr>IInputFile, <wbr>CancellationToken)<wbr> <small>Method</small></h1>
 </section>
 <section class="content">
 	
 	
 		<h1 id="Summary">Summary</h1>
-	<div class="lead">Sends a photo to user or chat</div>
+	<div class="lead">Sends a document with <inheritdoc cref="!:mimeType"> to user or chat</inheritdoc></div>
 
 		<div class="panel panel-default">
   			<div class="panel-body">	
@@ -199,7 +198,7 @@
 		</div>
 
 	<h1 id="Syntax">Syntax</h1>
-	<pre><code>Task&lt;IUpdates&gt; SendUploadedPhotoAsync(IInputPeer peer, IInputFile photo, string caption, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+	<pre><code>Task&lt;IUpdates&gt; SendUploadedDocumentAsync(IInputPeer peer, IInputFile document, string mimeType, IReadOnlyList&lt;IDocumentAttribute&gt; attributes, IInputFile thumb = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
 
 
 
@@ -222,14 +221,24 @@
 						<td>User or chat where a message will be sent</td>
 					</tr>
 					<tr>
-						<td>photo</td>
+						<td>document</td>
 						<td>IInputFile</td>
-						<td>Photo</td>
+						<td>Document</td>
 					</tr>
 					<tr>
-						<td>caption</td>
+						<td>mimeType</td>
 						<td>string</td>
-						<td>Caption</td>
+						<td>MimeType</td>
+					</tr>
+					<tr>
+						<td>attributes</td>
+						<td>IReadOnlyList<wbr>&lt;T&gt;<wbr></td>
+						<td>Attributes</td>
+					</tr>
+					<tr>
+						<td>thumb</td>
+						<td>IInputFile</td>
+						<td>The thumb</td>
 					</tr>
 					<tr>
 						<td>cancellationToken</td>

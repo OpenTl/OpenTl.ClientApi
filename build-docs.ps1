@@ -10,7 +10,8 @@ function Unzip
 
 Set-Location "docs_src"
 
-if(!(Test-Path ".\Wyam\Wyam.zip")){
+if(!(Test-Path ".\Wyam")){
+    New-Item -ItemType directory -Path ".\Wyam"
     Invoke-WebRequest "https://raw.githubusercontent.com/Wyamio/Wyam/master/RELEASE" -OutFile ".\Wyam\wyamversion.txt"
     $version = Get-Content ".\Wyam\wyamversion.txt"
     $filePath = "https://github.com/Wyamio/Wyam/releases/download/$version/Wyam-$version.zip"

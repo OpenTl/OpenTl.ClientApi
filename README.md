@@ -11,6 +11,8 @@ Suitable for the realization of clients for work with servers that support the M
 
 It's a perfect fit for any developer who would like to send data directly to Telegram users or write own custom Telegram client.
 
+**We are used the 76th schema layer**
+
 :star2: If you :heart: library, please star it! :star2:
 
 ## How do I add this to my project?
