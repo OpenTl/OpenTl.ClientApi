@@ -31,7 +31,7 @@ If you want the desired function to appear in the library faster - [create featu
 
 ## [Library Documentation](https://opentl.github.io/OpenTl.ClientApi/)
 
-## [Quick Start](https://opentl.github.io/OpenTl.ClientApi/Documentation/QuickStart)
+## [Quick Start](https://github.com/OpenTl/OpenTl.ClientApi/wiki/Quick-Start)
 
 ## [Schema Documentation](https://opentl.github.io/OpenTl.Schema/api/)
 
