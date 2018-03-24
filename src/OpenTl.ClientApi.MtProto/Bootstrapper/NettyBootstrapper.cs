@@ -1,5 +1,6 @@
 ﻿namespace OpenTl.ClientApi.MtProto.Bootstrapper
 {
+    using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
 
@@ -16,6 +17,8 @@
     using DotNetty.Transport.Channels.Sockets;
 
     using log4net;
+
+    using MoreLinq;
 
     using OpenTl.ClientApi.MtProto.Layers.Handshake;
     using OpenTl.ClientApi.MtProto.Layers.Messages;
@@ -61,7 +64,7 @@
                             pipeline.AddLast(Container.ResolveAll<ITcpHandler>());
                             pipeline.AddLast(Container.ResolveAll<IHandshakeHandler>());
                             pipeline.AddLast(Container.ResolveAll<ISecureHandler>());
-                            pipeline.AddLast(Container.ResolveAll<IMessageHandler>());
+                            pipeline.AddLast(Container.ResolveAll<IMessageHandler>().OrderBy(m => m.Order).ToArray());
                             pipeline.AddLast(Container.ResolveAll<ITopLevelHandler>());
                            
                             if (Log.IsInfoEnabled)
