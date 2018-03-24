@@ -112,11 +112,11 @@
 
                 cacheItem.TaskSource.TrySetException(exception);
 
-                Log.Error($"#{ClientSettings.ClientSession.SessionId}: Request was processed with error", exception);
+                Log.Info($"#{ClientSettings.ClientSession.SessionId}: Request was processed with error", exception);
             }
             else
             {
-                Log.Error($"#{ClientSettings.ClientSession.SessionId}: Callback for request with Id {messageId} wasn't found");
+                Log.Info($"#{ClientSettings.ClientSession.SessionId}: Callback for request with Id {messageId} wasn't found");
             }
         }
 
@@ -147,7 +147,7 @@
             }
             else
             {
-                Log.Error($"#{ClientSettings.ClientSession.SessionId}: Callback for request with Id {messageId} wasn't found");
+                Log.Info($"#{ClientSettings.ClientSession.SessionId}: Callback for request with Id {messageId} wasn't found");
             }
         }
 
