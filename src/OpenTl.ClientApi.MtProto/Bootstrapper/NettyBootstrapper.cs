@@ -9,6 +9,7 @@
 
     using DotNetty.Buffers;
     using DotNetty.Codecs;
+    using DotNetty.Common;
     using DotNetty.Handlers.Logging;
     using DotNetty.Transport.Bootstrapping;
     using DotNetty.Transport.Channels;
@@ -65,6 +66,7 @@
                            
                             if (Log.IsInfoEnabled)
                             {
+                                ResourceLeakDetector.Level = ResourceLeakDetector.DetectionLevel.Advanced;
                                 pipeline.AddLast(new LoggingHandler(LogLevel.INFO));
                             }
                         })
