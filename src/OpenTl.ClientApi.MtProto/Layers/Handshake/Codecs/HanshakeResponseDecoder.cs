@@ -40,7 +40,7 @@ namespace OpenTl.ClientApi.MtProto.Layers.Handshake.Codecs
             input.SkipBytes(8);
             
             var messageId = input.ReadLongLE();
-            input.SkipBytes(8);
+            input.SkipBytes(4);
 
             var message = Serializer.Deserialize(input);
         
