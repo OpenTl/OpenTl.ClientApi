@@ -11,7 +11,7 @@
     using log4net;
 
     using OpenTl.Common.Crypto;
-    using OpenTl.Common.Extesions;
+    using OpenTl.Common.Extensions;
     using OpenTl.Common.IoC;
 
     [TransientInstance(typeof(ITcpHandler))]

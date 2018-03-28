@@ -5,9 +5,8 @@
 
     using Castle.Windsor;
 
-    using DotNetty.Common.Utilities;
-
     using OpenTl.ClientApi.Services.Interfaces;
+    using OpenTl.Common.Extensions;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
 

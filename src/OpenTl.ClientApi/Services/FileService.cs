@@ -8,14 +8,13 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using DotNetty.Common.Utilities;
-
     using NullGuard;
 
+    using OpenTl.ClientApi.Services.Interfaces;
     using OpenTl.ClientApi.Extensions;
     using OpenTl.ClientApi.MtProto;
     using OpenTl.ClientApi.MtProto.Exceptions;
-    using OpenTl.ClientApi.Services.Interfaces;
+    using OpenTl.Common.Extensions;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
     using OpenTl.Schema.Upload;

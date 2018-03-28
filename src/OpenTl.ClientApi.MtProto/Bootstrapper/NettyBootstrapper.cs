@@ -18,8 +18,6 @@
 
     using log4net;
 
-    using MoreLinq;
-
     using OpenTl.ClientApi.MtProto.Layers.Handshake;
     using OpenTl.ClientApi.MtProto.Layers.Messages;
     using OpenTl.ClientApi.MtProto.Layers.Secure;

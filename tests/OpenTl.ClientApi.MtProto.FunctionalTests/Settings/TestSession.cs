@@ -2,9 +2,8 @@
 {
     using System;
 
-    using DotNetty.Common.Utilities;
-
     using OpenTl.Common.Auth;
+    using OpenTl.Common.Extensions;
 
     internal sealed class TestSession: IClientSession
     {

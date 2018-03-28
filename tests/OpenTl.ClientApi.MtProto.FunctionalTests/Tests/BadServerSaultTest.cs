@@ -4,9 +4,8 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using DotNetty.Common.Utilities;
-
     using OpenTl.ClientApi.MtProto.FunctionalTests.Framework;
+    using OpenTl.Common.Extensions;
     using OpenTl.Schema.Help;
 
     using Xunit;

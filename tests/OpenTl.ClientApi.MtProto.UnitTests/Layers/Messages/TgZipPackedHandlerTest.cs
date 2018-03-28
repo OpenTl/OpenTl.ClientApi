@@ -8,7 +8,7 @@
     using OpenTl.ClientApi.MtProto.Layers.Messages.Adapters;
     using OpenTl.ClientApi.MtProto.UnitTests.Framework;
     using OpenTl.ClientApi.MtProto.UnitTests.Framework.Builders;
-    using OpenTl.Common.Extesions;
+    using OpenTl.Common.Extensions;
     using OpenTl.Common.Testing;
     using OpenTl.Schema;
     using OpenTl.Schema.Serialization;

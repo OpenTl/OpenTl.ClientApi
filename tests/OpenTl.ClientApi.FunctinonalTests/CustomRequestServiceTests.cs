@@ -5,11 +5,9 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using DotNetty.Common.Utilities;
-
     using OpenTl.ClientApi.FunctinonalTests.Framework;
+    using OpenTl.Common.Extensions;
     using OpenTl.Schema;
-    using OpenTl.Schema.Help;
 
     using Xunit;
     using Xunit.Abstractions;

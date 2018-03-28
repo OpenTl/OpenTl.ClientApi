@@ -3,7 +3,6 @@
     using System;
     using System.Threading.Tasks;
 
-    using DotNetty.Common.Utilities;
     using DotNetty.Transport.Channels.Embedded;
 
     using Moq;
@@ -12,6 +11,7 @@
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.ClientApi.MtProto.UnitTests.Framework;
     using OpenTl.ClientApi.MtProto.UnitTests.Framework.Builders;
+    using OpenTl.Common.Extensions;
     using OpenTl.Common.Testing;
     using OpenTl.Schema;
 

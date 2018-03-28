@@ -2,12 +2,11 @@
 {
     using System;
 
-    using DotNetty.Common.Utilities;
-
     using NullGuard;
 
     using OpenTl.ClientApi.MtProto;
     using OpenTl.Common.Auth;
+    using OpenTl.Common.Extensions;
 
     internal sealed class ClientSession : IClientSession
     {
