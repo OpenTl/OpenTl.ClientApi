@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
-        <title>OpenTl.ClientApi - API - IContactsService Interface</title>
+        <title>OpenTl.ClientApi - API - IContactsService.DeleteContactsAsync(IReadOnlyList&lt;IInputUser&gt;, CancellationToken) Method</title>
         <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
@@ -70,8 +70,10 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Syntax">Syntax</a></p>
-<p><a href="#Methods">Methods</a></p>
+	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Summary">Summary</a></p>
+<p><a href="#Syntax">Syntax</a></p>
+<p><a href="#Parameters">Parameters</a></p>
+<p><a href="#ReturnValue">Return Value</a></p>
 <hr class="infobar-hidden">
 </div>
 
@@ -132,18 +134,16 @@
                         
 			<li class="header">Namespace</li>
 		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces">OpenTl<wbr>.ClientApi<wbr>.Services<wbr>.Interfaces</a></li>
+		<li class="header">Type</li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService">IContactsService</a></li>
 		<li role="separator" class="divider"></li>
-			<li class="header">Interface Types</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService">IAuthService</a></li>
-				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService">IContactsService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService">I<wbr>Custom<wbr>Requests<wbr>Service</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IFileService">IFileService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IHelpService">IHelpService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService">IMessagesService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService">IUpdatesService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService">IUsersService</a></li>
-			<li class="header">Delegate Types</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/UpdateHandler">UpdateHandler</a></li>
+			<li class="header">Method Members</li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/6EE35D5A.html">DeleteContactAsync<wbr>(IInputUser, <wbr>CancellationToken)<wbr></a></li>
+				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/9D687363.html">DeleteContactsAsync<wbr>(IReadOnlyList<wbr>&lt;IInputUser&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/718F5AC8.html">GetContactsAsync<wbr>(CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/C8AE1C8D.html">GetStatusesAsync<wbr>(CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/E5450BFE.html">ImportContactsAsync<wbr>(IReadOnlyList<wbr>&lt;<wbr>T<wbr>Input<wbr>Phone<wbr>Contact&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/F160A2DA.html">SearchUserAsync<wbr>(string, <wbr>int, <wbr>CancellationToken)<wbr></a></li>
 
 
                     </ul>
@@ -158,108 +158,78 @@
 
 
 <section class="content-header">
-	<h1>IContactsService <small>Interface</small></h1>
+			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService">IContactsService</a>.</h3>
+	<h1>DeleteContactsAsync<wbr>(IReadOnlyList<wbr>&lt;IInputUser&gt;<wbr>, <wbr>CancellationToken)<wbr> <small>Method</small></h1>
 </section>
 <section class="content">
 	
 	
-	
+		<h1 id="Summary">Summary</h1>
+	<div class="lead">Delete users from contacts</div>
+
 		<div class="panel panel-default">
-  			<div class="panel-body">
-				<div class="row">
-					<div class="col-md-6">
-						<dl class="dl-horizontal">		
-
-								<dt>Namespace</dt>
-								<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces">OpenTl<wbr>.ClientApi<wbr>.Services<wbr>.Interfaces</a></dd>
-											
-							
-							
-							
-						</dl>
-					</div>		
-					<div class="col-md-6">
-						<div class="mermaid">
-							graph TD
-	Type["IContactsService"]
-class Type type-node
-
-						</div>
-					</div>
-				</div>
+  			<div class="panel-body">	
+				<dl class="dl-horizontal">	
+						
+						<dt>Namespace</dt>
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces">OpenTl<wbr>.ClientApi<wbr>.Services<wbr>.Interfaces</a></dd>
+					
+						<dt>Containing Type</dt>
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService">IContactsService</a></dd>		
+					
+				</dl>
   			</div>
 		</div>
 
 	<h1 id="Syntax">Syntax</h1>
-	<pre><code>public interface IContactsService</code></pre>
+	<pre><code>Task&lt;bool&gt; DeleteContactsAsync(IReadOnlyList&lt;IInputUser&gt; users, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
 
 
 
 
 
+	<h1 id="Parameters">Parameters</h1>
+	<div class="box">
+		<div class="box-body no-padding table-responsive">
+			<table class="table table-striped table-hover three-cols">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+					<tbody><tr>
+						<td>users</td>
+						<td>IReadOnlyList<wbr>&lt;T&gt;<wbr></td>
+						<td>Users for delete</td>
+					</tr>
+					<tr>
+						<td>cancellationToken</td>
+						<td>CancellationToken</td>
+						<td>A cancellation token</td>
+					</tr>
+			</tbody></table>
+		</div>
+	</div>	
 
-
-
-
-
-			<h1 id="Methods">Methods</h1>
-			<div class="box">
-				<div class="box-body no-padding table-responsive">
-					<table class="table table-striped table-hover three-cols">
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Value</th>
-								<th>Summary</th>
-							</tr>
-						</thead>
-							<tbody><tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/6EE35D5A.html">DeleteContactAsync<wbr>(IInputUser, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-								<td>
-									<div>Delete user from contacts</div>
-								</td>
-							</tr>
-							<tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/9D687363.html">DeleteContactsAsync<wbr>(IReadOnlyList<wbr>&lt;IInputUser&gt;<wbr>, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-								<td>
-									<div>Delete users from contacts</div>
-								</td>
-							</tr>
-							<tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/718F5AC8.html">GetContactsAsync<wbr>(CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-								<td>
-									<div>Returns the current user’s contact list</div>
-								</td>
-							</tr>
-							<tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/C8AE1C8D.html">GetStatusesAsync<wbr>(CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-								<td>
-									<div></div>
-								</td>
-							</tr>
-							<tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/E5450BFE.html">ImportContactsAsync<wbr>(IReadOnlyList<wbr>&lt;<wbr>T<wbr>Input<wbr>Phone<wbr>Contact&gt;<wbr>, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-								<td>
-									<div>Import contacts to the server</div>
-								</td>
-							</tr>
-							<tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/F160A2DA.html">SearchUserAsync<wbr>(string, <wbr>int, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-								<td>
-									<div>Serch user or chat. By default the limit is 10.</div>
-								</td>
-							</tr>
-					</tbody></table>
-				</div>
-			</div>
-		
-
+	<h1 id="ReturnValue">Return Value</h1>
+	<div class="box">
+		<div class="box-body no-padding table-responsive">
+			<table class="table table-striped table-hover two-cols">
+				<thead>
+					<tr>
+						<th>Type</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody><tr>
+					<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+					<td>Success</td>
+				</tr>
+			</tbody></table>
+		</div>
+	</div>	
 
 
 	
