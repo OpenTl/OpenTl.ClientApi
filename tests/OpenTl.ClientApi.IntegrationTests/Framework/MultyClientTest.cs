@@ -61,7 +61,7 @@
                 }
                 else
                 {
-                    var fullUser = await clientApi.UsersService.GetCurrentUserFull().ConfigureAwait(false);
+                    var fullUser = await clientApi.UsersService.GetCurrentUserFullAsync().ConfigureAwait(false);
                     user = (TUser)fullUser.User;
                 }
 

@@ -41,7 +41,7 @@
             Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Process RpcResult  with request id = '{msg.ReqMsgId}'");
 
 
-            IObject result;
+            object result;
             var buffer = ctx.Allocator.Buffer(msg.Result.Length);
             try
             {
