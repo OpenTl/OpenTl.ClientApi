@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
-        <title>OpenTl.ClientApi - API - UsersService.GetCurrentUserFull(CancellationToken) Method</title>
+        <title>OpenTl.ClientApi - API - IUsersService.UpdateUsernameAsync(string, CancellationToken) Method</title>
         <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
@@ -133,15 +133,17 @@
                     <ul class="sidebar-menu">
                         
 			<li class="header">Namespace</li>
-		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services">OpenTl<wbr>.ClientApi<wbr>.Services</a></li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces">OpenTl<wbr>.ClientApi<wbr>.Services<wbr>.Interfaces</a></li>
 		<li class="header">Type</li>
-		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService">UsersService</a></li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService">IUsersService</a></li>
 		<li role="separator" class="divider"></li>
-			<li class="header">Property Members</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/F0D23C12.html">RequestSender</a></li>
 			<li class="header">Method Members</li>
-				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/3BCCFFC7.html">GetCurrentUserFull<wbr>(CancellationToken)<wbr></a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/54A38551.html">GetUserFull<wbr>(IInputUser, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/574D37FE.html">CheckUsernameAsync<wbr>(string, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/B9C26C0D.html">Get<wbr>Current<wbr>User<wbr>Full<wbr>Async<wbr>(CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/B9F30550.html">GetUserFullAsync<wbr>(IInputUser, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/18A39690.html">GetUserPhotosAsync<wbr>(IInputUser, <wbr>int, <wbr>int, <wbr>long, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/07EE28F1.html">GetUsersAsync<wbr>(IReadOnlyList<wbr>&lt;IInputUser&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
+				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/795A083C.html">UpdateUsernameAsync<wbr>(string, <wbr>CancellationToken)<wbr></a></li>
 
 
                     </ul>
@@ -156,33 +158,31 @@
 
 
 <section class="content-header">
-			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService">UsersService</a>.</h3>
-	<h1>GetCurrentUserFull<wbr>(CancellationToken)<wbr> <small>Method</small></h1>
+			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService">IUsersService</a>.</h3>
+	<h1>UpdateUsernameAsync<wbr>(string, <wbr>CancellationToken)<wbr> <small>Method</small></h1>
 </section>
 <section class="content">
 	
 	
 		<h1 id="Summary">Summary</h1>
-	<div class="lead">
-    Get full information about current user
-    </div>
+	<div class="lead">Update username</div>
 
 		<div class="panel panel-default">
   			<div class="panel-body">	
 				<dl class="dl-horizontal">	
 						
 						<dt>Namespace</dt>
-						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services">OpenTl<wbr>.ClientApi<wbr>.Services</a></dd>
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces">OpenTl<wbr>.ClientApi<wbr>.Services<wbr>.Interfaces</a></dd>
 					
 						<dt>Containing Type</dt>
-						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService">UsersService</a></dd>		
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService">IUsersService</a></dd>		
 					
 				</dl>
   			</div>
 		</div>
 
 	<h1 id="Syntax">Syntax</h1>
-	<pre><code>public Task&lt;TUserFull&gt; GetCurrentUserFull(CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+	<pre><code>Task&lt;TUser&gt; UpdateUsernameAsync(string username, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
 
 
 
@@ -200,6 +200,11 @@
 					</tr>
 				</thead>
 					<tbody><tr>
+						<td>username</td>
+						<td>string</td>
+						<td>Username</td>
+					</tr>
+					<tr>
 						<td>cancellationToken</td>
 						<td>CancellationToken</td>
 						<td>Сancellation token</td>
@@ -220,7 +225,7 @@
 				</thead>
 				<tbody><tr>
 					<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-					<td>Full information</td>
+					<td>User</td>
 				</tr>
 			</tbody></table>
 		</div>

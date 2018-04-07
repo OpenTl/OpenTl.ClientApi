@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
-        <title>OpenTl.ClientApi - API - UsersService Class</title>
+        <title>OpenTl.ClientApi - API - UsersService.GetUserPhotosAsync(IInputUser, int, int, long, CancellationToken) Method</title>
         <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
@@ -70,10 +70,10 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Syntax">Syntax</a></p>
-<p><a href="#Attributes">Attributes</a></p>
-<p><a href="#Properties">Properties</a></p>
-<p><a href="#Methods">Methods</a></p>
+	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Summary">Summary</a></p>
+<p><a href="#Syntax">Syntax</a></p>
+<p><a href="#Parameters">Parameters</a></p>
+<p><a href="#ReturnValue">Return Value</a></p>
 <hr class="infobar-hidden">
 </div>
 
@@ -134,10 +134,18 @@
                         
 			<li class="header">Namespace</li>
 		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services">OpenTl<wbr>.ClientApi<wbr>.Services</a></li>
+		<li class="header">Type</li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService">UsersService</a></li>
 		<li role="separator" class="divider"></li>
-			<li class="header">Class Types</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService">Custom<wbr>Requests<wbr>Service</a></li>
-				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService">UsersService</a></li>
+			<li class="header">Property Members</li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/F0D23C12.html">RequestSender</a></li>
+			<li class="header">Method Members</li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/759A1053.html">CheckUsernameAsync<wbr>(string, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/04791D1B.html">Get<wbr>Current<wbr>User<wbr>Full<wbr>Async<wbr>(CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/E989E6B4.html">GetUserFullAsync<wbr>(IInputUser, <wbr>CancellationToken)<wbr></a></li>
+				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/5E0DABE7.html">GetUserPhotosAsync<wbr>(IInputUser, <wbr>int, <wbr>int, <wbr>long, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/6621A9DA.html">GetUsersAsync<wbr>(IReadOnlyList<wbr>&lt;IInputUser&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/4A3CC5E9.html">UpdateUsernameAsync<wbr>(string, <wbr>CancellationToken)<wbr></a></li>
 
 
                     </ul>
@@ -152,60 +160,77 @@
 
 
 <section class="content-header">
-	<h1>UsersService <small>Class</small></h1>
+			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService">UsersService</a>.</h3>
+	<h1>GetUserPhotosAsync<wbr>(IInputUser, <wbr>int, <wbr>int, <wbr>long, <wbr>CancellationToken)<wbr> <small>Method</small></h1>
 </section>
 <section class="content">
 	
 	
-	
+		<h1 id="Summary">Summary</h1>
+	<div class="lead">Get a user photos</div>
+
 		<div class="panel panel-default">
-  			<div class="panel-body">
-				<div class="row">
-					<div class="col-md-6">
-						<dl class="dl-horizontal">		
-
-								<dt>Namespace</dt>
-								<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services">OpenTl<wbr>.ClientApi<wbr>.Services</a></dd>
-											
-								<dt>Interfaces</dt>
-								<dd>
-									<ul class="list-unstyled">
-											<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService">IUsersService</a></li>								
-									</ul>
-								</dd>
-							
-								<dt>Base Types</dt>
-								<dd>
-									<ul class="list-unstyled">										
-											<li>object</li>								
-									</ul>
-								</dd>				
-							
-							
-						</dl>
-					</div>		
-					<div class="col-md-6">
-						<div class="mermaid">
-							graph TD
-	Base0["object"]--&gt;Type
-	Interface0["IUsersService"]-.-&gt;Type
-	click Interface0 "/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService"
-	Type["UsersService"]
-class Type type-node
-
-						</div>
-					</div>
-				</div>
+  			<div class="panel-body">	
+				<dl class="dl-horizontal">	
+						
+						<dt>Namespace</dt>
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services">OpenTl<wbr>.ClientApi<wbr>.Services</a></dd>
+					
+						<dt>Containing Type</dt>
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService">UsersService</a></dd>		
+					
+				</dl>
   			</div>
 		</div>
 
 	<h1 id="Syntax">Syntax</h1>
-	<pre><code>[SingleInstance(typeof (IUsersService))]
-public class UsersService : IUsersService</code></pre>
+	<pre><code>public Task&lt;IPhotos&gt; GetUserPhotosAsync(IInputUser user, int offset = 0, int limit = 200, long maxId = 0, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
 
 
 
-	<h1 id="Attributes">Attributes</h1>
+
+
+	<h1 id="Parameters">Parameters</h1>
+	<div class="box">
+		<div class="box-body no-padding table-responsive">
+			<table class="table table-striped table-hover three-cols">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+					<tbody><tr>
+						<td>user</td>
+						<td>IInputUser</td>
+						<td>User</td>
+					</tr>
+					<tr>
+						<td>offset</td>
+						<td>int</td>
+						<td>Offset</td>
+					</tr>
+					<tr>
+						<td>limit</td>
+						<td>int</td>
+						<td>Limit</td>
+					</tr>
+					<tr>
+						<td>maxId</td>
+						<td>long</td>
+						<td>Max id</td>
+					</tr>
+					<tr>
+						<td>cancellationToken</td>
+						<td>CancellationToken</td>
+						<td>Сancellation token</td>
+					</tr>
+			</tbody></table>
+		</div>
+	</div>	
+
+	<h1 id="ReturnValue">Return Value</h1>
 	<div class="box">
 		<div class="box-body no-padding table-responsive">
 			<table class="table table-striped table-hover two-cols">
@@ -215,100 +240,13 @@ public class UsersService : IUsersService</code></pre>
 						<th>Description</th>
 					</tr>
 				</thead>
-					<tbody><tr>
-						<td>SingleInstance</td>
-						<td></td>
-					</tr>
+				<tbody><tr>
+					<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+					<td>Users</td>
+				</tr>
 			</tbody></table>
 		</div>
 	</div>	
-
-
-
-
-
-
-			<h1 id="Properties">Properties</h1>
-			<div class="box">
-				<div class="box-body no-padding table-responsive">
-					<table class="table table-striped table-hover three-cols">
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Value</th>
-								<th>Summary</th>
-							</tr>
-						</thead>
-							<tbody><tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/F0D23C12.html">RequestSender</a></td>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IRequestSender">IRequestSender</a></td>
-								<td>
-									<div></div>
-								</td>
-							</tr>
-					</tbody></table>
-				</div>
-			</div>
-		
-
-			<h1 id="Methods">Methods</h1>
-			<div class="box">
-				<div class="box-body no-padding table-responsive">
-					<table class="table table-striped table-hover three-cols">
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Value</th>
-								<th>Summary</th>
-							</tr>
-						</thead>
-							<tbody><tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/759A1053.html">CheckUsernameAsync<wbr>(string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-								<td>
-									<div>Check username</div>
-								</td>
-							</tr>
-							<tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/04791D1B.html">Get<wbr>Current<wbr>User<wbr>Full<wbr>Async<wbr>(CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-								<td>
-									<div>Get full information about current user</div>
-								</td>
-							</tr>
-							<tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/E989E6B4.html">GetUserFullAsync<wbr>(IInputUser, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-								<td>
-									<div>Get full information about the user</div>
-								</td>
-							</tr>
-							<tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/5E0DABE7.html">GetUserPhotosAsync<wbr>(IInputUser, <wbr>int, <wbr>int, <wbr>long, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-								<td>
-									<div>Get a user photos</div>
-								</td>
-							</tr>
-							<tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/6621A9DA.html">GetUsersAsync<wbr>(IReadOnlyList<wbr>&lt;IInputUser&gt;<wbr>, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-								<td>
-									<div>Get users</div>
-								</td>
-							</tr>
-							<tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService/4A3CC5E9.html">UpdateUsernameAsync<wbr>(string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-								<td>
-									<div>Update username</div>
-								</td>
-							</tr>
-					</tbody></table>
-				</div>
-			</div>
-		
-
 
 
 	

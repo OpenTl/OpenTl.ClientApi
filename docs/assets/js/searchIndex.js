@@ -34,134 +34,14 @@ var searchModule = function() {
 
     a({
         id:0,
-        title:"ISocks Proxy",
-        content:"ISocks Proxy",
+        title:"ILogoutService",
+        content:"ILogoutService",
         description:'',
         tags:''
     });
 
     a({
         id:1,
-        title:"SessionWriter",
-        content:"SessionWriter",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:2,
-        title:"MemorySessionStore",
-        content:"MemorySessionStore",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:3,
-        title:"CloudPasswordNeededException",
-        content:"CloudPasswordNeededException",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:4,
-        title:"IClientSession",
-        content:"IClientSession",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:5,
-        title:"Socks ProxyConfig",
-        content:"Socks ProxyConfig",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:6,
-        title:"IClientSettings",
-        content:"IClientSettings",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:7,
-        title:"IFactorySettings",
-        content:"IFactorySettings",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:8,
-        title:"IRequestSender",
-        content:"IRequestSender",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:9,
-        title:"IUpdatesRaiser",
-        content:"IUpdatesRaiser",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:10,
-        title:"CustomRequestsService",
-        content:"CustomRequestsService",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:11,
-        title:"FactorySettings",
-        content:"FactorySettings",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:12,
-        title:"UserNotAuthorizeException",
-        content:"UserNotAuthorizeException",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:13,
-        title:"ESystemNotification",
-        content:"ESystemNotification",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:14,
-        title:"IHelpService",
-        content:"IHelpService",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:15,
-        title:"SessionExtensions",
-        content:"SessionExtensions",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:16,
         title:"UnhandledException",
         content:"UnhandledException",
         description:'',
@@ -169,15 +49,31 @@ var searchModule = function() {
     });
 
     a({
-        id:17,
-        title:"UsersService",
-        content:"UsersService",
+        id:2,
+        title:"FileMigrationException",
+        content:"FileMigrationException",
         description:'',
         tags:''
     });
 
     a({
-        id:18,
+        id:3,
+        title:"ApplicationProperties",
+        content:"ApplicationProperties",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:4,
+        title:"FactorySettings",
+        content:"FactorySettings",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:5,
         title:"IUpdatesService",
         content:"IUpdatesService",
         description:'',
@@ -185,7 +81,39 @@ var searchModule = function() {
     });
 
     a({
-        id:19,
+        id:6,
+        title:"FloodWaitException",
+        content:"FloodWaitException",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:7,
+        title:"IClientSettings",
+        content:"IClientSettings",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:8,
+        title:"IUpdatesRaiser",
+        content:"IUpdatesRaiser",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:9,
+        title:"IFactorySettings",
+        content:"IFactorySettings",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:10,
         title:"UserLogoutException",
         content:"UserLogoutException",
         description:'',
@@ -193,71 +121,7 @@ var searchModule = function() {
     });
 
     a({
-        id:20,
-        title:"ITemploraryClientCache",
-        content:"ITemploraryClientCache",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:21,
-        title:"IFileService",
-        content:"IFileService",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:22,
-        title:"ClientFactory",
-        content:"ClientFactory",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:23,
-        title:"IUsersService",
-        content:"IUsersService",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:24,
-        title:"IMessagesService",
-        content:"IMessagesService",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:25,
-        title:"IAuthService",
-        content:"IAuthService",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:26,
-        title:"IContactsService",
-        content:"IContactsService",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:27,
-        title:"IApplicationProperties",
-        content:"IApplicationProperties",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:28,
+        id:11,
         title:"ISessionStore",
         content:"ISessionStore",
         description:'',
@@ -265,9 +129,145 @@ var searchModule = function() {
     });
 
     a({
-        id:29,
+        id:12,
+        title:"IClientSession",
+        content:"IClientSession",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:13,
+        title:"IContactsService",
+        content:"IContactsService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:14,
+        title:"CloudPasswordNeededException",
+        content:"CloudPasswordNeededException",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:15,
+        title:"CustomRequestsService",
+        content:"CustomRequestsService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:16,
+        title:"Socks ProxyConfig",
+        content:"Socks ProxyConfig",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:17,
+        title:"SessionExtensions",
+        content:"SessionExtensions",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:18,
+        title:"ESystemNotification",
+        content:"ESystemNotification",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:19,
         title:"IClientApi",
         content:"IClientApi",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:20,
+        title:"UsersService",
+        content:"UsersService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:21,
+        title:"ISessionWriter",
+        content:"ISessionWriter",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:22,
+        title:"IAuthService",
+        content:"IAuthService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:23,
+        title:"MemorySessionStore",
+        content:"MemorySessionStore",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:24,
+        title:"SessionWriter",
+        content:"SessionWriter",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:25,
+        title:"PhoneCodeInvalidException",
+        content:"PhoneCodeInvalidException",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:26,
+        title:"IMessagesService",
+        content:"IMessagesService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:27,
+        title:"IUsersService",
+        content:"IUsersService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:28,
+        title:"IApplicationProperties",
+        content:"IApplicationProperties",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:29,
+        title:"ICustomRequestsService",
+        content:"ICustomRequestsService",
         description:'',
         tags:''
     });
@@ -282,62 +282,22 @@ var searchModule = function() {
 
     a({
         id:31,
-        title:"FileMigrationException",
-        content:"FileMigrationException",
+        title:"IRequestSender",
+        content:"IRequestSender",
         description:'',
         tags:''
     });
 
     a({
         id:32,
-        title:"IContextGetter",
-        content:"IContextGetter",
+        title:"ISocks Proxy",
+        content:"ISocks Proxy",
         description:'',
         tags:''
     });
 
     a({
         id:33,
-        title:"ISessionWriter",
-        content:"ISessionWriter",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:34,
-        title:"PhoneCodeInvalidException",
-        content:"PhoneCodeInvalidException",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:35,
-        title:"FloodWaitException",
-        content:"FloodWaitException",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:36,
-        title:"ILogoutService",
-        content:"ILogoutService",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:37,
-        title:"ApplicationProperties",
-        content:"ApplicationProperties",
-        description:'',
-        tags:''
-    });
-
-    a({
-        id:38,
         title:"UpdateHandler",
         content:"UpdateHandler",
         description:'',
@@ -345,106 +305,56 @@ var searchModule = function() {
     });
 
     a({
+        id:34,
+        title:"IHelpService",
+        content:"IHelpService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:35,
+        title:"ClientFactory",
+        content:"ClientFactory",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:36,
+        title:"IContextGetter",
+        content:"IContextGetter",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:37,
+        title:"UserNotAuthorizeException",
+        content:"UserNotAuthorizeException",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:38,
+        title:"ITemploraryClientCache",
+        content:"ITemploraryClientCache",
+        description:'',
+        tags:''
+    });
+
+    a({
         id:39,
-        title:"ICustomRequestsService",
-        content:"ICustomRequestsService",
+        title:"IFileService",
+        content:"IFileService",
         description:'',
         tags:''
     });
 
     y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/ISocks5Proxy',
-        title:"ISocks5Proxy",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/SessionWriter',
-        title:"SessionWriter",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore',
-        title:"MemorySessionStore",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/CloudPasswordNeededException',
-        title:"CloudPasswordNeededException",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSession',
-        title:"IClientSession",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/Socks5ProxyConfig',
-        title:"Socks5ProxyConfig",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings',
-        title:"IClientSettings",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/IFactorySettings',
-        title:"IFactorySettings",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IRequestSender',
-        title:"IRequestSender",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IUpdatesRaiser',
-        title:"IUpdatesRaiser",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService',
-        title:"CustomRequestsService",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/FactorySettings',
-        title:"FactorySettings",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/UserNotAuthorizeException',
-        title:"UserNotAuthorizeException",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Enums/ESystemNotification',
-        title:"ESystemNotification",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IHelpService',
-        title:"IHelpService",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Extensions/SessionExtensions',
-        title:"SessionExtensions",
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/ILogoutService',
+        title:"ILogoutService",
         description:""
     });
 
@@ -455,8 +365,20 @@ var searchModule = function() {
     });
 
     y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService',
-        title:"UsersService",
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/FileMigrationException',
+        title:"FileMigrationException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/ApplicationProperties',
+        title:"ApplicationProperties",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/FactorySettings',
+        title:"FactorySettings",
         description:""
     });
 
@@ -467,8 +389,194 @@ var searchModule = function() {
     });
 
     y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/FloodWaitException',
+        title:"FloodWaitException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings',
+        title:"IClientSettings",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IUpdatesRaiser',
+        title:"IUpdatesRaiser",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/IFactorySettings',
+        title:"IFactorySettings",
+        description:""
+    });
+
+    y({
         url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/UserLogoutException',
         title:"UserLogoutException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/ISessionStore',
+        title:"ISessionStore",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSession',
+        title:"IClientSession",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService',
+        title:"IContactsService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/CloudPasswordNeededException',
+        title:"CloudPasswordNeededException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/CustomRequestsService',
+        title:"CustomRequestsService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/Socks5ProxyConfig',
+        title:"Socks5ProxyConfig",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Extensions/SessionExtensions',
+        title:"SessionExtensions",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Enums/ESystemNotification',
+        title:"ESystemNotification",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi',
+        title:"IClientApi",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services/UsersService',
+        title:"UsersService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/ISessionWriter',
+        title:"ISessionWriter",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService',
+        title:"IAuthService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/MemorySessionStore',
+        title:"MemorySessionStore",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Settings/SessionWriter',
+        title:"SessionWriter",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/PhoneCodeInvalidException',
+        title:"PhoneCodeInvalidException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService',
+        title:"IMessagesService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService',
+        title:"IUsersService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IApplicationProperties',
+        title:"IApplicationProperties",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService',
+        title:"ICustomRequestsService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/INettyBootstrapper',
+        title:"INettyBootstrapper",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IRequestSender',
+        title:"IRequestSender",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/ISocks5Proxy',
+        title:"ISocks5Proxy",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/UpdateHandler',
+        title:"UpdateHandler",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IHelpService',
+        title:"IHelpService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/ClientFactory',
+        title:"ClientFactory",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Interfaces/IContextGetter',
+        title:"IContextGetter",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/UserNotAuthorizeException',
+        title:"UserNotAuthorizeException",
         description:""
     });
 
@@ -481,114 +589,6 @@ var searchModule = function() {
     y({
         url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IFileService',
         title:"IFileService",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/ClientFactory',
-        title:"ClientFactory",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService',
-        title:"IUsersService",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService',
-        title:"IMessagesService",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService',
-        title:"IAuthService",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService',
-        title:"IContactsService",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IApplicationProperties',
-        title:"IApplicationProperties",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/ISessionStore',
-        title:"ISessionStore",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi',
-        title:"IClientApi",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/INettyBootstrapper',
-        title:"INettyBootstrapper",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/FileMigrationException',
-        title:"FileMigrationException",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Interfaces/IContextGetter',
-        title:"IContextGetter",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/ISessionWriter',
-        title:"ISessionWriter",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/PhoneCodeInvalidException',
-        title:"PhoneCodeInvalidException",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/FloodWaitException',
-        title:"FloodWaitException",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/ILogoutService',
-        title:"ILogoutService",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/ApplicationProperties',
-        title:"ApplicationProperties",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/UpdateHandler',
-        title:"UpdateHandler",
-        description:""
-    });
-
-    y({
-        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService',
-        title:"ICustomRequestsService",
         description:""
     });
 

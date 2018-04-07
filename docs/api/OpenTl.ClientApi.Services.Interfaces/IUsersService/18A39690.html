@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
-        <title>OpenTl.ClientApi - API - IUsersService.GetCurrentUserFull(CancellationToken) Method</title>
+        <title>OpenTl.ClientApi - API - IUsersService.GetUserPhotosAsync(IInputUser, int, int, long, CancellationToken) Method</title>
         <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
@@ -138,8 +138,12 @@
 		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService">IUsersService</a></li>
 		<li role="separator" class="divider"></li>
 			<li class="header">Method Members</li>
-				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/1B8829D7.html">GetCurrentUserFull<wbr>(CancellationToken)<wbr></a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/8B5BF14C.html">GetUserFull<wbr>(IInputUser, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/574D37FE.html">CheckUsernameAsync<wbr>(string, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/B9C26C0D.html">Get<wbr>Current<wbr>User<wbr>Full<wbr>Async<wbr>(CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/B9F30550.html">GetUserFullAsync<wbr>(IInputUser, <wbr>CancellationToken)<wbr></a></li>
+				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/18A39690.html">GetUserPhotosAsync<wbr>(IInputUser, <wbr>int, <wbr>int, <wbr>long, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/07EE28F1.html">GetUsersAsync<wbr>(IReadOnlyList<wbr>&lt;IInputUser&gt;<wbr>, <wbr>CancellationToken)<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/795A083C.html">UpdateUsernameAsync<wbr>(string, <wbr>CancellationToken)<wbr></a></li>
 
 
                     </ul>
@@ -155,15 +159,13 @@
 
 <section class="content-header">
 			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService">IUsersService</a>.</h3>
-	<h1>GetCurrentUserFull<wbr>(CancellationToken)<wbr> <small>Method</small></h1>
+	<h1>GetUserPhotosAsync<wbr>(IInputUser, <wbr>int, <wbr>int, <wbr>long, <wbr>CancellationToken)<wbr> <small>Method</small></h1>
 </section>
 <section class="content">
 	
 	
 		<h1 id="Summary">Summary</h1>
-	<div class="lead">
-    Get full information about current user
-    </div>
+	<div class="lead">Get a user photos</div>
 
 		<div class="panel panel-default">
   			<div class="panel-body">	
@@ -180,7 +182,7 @@
 		</div>
 
 	<h1 id="Syntax">Syntax</h1>
-	<pre><code>Task&lt;TUserFull&gt; GetCurrentUserFull(CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+	<pre><code>Task&lt;IPhotos&gt; GetUserPhotosAsync(IInputUser user, int offset = 0, int limit = 200, long maxId = 0, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
 
 
 
@@ -198,6 +200,26 @@
 					</tr>
 				</thead>
 					<tbody><tr>
+						<td>user</td>
+						<td>IInputUser</td>
+						<td>User</td>
+					</tr>
+					<tr>
+						<td>offset</td>
+						<td>int</td>
+						<td>Offset</td>
+					</tr>
+					<tr>
+						<td>limit</td>
+						<td>int</td>
+						<td>Limit</td>
+					</tr>
+					<tr>
+						<td>maxId</td>
+						<td>long</td>
+						<td>Max id</td>
+					</tr>
+					<tr>
 						<td>cancellationToken</td>
 						<td>CancellationToken</td>
 						<td>Сancellation token</td>
@@ -218,7 +240,7 @@
 				</thead>
 				<tbody><tr>
 					<td>Task<wbr>&lt;TResult&gt;<wbr></td>
-					<td>Full information</td>
+					<td>Users</td>
 				</tr>
 			</tbody></table>
 		</div>
