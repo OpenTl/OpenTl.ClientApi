@@ -20,6 +20,32 @@
         public IClientSettings ClientSettings { get; set; }
 
         /// <inheritdoc />
+        public async Task<TLink> DeleteContactAsync(IInputUser user, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            ClientSettings.EnsureUserAuthorized();
+
+            var req = new RequestDeleteContact
+                      {
+                          Id = user
+                      };
+
+            return (TLink)await RequestSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<bool> DeleteContactsAsync(IReadOnlyList<IInputUser> users, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            ClientSettings.EnsureUserAuthorized();
+
+            var req = new RequestDeleteContacts
+                      {
+                          Id = new TVector<IInputUser>(users.ToArray())
+                      };
+
+            return await RequestSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<TContacts> GetContactsAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
@@ -28,17 +54,8 @@
 
             return (TContacts)await RequestSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
         }
-        
+
         /// <inheritdoc />
-        public async Task<IImportedContacts> ImportContactsAsync(IReadOnlyList<TInputPhoneContact> contacts,  CancellationToken cancellationToken = default(CancellationToken))
-        {
-            ClientSettings.EnsureUserAuthorized();
-
-            var req = new RequestImportContacts {Contacts = new TVector<IInputContact>(contacts.ToArray())};
-
-            return await RequestSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
-        }
-
         public async Task<IReadOnlyList<TContactStatus>> GetStatusesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
@@ -47,6 +64,16 @@
             var result = await RequestSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
 
             return result;
+        }
+
+        /// <inheritdoc />
+        public async Task<IImportedContacts> ImportContactsAsync(IReadOnlyList<TInputPhoneContact> contacts, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            ClientSettings.EnsureUserAuthorized();
+
+            var req = new RequestImportContacts { Contacts = new TVector<IInputContact>(contacts.ToArray()) };
+
+            return await RequestSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
