@@ -2,7 +2,7 @@
 {
     using DotNetty.Transport.Channels;
 
-    public interface IContextGetter
+    internal interface IContextGetter
     {
         IChannelHandlerContext Context { get;}
     }

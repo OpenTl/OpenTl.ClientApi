@@ -1,6 +1,6 @@
 ﻿namespace OpenTl.ClientApi.MtProto.Enums
 {
-    public enum ESystemNotification
+    internal enum ESystemNotification
     {
         HandshakeComplete
     }
