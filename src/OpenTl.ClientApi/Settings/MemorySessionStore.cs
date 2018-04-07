@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    public class MemorySessionStore: ISessionStore
+    internal sealed class MemorySessionStore: ISessionStore
     {
         private byte[] _session;
 

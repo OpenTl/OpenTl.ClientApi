@@ -16,7 +16,7 @@
     using OpenTl.Schema.Auth;
 
     [SingleInstance(typeof(ICustomRequestsService))]
-    public class CustomRequestsService : ICustomRequestsService
+    internal class CustomRequestsService : ICustomRequestsService
     {
         public IRequestSender RequestSender { get; set; }
 

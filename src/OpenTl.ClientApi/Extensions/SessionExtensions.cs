@@ -6,7 +6,7 @@
 
     using OpenTl.ClientApi.MtProto;
 
-    public static class SessionExtensions
+    internal static class SessionExtensions
     {
         public static void FromBytes(this IClientSession clientSession, byte[] buffer)
         {

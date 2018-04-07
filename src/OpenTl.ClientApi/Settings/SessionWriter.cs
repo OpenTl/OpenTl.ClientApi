@@ -7,7 +7,7 @@
     using OpenTl.Common.IoC;
 
     [SingleInstance(typeof(ISessionWriter))]
-    public class SessionWriter : ISessionWriter
+    internal class SessionWriter : ISessionWriter
     {
         public ISessionStore SessionStore { get; set; }
 

@@ -14,7 +14,7 @@
     using OpenTl.Schema.Users;
 
     [SingleInstance(typeof(IUsersService))]
-    public class UsersService : IUsersService
+    internal class UsersService : IUsersService
     {
         public IRequestSender RequestSender { get; set; }
 
