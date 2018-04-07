@@ -15,8 +15,10 @@
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.ClientApi.MtProto.UnitTests.Framework;
     using OpenTl.ClientApi.MtProto.UnitTests.Framework.Builders;
+    using OpenTl.Common.Extensions;
     using OpenTl.Common.Testing;
     using OpenTl.Schema;
+    using OpenTl.Schema.Serialization;
 
     using Xunit;
 
@@ -36,7 +38,7 @@
             this.Resolve<Mock<ISessionWriter>>()
                 .BuildSuccessSave();
 
-            var dcOption = mSettings.Object.Config.DcOptions.Items.First();
+            var dcOption = mSettings.Object.Config.DcOptions.First();
 
             var messageId = Fixture.Create<long>();
 
@@ -48,7 +50,7 @@
             var request = new TRpcResult
                           {
                               ReqMsgId = messageId,
-                              Result = result
+                              Result = Serializer.Serialize(result).ToArray()
                           };
 
             var requestEncoder = this.Resolve<RpcResultHandler>();
@@ -94,7 +96,7 @@
             var request = new TRpcResult
                           {
                               ReqMsgId = messageId,
-                              Result = result
+                              Result = Serializer.Serialize(result).ToArray()
                           };
 
             var mRequestService = this.Resolve<Mock<IRequestService>>()
@@ -132,7 +134,7 @@
             var request = new TRpcResult
                           {
                               ReqMsgId = messageId,
-                              Result = result
+                              Result = Serializer.Serialize(result).ToArray()
                           };
 
             var mRequestService = this.Resolve<Mock<IRequestService>>()
@@ -174,7 +176,7 @@
             var request = new TRpcResult
                           {
                               ReqMsgId = messageId,
-                              Result = tgZipPacked
+                              Result = Serializer.Serialize(tgZipPacked).ToArray()
                           };
 
             this.Resolve<Mock<IUnzippedService>>()

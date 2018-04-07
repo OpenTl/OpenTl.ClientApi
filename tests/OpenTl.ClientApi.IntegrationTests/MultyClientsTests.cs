@@ -92,7 +92,7 @@
             var toUser = Clients[index].User;
             var contacts = Clients[i].Contacts;
 
-            if (contacts.Contacts.Items.Cast<TContact>().All(c => c.UserId != toUser.Id))
+            if (contacts.Contacts.Cast<TContact>().All(c => c.UserId != toUser.Id))
             {
                 await fromClient.ContactsService.ImportContactsAsync(
                     new[]

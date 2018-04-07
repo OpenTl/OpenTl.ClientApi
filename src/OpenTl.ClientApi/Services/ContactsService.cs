@@ -46,7 +46,7 @@
 
             var result = await RequestSender.SendRequestAsync(req, cancellationToken).ConfigureAwait(false);
 
-            return result.Items;
+            return result;
         }
 
         /// <inheritdoc />

@@ -1,9 +1,11 @@
 ﻿namespace OpenTl.ClientApi.MtProto.Layers.Messages.Adapters
 {
     using System;
+    using System.Linq;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
 
+    using DotNetty.Common.Utilities;
     using DotNetty.Transport.Channels;
 
     using log4net;
@@ -14,6 +16,7 @@
     using OpenTl.ClientApi.MtProto.Services.Interfaces;
     using OpenTl.Common.IoC;
     using OpenTl.Schema;
+    using OpenTl.Schema.Serialization;
 
     [SingleInstance(typeof(IMessageHandler))]
     internal sealed class RpcResultHandler : SimpleChannelInboundHandler<TRpcResult>,
@@ -37,7 +40,21 @@
         {
             Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Process RpcResult  with request id = '{msg.ReqMsgId}'");
 
-            switch (msg.Result)
+
+            IObject result;
+            var buffer = ctx.Allocator.Buffer(msg.Result.Length);
+            try
+            {
+                buffer.WriteBytes(msg.Result);
+                var expectedResultType = RequestService.GetExpectedResultType(msg.ReqMsgId);
+                result = Serializer.Deserialize(buffer, expectedResultType);
+            }
+            finally
+            {
+                buffer.SafeRelease();
+            }
+                
+            switch (result)
             {
                 case TRpcError error:
                     SendConfirm(ctx, msg);
@@ -53,7 +70,7 @@
                     SendConfirm(ctx, msg);
                     break;
                 default:
-                    RequestService.ReturnResult(msg.ReqMsgId, msg.Result);
+                    RequestService.ReturnResult(msg.ReqMsgId, result);
 
                     SendConfirm(ctx, msg);
                     break;
@@ -90,7 +107,7 @@
                 case var userMigrate when userMigrate.StartsWith("USER_MIGRATE_"):
                 case var netwokMigrate when netwokMigrate.StartsWith("NETWORK_MIGRATE_"):
                     var dcNumber = int.Parse(Regex.Match(error.ErrorMessage, @"\d+").Value);
-                    var dcOption = ClientSettings.Config.DcOptions.Items.Find(option => option.Id == dcNumber);
+                    var dcOption = ClientSettings.Config.DcOptions.First(option => option.Id == dcNumber);
 
                     ClientSettings.ClientSession.AuthKey = null;
                     ClientSettings.ClientSession.ServerAddress = dcOption.IpAddress;

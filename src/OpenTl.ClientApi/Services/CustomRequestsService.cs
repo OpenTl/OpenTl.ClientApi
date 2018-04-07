@@ -44,7 +44,7 @@
             var exportedAuth = (TExportedAuthorization)await RequestSender.SendRequestAsync(requestExportAuthorization, cancellationToken).ConfigureAwait(false);
 
             
-            var dc = ClientSettings.Config.DcOptions.Items.First(d => d.Id == dcId);
+            var dc = ClientSettings.Config.DcOptions.First(d => d.Id == dcId);
 
             var client = await ClientCache.GetOrCreate(ClientSettings, dc.IpAddress, dc.Port).ConfigureAwait(false);
             

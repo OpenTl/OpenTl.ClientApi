@@ -254,7 +254,7 @@
                                    };
 
             var result = await RequestSender.SendRequestAsync(receivedMessages, cancellationToken).ConfigureAwait(false);
-            return result.Items;
+            return result;
         }
 
         /// <inheritdoc />

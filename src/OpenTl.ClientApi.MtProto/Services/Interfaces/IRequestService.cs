@@ -14,6 +14,8 @@
         IRequest GetRequestToReply(long messageId);
 
         IEnumerable<IRequest> GetAllRequestToReply();
+
+        Type GetExpectedResultType(long messageId);
         
         void AttachRequestToMessageId(IRequest request, long messageId);
 

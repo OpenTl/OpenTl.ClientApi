@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -52,6 +53,14 @@
             cacheItem.Timer = timer;
         }
 
+        [return:AllowNull]
+        public Type GetExpectedResultType(long messageId)
+        {
+            var cacheItem = _requestQueue.FirstOrDefault(item => item.MessageId == messageId);
+
+            return cacheItem?.Request.GetType().GetInterfaces().First(i => i.GetTypeInfo().IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequest<>)).GetGenericArguments()[0];
+        }
+        
         public IEnumerable<IRequest> GetAllRequestToReply()
         {
             foreach (var cacheItem in _requestQueue)

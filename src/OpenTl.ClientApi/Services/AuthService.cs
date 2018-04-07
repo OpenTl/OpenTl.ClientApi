@@ -58,7 +58,7 @@
                           };
             var result = (TAuthorization)await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
 
-            var user = result.User.Cast<TUser>();
+            var user = result.User.Is<TUser>();
 
             await OnUserAuthenticated(user).ConfigureAwait(false);
 
@@ -115,7 +115,7 @@
 
             var result = (TAuthorization)await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
 
-            var user = result.User.Cast<TUser>();
+            var user = result.User.Is<TUser>();
 
             await OnUserAuthenticated(user).ConfigureAwait(false);
 
@@ -145,7 +145,7 @@
                           };
             var result = (TAuthorization)await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
 
-            var user = result.User.Cast<TUser>();
+            var user = result.User.Is<TUser>();
 
             await OnUserAuthenticated(user).ConfigureAwait(false);
             return user;

@@ -59,7 +59,7 @@
             
             if (isRequest)
             {
-                RequestService.AttachRequestToMessageId(message.Cast<IRequest>(), messageId);
+                RequestService.AttachRequestToMessageId(message.Is<IRequest>(), messageId);
             }
         }
     }

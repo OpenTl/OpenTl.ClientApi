@@ -18,7 +18,15 @@
         {
             var contacts = await ClientApi.ContactsService.GetContactsAsync().ConfigureAwait(false);
             
-            Assert.NotEmpty(contacts.Contacts.Items);
+            Assert.NotEmpty(contacts.Contacts);
+        }
+        
+        [Fact]
+        public async Task GetStatuses()
+        {
+            var statuses = await ClientApi.ContactsService.GetStatusesAsync().ConfigureAwait(false);
+            
+            Assert.NotEmpty(statuses);
         }
         
         [Fact]

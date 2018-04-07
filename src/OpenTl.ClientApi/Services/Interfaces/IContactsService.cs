@@ -29,7 +29,7 @@
         // /// </summary>
         // /// <param name="cancellationToken">Cancellation token</param>
         // /// <returns>Statuses</returns>
-        // Task<IReadOnlyList<TContactStatus>> GetStatusesAsync(CancellationToken cancellationToken = default(CancellationToken));
+        Task<IReadOnlyList<TContactStatus>> GetStatusesAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>Serch user or chat. By default the limit is 10.</summary>
         /// <param name="query">User or chat name</param>

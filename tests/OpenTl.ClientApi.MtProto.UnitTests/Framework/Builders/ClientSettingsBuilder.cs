@@ -19,8 +19,8 @@
                                      .AttachSession(mSession)
                                      .AttachAppProperties(mAppProperties);
 
-            unitTest.Fixture.Freeze<IDcOption>(composer => composer.FromFactory(() => unitTest.Fixture.Create<TDcOption>()));
             mSettings.Object.Config = unitTest.Fixture.Create<TConfig>();
+            mSettings.Object.Config.DcOptions.Add(unitTest.Fixture.Create<TDcOption>());
             
             return mSettings;
         }

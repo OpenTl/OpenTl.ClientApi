@@ -25,7 +25,7 @@
         {
             if (Log.IsDebugEnabled)
             {
-                var jMessages = JsonConvert.SerializeObject(msg.MsgIds.Items);
+                var jMessages = JsonConvert.SerializeObject(msg.MsgIds);
                 Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Receiving confirmation of the messages: {jMessages}");
             }
         }

@@ -31,11 +31,11 @@
         }
         
         [Fact]
-        public async Task SendoOtherDc()
+        public async Task SendToOtherDc()
         {
             var config = await ClientApi.HelpService.GetConfig().ConfigureAwait(false);
 
-            var otherDc = config.DcOptions.Items.First(d => d.Id != config.ThisDc);
+            var otherDc = config.DcOptions.First(d => d.Id != config.ThisDc);
 
             var otherConfig1 = await ClientApi.CustomRequestsService.SendRequestToOtherDcAsync(otherDc.Id, async clienApi => await clienApi.HelpService.GetConfig().ConfigureAwait(false)).ConfigureAwait(false);
             var otherConfig2 = await ClientApi.CustomRequestsService.SendRequestToOtherDcAsync(otherDc.Id, async clienApi => await clienApi.HelpService.GetConfig().ConfigureAwait(false)).ConfigureAwait(false);
