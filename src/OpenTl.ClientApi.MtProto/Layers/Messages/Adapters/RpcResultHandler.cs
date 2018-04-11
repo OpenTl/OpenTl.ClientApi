@@ -48,6 +48,12 @@
                 buffer.WriteBytes(msg.Result);
                 var expectedResultType = RequestService.GetExpectedResultType(msg.ReqMsgId);
                 result = Serializer.Deserialize(buffer, expectedResultType);
+                
+                if (Log.IsDebugEnabled)
+                {
+                    var jMessages = JsonConvert.SerializeObject(result);
+                    Log.Debug(jMessages);
+                }
             }
             finally
             {
