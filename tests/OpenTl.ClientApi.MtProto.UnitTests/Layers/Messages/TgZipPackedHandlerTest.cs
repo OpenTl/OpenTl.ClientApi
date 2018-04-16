@@ -25,7 +25,7 @@
             this.RegisterType<MsgContainerHandler>();
             this.RegisterType<GZipPackedHandler>();
 
-            var contanerMessage = new TMsgContainer
+            var contanerMessage = new MsgContainer
                                   {
                                       Messages = new[]
                                                  {

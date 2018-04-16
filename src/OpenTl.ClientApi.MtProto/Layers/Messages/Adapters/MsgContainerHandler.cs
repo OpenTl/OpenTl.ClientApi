@@ -12,7 +12,7 @@
     using OpenTl.Schema;
 
     [SingleInstance(typeof(IMessageHandler))]
-    internal sealed class MsgContainerHandler : MessageToMessageDecoder<TMsgContainer>,
+    internal sealed class MsgContainerHandler : MessageToMessageDecoder<MsgContainer>,
                                          IMessageHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(MsgContainerHandler));
@@ -23,7 +23,7 @@
         
         public IClientSettings ClientSettings { get; set; }
 
-        protected override void Decode(IChannelHandlerContext context, TMsgContainer message, List<object> output)
+        protected override void Decode(IChannelHandlerContext context, MsgContainer message, List<object> output)
         {
             Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Process MsgContainer message with {message.Messages.Length} items");
 
