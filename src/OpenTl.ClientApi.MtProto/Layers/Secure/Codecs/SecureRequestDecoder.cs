@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
 
-    using Castle.MicroKernel;
     using Castle.Windsor;
 
     using DotNetty.Buffers;
@@ -15,7 +14,6 @@
     using OpenTl.ClientApi.MtProto.Exceptions;
     using OpenTl.Common.IoC;
     using OpenTl.Common.MtProto;
-    using OpenTl.Schema;
     using OpenTl.Schema.Serialization;
 
     [TransientInstance(typeof(ISecureHandler))]
@@ -42,11 +40,20 @@
 
             var decodeBuffer = MtProtoHelper.FromServerDecrypt(input, ClientSettings.ClientSession, out var authKeyId, out var serverSalt, out var sessionId, out var messageId, out var seqNumber);
 
-            var message = Serializer.Deserialize(decodeBuffer);
+            try
+            {
+                var message = Serializer.Deserialize(decodeBuffer);
+                
+                Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Recieve the secure message {message}");
 
-            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Recieve the secure message {message}");
-
-            output.Add(message);
+                output.Add(message);
+            }
+            catch 
+            {
+                decodeBuffer.ResetReaderIndex();
+                Log.Error($"#{ClientSettings.ClientSession.SessionId}: Can't deserialize message: \n{ByteBufferUtil.PrettyHexDump(decodeBuffer)}");
+                throw;
+            }
         }
 
         public override void ChannelInactive(IChannelHandlerContext ctx)
