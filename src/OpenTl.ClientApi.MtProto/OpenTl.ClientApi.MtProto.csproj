@@ -19,6 +19,6 @@
     <PackageReference Include="NullGuard.Fody" Version="1.7.1" />
     <PackageReference Include="OpenTl.Common" Version="1.1.21" />
     <PackageReference Include="OpenTl.Netty.Socks" Version="1.0.2" />
-    <PackageReference Include="OpenTl.Schema" Version="1.76.60" />
+    <PackageReference Include="OpenTl.Schema" Version="1.76.61" />
   </ItemGroup>
 </Project>
