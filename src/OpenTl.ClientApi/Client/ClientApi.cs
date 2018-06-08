@@ -59,7 +59,7 @@
                     CustomRequestsService.SendRequestAsync(requestPing, CancellationToken.None).ConfigureAwait(false);
                 },
                 null,
-                TimeSpan.FromHours(1),
+                TimeSpan.FromMinutes(1),
                 TimeSpan.FromHours(0));
         }
     }
