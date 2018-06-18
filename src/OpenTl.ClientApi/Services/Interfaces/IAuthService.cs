@@ -25,8 +25,14 @@
         /// <summary>Checks phone number is registered on server</summary>
         /// <param name="phoneNumber">Phone number</param>
         /// <param name="cancellationToken">Сancellation token</param>
-        /// <returns></returns>
+        /// <returns>Is registered</returns>
         Task<bool> IsPhoneRegisteredAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>Checks phone number on server</summary>
+        /// <param name="phoneNumber">Phone number</param>
+        /// <param name="cancellationToken">Сancellation token</param>
+        /// <returns>Check result</returns>
+        Task<ICheckedPhone> CheckPhoneAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>Logout the current user</summary>
         /// <param name="cancellationToken">Сancellation token</param>
