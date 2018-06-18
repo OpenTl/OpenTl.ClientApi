@@ -75,6 +75,7 @@
 
             settings.ApplicationProperties = factorySettings.Properties;
             settings.Socks5Proxy = factorySettings.ProxyConfig;
+            settings.UseIPv6 = factorySettings.UseIPv6;
 
             if (factorySettings.SessionStore != null)
             {

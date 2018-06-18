@@ -57,7 +57,7 @@
                 try
                 {
                     buffer.WriteBytes(decompressStream.ToArray());
-
+                    
                     var unzippedObj = Serializer.Deserialize(buffer);
 
                     if (Log.IsDebugEnabled)

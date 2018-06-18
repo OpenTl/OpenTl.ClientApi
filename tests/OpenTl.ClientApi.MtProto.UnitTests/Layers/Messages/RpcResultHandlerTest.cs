@@ -139,7 +139,7 @@
 
             var mRequestService = this.Resolve<Mock<IRequestService>>()
                                       .BuildReturnResult(messageId, result);
-
+            
             var requestEncoder = this.Resolve<RpcResultHandler>();
 
             var channel = new EmbeddedChannel(requestEncoder);
@@ -155,7 +155,7 @@
             channel.Flush();
             Assert.IsType<TMsgsAck>(channel.ReadOutbound<TMsgsAck>());
 
-            mRequestService.Verify(service => service.ReturnResult(messageId, result), Times.Once);
+            mRequestService.Verify(service => service.ReturnResult(messageId, It.IsAny<TPong>()), Times.Once);
         }
 
         [Fact]
@@ -201,7 +201,7 @@
             channel.Flush();
             Assert.IsType<TMsgsAck>(channel.ReadOutbound<TMsgsAck>());
 
-            mRequestService.Verify(service => service.ReturnResult(messageId, result), Times.Once);
+            mRequestService.Verify(service => service.ReturnResult(messageId, It.IsAny<TPong>()), Times.Once);
         }
     }
 }

@@ -15,6 +15,8 @@
 
         public string PublicKey { get; set; }
 
+        public bool UseIPv6 { get; set; } = true;
+
         public IApplicationProperties ApplicationProperties { get; set; }
 
         [AllowNull]

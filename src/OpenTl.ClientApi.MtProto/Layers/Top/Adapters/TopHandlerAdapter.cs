@@ -1,6 +1,7 @@
 ﻿namespace OpenTl.ClientApi.MtProto.Layers.Top.Adapters
 {
     using System;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -108,6 +109,12 @@
 
                 ClientSettings.Config = (IConfig)await resultTask.ConfigureAwait(false);
 
+                if (!ClientSettings.UseIPv6)
+                {
+                    var filtredDc = ClientSettings.Config.DcOptions.Where(dc => !dc.Ipv6).ToArray();
+                    ClientSettings.Config.DcOptions = new TVector<IDcOption>(filtredDc);
+                }
+                
                 foreach (var replyRequest in RequestService.GetAllRequestToReply())
                 {
 #pragma warning disable 4014

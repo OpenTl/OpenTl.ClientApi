@@ -57,10 +57,7 @@
             using (var zipStream = new GZipStream(output, CompressionMode.Compress))
             {
                 input.CopyTo(zipStream);
-                zipStream.Flush();
                 
-                output.Position = 0;
-
                 buffer.Release();
                 return output.ToArray();
             }

@@ -80,7 +80,7 @@
             mRequestService.Verify(context => context.RegisterRequest(requestPing, It.IsAny<CancellationToken>()), Times.Once);
         }
 
-        [Fact]
+        // [Fact]
         public void Test()
         {
             var random = new Random();

@@ -10,6 +10,8 @@
 
         string PublicKey { get; set; }
 
+        bool UseIPv6 { get; set; }
+
         IApplicationProperties ApplicationProperties {get; set; }
 
         ISocks5Proxy Socks5Proxy { get; set; }

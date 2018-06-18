@@ -66,10 +66,15 @@
 
             var request = new RequestPing();
             var response = new TPong();
+
+            var config = new TConfig
+                         {
+                             DcOptions = new TVector<IDcOption>()
+                         };
             
             this.Resolve<Mock<IRequestService>>()
                 .BuildGetAllRequestToReply(request)
-                .BuildRegisterRequest<RequestInvokeWithLayer>(Task.FromResult((object)new TConfig()));
+                .BuildRegisterRequest<RequestInvokeWithLayer>(Task.FromResult((object)config));
             
             var handlerAdapter = this.Resolve<TopHandlerAdapter>();
 

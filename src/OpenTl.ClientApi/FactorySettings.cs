@@ -23,6 +23,9 @@
         /// <summary>Session tag. By default is "session"</summary>
         string SessionTag { get; set; }
 
+        /// <summary>Use IP v6 protocol. Defaults: True</summary>
+        bool UseIPv6 { get; set; }
+
         /// <summary>Application properties</summary>
         ApplicationProperties Properties { get; set; }
 
@@ -53,6 +56,9 @@
 
         /// <inheritdoc />
         public string SessionTag { get; set; }
+
+        /// <inheritdoc />
+        public bool UseIPv6 { get; set; } = true;
 
         /// <inheritdoc />
         public ApplicationProperties Properties { get; set; }
