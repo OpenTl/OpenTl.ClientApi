@@ -81,24 +81,24 @@
         }
 
         // [Fact]
-        public void Test()
-        {
-            var random = new Random();
-            
-            System.Threading.ThreadStart t = new System.Threading.ThreadStart(() => {
-                while (true)
-                    if (0L == DotNetty.Common.Utilities.RandomExtensions.NextLong(random))
-                        throw new Exception("NextLong return 0");
-                    else
-                    {
-                        Debug.WriteLine(DateTime.Now.ToFileTime());
-                    }
-            });
- 
-            Enumerable.Range(0, 1).ToList()
-                      .ForEach(x => new System.Threading.Thread(t) { IsBackground = true }.Start());
- 
-            System.Threading.Thread.Sleep(-1);
-        }
+        // public void Test()
+        // {
+        //     var random = new Random();
+        //     
+        //     System.Threading.ThreadStart t = new System.Threading.ThreadStart(() => {
+        //         while (true)
+        //             if (0L == DotNetty.Common.Utilities.RandomExtensions.NextLong(random))
+        //                 throw new Exception("NextLong return 0");
+        //             else
+        //             {
+        //                 Debug.WriteLine(DateTime.Now.ToFileTime());
+        //             }
+        //     });
+        //
+        //     Enumerable.Range(0, 1).ToList()
+        //               .ForEach(x => new System.Threading.Thread(t) { IsBackground = true }.Start());
+        //
+        //     System.Threading.Thread.Sleep(-1);
+        // }
     }
 }

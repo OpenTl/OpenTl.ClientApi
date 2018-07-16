@@ -14,11 +14,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BarsGroup.CodeGuard" Version="3.2.43" />
-    <PackageReference Include="DotNetty.Handlers" Version="0.4.7" />
+    <PackageReference Include="DotNetty.Handlers" Version="0.4.8" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="NullGuard.Fody" Version="1.8.0" />
-    <PackageReference Include="OpenTl.Common" Version="1.1.21" />
+    <PackageReference Include="OpenTl.Common" Version="1.1.23" />
     <PackageReference Include="OpenTl.Netty.Socks" Version="1.0.2" />
-    <PackageReference Include="OpenTl.Schema" Version="1.76.61" />
   </ItemGroup>
 </Project>

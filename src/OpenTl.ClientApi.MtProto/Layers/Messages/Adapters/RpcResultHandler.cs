@@ -32,14 +32,11 @@
         
         public IRequestService RequestService { get; set; }
 
-        public IUnzippedService UnzippedService { get; set; }
-        
         public ISessionWriter SessionWriter { get; set; }
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, TRpcResult msg)
         {
             Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Process RpcResult  with request id = '{msg.ReqMsgId}'");
-
 
             object result;
             var buffer = ctx.Allocator.Buffer(msg.Result.Length);
@@ -60,36 +57,21 @@
                 buffer.SafeRelease();
             }
                 
-            switch (result)
-            {
-                case TRpcError error:
-                    SendConfirm(ctx, msg);
-
-                    HandleRpcError(ctx, msg.ReqMsgId, error);
-                    break;
-                case TgZipPacked zipPacked:
-                    Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Try unzip");
-
-                    var obj = UnzippedService.UnzipPackage(zipPacked);
-                    RequestService.ReturnResult(msg.ReqMsgId, obj);
-                    
-                    SendConfirm(ctx, msg);
-                    break;
-                default:
-                    RequestService.ReturnResult(msg.ReqMsgId, result);
-
-                    SendConfirm(ctx, msg);
-                    break;
-            }
-        }
-
-        private static void SendConfirm(IChannelHandlerContext ctx, TRpcResult msg)
-        {
             ctx.WriteAsync(
                 new TMsgsAck
                 {
                     MsgIds = new TVector<long>(msg.ReqMsgId)
                 });
+
+            switch (result)
+            {
+                case TRpcError error:
+                    HandleRpcError(ctx, msg.ReqMsgId, error);
+                    break;
+                default:
+                    RequestService.ReturnResult(msg.ReqMsgId, result);
+                    break;
+            }
         }
 
         private void HandleRpcError(IChannelHandlerContext ctx, long messageReqMsgId, TRpcError error)
@@ -140,6 +122,9 @@
                     ClientSettings.ClientSession.AuthKey = null;
                     ClientSettings.ClientSession.UserId = null;
                     SessionWriter.Save(ClientSettings.ClientSession).ContinueWith(_ => RequestService.ReturnException(messageReqMsgId, new UserNotAuthorizeException()));
+                    break;
+                case "PHONE_NUMBER_INVALID":
+                    RequestService.ReturnException(messageReqMsgId, new PhoneNumberInvalidException());
                     break;
                 default:
                     RequestService.ReturnException(messageReqMsgId, new UnhandledException(error.ErrorMessage));

@@ -56,7 +56,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<IReadOnlyList<TContactStatus>> GetStatusesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IReadOnlyList<IContactStatus>> GetStatusesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
             var req = new RequestGetStatuses();

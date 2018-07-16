@@ -32,7 +32,7 @@
         // /// </summary>
         // /// <param name="cancellationToken">Cancellation token</param>
         // /// <returns>Statuses</returns>
-        Task<IReadOnlyList<TContactStatus>> GetStatusesAsync(CancellationToken cancellationToken = default(CancellationToken));
+        Task<IReadOnlyList<IContactStatus>> GetStatusesAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>Import contacts to the server</summary>
         /// <param name="contacts">Importing contacts</param>

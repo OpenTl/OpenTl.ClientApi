@@ -1,5 +1,6 @@
 ﻿namespace OpenTl.ClientApi.IntegrationTests.Framework
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -47,15 +48,16 @@
                     var sentCode = await clientApi.AuthService.SendCodeAsync(phoneNumber).ConfigureAwait(false);
 
                     await Task.Delay(5000).ConfigureAwait(false);
-                        
-                    if (await clientApi.AuthService.IsPhoneRegisteredAsync(phoneNumber).ConfigureAwait(false))
-                    {
-                        user = await clientApi.AuthService.SignInAsync(phoneNumber, sentCode, PhoneCode).ConfigureAwait(false);
-                    }
-                    else
-                    {
-                        user = await clientApi.AuthService.SignUpAsync(phoneNumber, sentCode, PhoneCode, "Test", "Test").ConfigureAwait(false);
-                    }
+
+                    user = await clientApi.AuthService.SignInAsync(phoneNumber, sentCode, PhoneCode).ConfigureAwait(false);
+                    
+                    // if (await clientApi.AuthService.IsPhoneRegisteredAsync(phoneNumber).ConfigureAwait(false))
+                    // {
+                    // }
+                    // else
+                    // {
+                    //     user = await clientApi.AuthService.SignUpAsync(phoneNumber, sentCode, PhoneCode, "Test", "Test").ConfigureAwait(false);
+                    // }
 
                     await Task.Delay(3000).ConfigureAwait(false);
                 }

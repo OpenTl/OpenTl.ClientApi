@@ -16,14 +16,6 @@
         }
 
         [Fact]
-        public async Task IsPhoneRegistered()
-        {
-            var checkedPhone = await ClientApi.AuthService.IsPhoneRegisteredAsync(PhoneNumber);
-            
-            Assert.True(checkedPhone);
-        }
-        
-        [Fact]
         public async Task Authenticate()
         {
             var sentCode = await ClientApi.AuthService.SendCodeAsync(PhoneNumber).ConfigureAwait(false);
@@ -41,7 +33,7 @@
 
                 user = await ClientApi.AuthService.CheckCloudPasswordAsync(Password).ConfigureAwait(false);
             }
-            catch (PhoneCodeInvalidException ex)
+            catch (PhoneCodeInvalidException)
             {
             }
 

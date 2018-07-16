@@ -244,7 +244,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<IReadOnlyList<TReceivedNotifyMessage>> ReceivedMessagesAsync(int maxId, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IReadOnlyList<IReceivedNotifyMessage>> ReceivedMessagesAsync(int maxId, CancellationToken cancellationToken = default(CancellationToken))
         {
             ClientSettings.EnsureUserAuthorized();
 

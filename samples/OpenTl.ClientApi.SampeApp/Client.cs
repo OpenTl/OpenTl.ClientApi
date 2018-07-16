@@ -46,7 +46,7 @@
 
                 _user = await _clientApi.AuthService.CheckCloudPasswordAsync(passwordStr).ConfigureAwait(false);
             }
-            catch (PhoneCodeInvalidException ex)
+            catch (PhoneCodeInvalidException)
             {
             }
         }

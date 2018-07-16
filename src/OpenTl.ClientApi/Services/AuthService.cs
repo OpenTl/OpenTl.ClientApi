@@ -66,33 +66,6 @@
         }
 
         /// <inheritdoc />
-        public async Task<ICheckedPhone> CheckPhoneAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
-
-            var authCheckPhoneRequest = new RequestCheckPhone
-                                        {
-                                            PhoneNumber = phoneNumber
-                                        };
-
-            return await RequestSender.SendRequestAsync(authCheckPhoneRequest, cancellationToken).ConfigureAwait(false);
-        }
-        
-        /// <inheritdoc />
-        public async Task<bool> IsPhoneRegisteredAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
-
-            var authCheckPhoneRequest = new RequestCheckPhone
-                                        {
-                                            PhoneNumber = phoneNumber
-                                        };
-            var response = await RequestSender.SendRequestAsync(authCheckPhoneRequest, cancellationToken).ConfigureAwait(false);
-
-            return response.PhoneRegistered;
-        }
-
-        /// <inheritdoc />
         public async Task<ISentCode> SendCodeAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken))
         {
             Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
@@ -101,7 +74,7 @@
                           {
                               PhoneNumber = phoneNumber,
                               ApiId = ClientSettings.AppId,
-                              ApiHash = ClientSettings.AppHash
+                              ApiHash = ClientSettings.AppHash,
                           };
 
             return await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);

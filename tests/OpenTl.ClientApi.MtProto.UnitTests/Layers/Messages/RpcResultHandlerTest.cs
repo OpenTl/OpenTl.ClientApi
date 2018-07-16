@@ -157,51 +157,5 @@
 
             mRequestService.Verify(service => service.ReturnResult(messageId, It.IsAny<TPong>()), Times.Once);
         }
-
-        [Fact]
-        public void ReturnZippedResult()
-        {
-            this.BuildClientSettingsProps();
-            
-            this.RegisterType<RpcResultHandler>();
-
-            var messageId = Fixture.Create<long>();
-
-            var result = new TPong();
-
-            var tgZipPacked = new TgZipPacked
-                              {
-                                  PackedData = Fixture.CreateMany<byte>(8).ToArray()
-                              };
-            var request = new TRpcResult
-                          {
-                              ReqMsgId = messageId,
-                              Result = Serializer.Serialize(tgZipPacked).ToArray()
-                          };
-
-            this.Resolve<Mock<IUnzippedService>>()
-                .Setup(service => service.UnzipPackage(tgZipPacked))
-                .Returns(() => result);
-
-            var mRequestService = this.Resolve<Mock<IRequestService>>()
-                                      .BuildReturnResult(messageId, result);
-
-            var requestEncoder = this.Resolve<RpcResultHandler>();
-
-            var channel = new EmbeddedChannel(requestEncoder);
-
-            // ---
-
-            channel.WriteInbound(request);
-
-            // ---
-
-            Assert.Null(channel.ReadOutbound<object>());
-
-            channel.Flush();
-            Assert.IsType<TMsgsAck>(channel.ReadOutbound<TMsgsAck>());
-
-            mRequestService.Verify(service => service.ReturnResult(messageId, It.IsAny<TPong>()), Times.Once);
-        }
     }
 }

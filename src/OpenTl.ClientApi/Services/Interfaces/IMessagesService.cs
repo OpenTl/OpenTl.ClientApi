@@ -139,7 +139,7 @@ namespace OpenTl.ClientApi.Services.Interfaces
         /// <param name="maxId">Maximum message ID available in a client.</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Notifications</returns>
-        Task<IReadOnlyList<TReceivedNotifyMessage>> ReceivedMessagesAsync(int maxId, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IReadOnlyList<IReceivedNotifyMessage>> ReceivedMessagesAsync(int maxId, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>Sends a non-text message.</summary>
         /// <param name="peer">User or group to receive the message</param>
