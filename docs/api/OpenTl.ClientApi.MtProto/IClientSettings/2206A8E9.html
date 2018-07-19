@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
-        <title>OpenTl.ClientApi - API - IUpdatesRaiser.OnUpdateRecieve(IUpdates) Method</title>
+        <title>OpenTl.ClientApi - API - IClientSettings.UseIPv6 Property</title>
         <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
@@ -71,8 +71,7 @@
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
 	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Syntax">Syntax</a></p>
-<p><a href="#Parameters">Parameters</a></p>
-<p><a href="#ReturnValue">Return Value</a></p>
+<p><a href="#Value">Value</a></p>
 <hr class="infobar-hidden">
 </div>
 
@@ -134,10 +133,17 @@
 			<li class="header">Namespace</li>
 		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto">OpenTl<wbr>.ClientApi<wbr>.MtProto</a></li>
 		<li class="header">Type</li>
-		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IUpdatesRaiser">IUpdatesRaiser</a></li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings">IClientSettings</a></li>
 		<li role="separator" class="divider"></li>
-			<li class="header">Method Members</li>
-				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IUpdatesRaiser/12492E75.html">OnUpdateRecieve<wbr>(IUpdates)<wbr></a></li>
+			<li class="header">Property Members</li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings/D7B41C38.html">AppHash</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings/2BD5CB1B.html">AppId</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings/65AE61C5.html">Application<wbr>Properties</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings/8BEFEF82.html">ClientSession</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings/87D77234.html">Config</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings/A22EBAB7.html">PublicKey</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings/E018FDA0.html">Socks5Proxy</a></li>
+				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings/2206A8E9.html">UseIPv6</a></li>
 
 
                     </ul>
@@ -152,55 +158,35 @@
 
 
 <section class="content-header">
-			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IUpdatesRaiser">IUpdatesRaiser</a>.</h3>
-	<h1>OnUpdateRecieve<wbr>(IUpdates)<wbr> <small>Method</small></h1>
+			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings">IClientSettings</a>.</h3>
+	<h1>UseIPv6 <small>Property</small></h1>
 </section>
 <section class="content">
 	
 	
 	
 		<div class="panel panel-default">
-  			<div class="panel-body">	
+  			<div class="panel-body">
 				<dl class="dl-horizontal">	
 						
 						<dt>Namespace</dt>
 						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto">OpenTl<wbr>.ClientApi<wbr>.MtProto</a></dd>
 					
 						<dt>Containing Type</dt>
-						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IUpdatesRaiser">IUpdatesRaiser</a></dd>		
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings">IClientSettings</a></dd>		
 					
 				</dl>
   			</div>
 		</div>
 
 	<h1 id="Syntax">Syntax</h1>
-	<pre><code>Task OnUpdateRecieve(IUpdates msg)</code></pre>
+	<pre><code>bool UseIPv6 { get; set; }</code></pre>
 
 
 
 
 
-	<h1 id="Parameters">Parameters</h1>
-	<div class="box">
-		<div class="box-body no-padding table-responsive">
-			<table class="table table-striped table-hover three-cols">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Type</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-					<tbody><tr>
-						<td>msg</td>
-						<td>IUpdates</td>
-						<td></td>
-					</tr>
-			</tbody></table>
-		</div>
-	</div>	
-
-	<h1 id="ReturnValue">Return Value</h1>
+	<h1 id="Value">Value</h1>
 	<div class="box">
 		<div class="box-body no-padding table-responsive">
 			<table class="table table-striped table-hover two-cols">
@@ -211,7 +197,7 @@
 					</tr>
 				</thead>
 				<tbody><tr>
-					<td>Task</td>
+					<td>bool</td>
 					<td></td>
 				</tr>
 			</tbody></table>

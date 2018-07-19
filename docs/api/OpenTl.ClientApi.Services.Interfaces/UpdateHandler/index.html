@@ -211,7 +211,8 @@ class Type type-node
 		</div>
 
 	<h1 id="Syntax">Syntax</h1>
-	<pre><code>public delegate Task UpdateHandler(IUpdates update) : MulticastDelegate, ICloneable, ISerializable</code></pre>
+	<pre><code>public delegate void UpdateHandler(IDifference update) : MulticastDelegate, ICloneable, 
+    ISerializable</code></pre>
 
 
 

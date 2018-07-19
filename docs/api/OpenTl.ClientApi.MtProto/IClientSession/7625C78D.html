@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
-        <title>OpenTl.ClientApi - API - IClientApi.KeepAliveConnection() Method</title>
+        <title>OpenTl.ClientApi - API - IClientSession.UpdateState Property</title>
         <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
@@ -70,9 +70,8 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Summary">Summary</a></p>
-<p><a href="#Syntax">Syntax</a></p>
-<p><a href="#ReturnValue">Return Value</a></p>
+	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Syntax">Syntax</a></p>
+<p><a href="#Value">Value</a></p>
 <hr class="infobar-hidden">
 </div>
 
@@ -132,21 +131,17 @@
                     <ul class="sidebar-menu">
                         
 			<li class="header">Namespace</li>
-		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi">OpenTl<wbr>.ClientApi</a></li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto">OpenTl<wbr>.ClientApi<wbr>.MtProto</a></li>
 		<li class="header">Type</li>
-		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi">IClientApi</a></li>
+		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSession">IClientSession</a></li>
 		<li role="separator" class="divider"></li>
 			<li class="header">Property Members</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/517A9FB9.html">AuthService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/FCF58CE0.html">ContactsService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/5BCF506E.html">Custom<wbr>Requests<wbr>Service</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/0CFB2B21.html">FileService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/CB0F3A5D.html">HelpService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/71EE2BEA.html">MessagesService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/B0847592.html">UpdatesService</a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/FFB9076F.html">UsersService</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSession/BFE45FE4.html">Port</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSession/447F10DA.html">ServerAddress</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSession/DC05284B.html">TimeOffset</a></li>
+				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSession/7625C78D.html">UpdateState</a></li>
 			<li class="header">Method Members</li>
-				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi/A3C8B547.html">KeepAliveConnection<wbr>()<wbr></a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSession/E8DD25EE.html">Clone<wbr>()<wbr></a></li>
 
 
                     </ul>
@@ -161,41 +156,35 @@
 
 
 <section class="content-header">
-			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi">IClientApi</a>.</h3>
-	<h1>KeepAliveConnection<wbr>()<wbr> <small>Method</small></h1>
+			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSession">IClientSession</a>.</h3>
+	<h1>UpdateState <small>Property</small></h1>
 </section>
 <section class="content">
 	
 	
-		<h1 id="Summary">Summary</h1>
-	<div class="lead">
-        The server closes the connection if the client does not send requests for some time. This method sends an
-        inquiry to the server every hour and keeps the connection open
-    </div>
-
+	
 		<div class="panel panel-default">
-  			<div class="panel-body">	
+  			<div class="panel-body">
 				<dl class="dl-horizontal">	
 						
 						<dt>Namespace</dt>
-						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi">OpenTl<wbr>.ClientApi</a></dd>
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto">OpenTl<wbr>.ClientApi<wbr>.MtProto</a></dd>
 					
 						<dt>Containing Type</dt>
-						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi">IClientApi</a></dd>		
+						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSession">IClientSession</a></dd>		
 					
 				</dl>
   			</div>
 		</div>
 
 	<h1 id="Syntax">Syntax</h1>
-	<pre><code>void KeepAliveConnection()</code></pre>
+	<pre><code>TState UpdateState { get; set; }</code></pre>
 
 
 
 
 
-
-	<h1 id="ReturnValue">Return Value</h1>
+	<h1 id="Value">Value</h1>
 	<div class="box">
 		<div class="box-body no-padding table-responsive">
 			<table class="table table-striped table-hover two-cols">
@@ -206,7 +195,7 @@
 					</tr>
 				</thead>
 				<tbody><tr>
-					<td>void</td>
+					<td>TState</td>
 					<td></td>
 				</tr>
 			</tbody></table>
