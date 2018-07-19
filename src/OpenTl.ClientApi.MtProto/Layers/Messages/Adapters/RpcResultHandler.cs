@@ -126,6 +126,9 @@
                 case "PHONE_NUMBER_INVALID":
                     RequestService.ReturnException(messageReqMsgId, new PhoneNumberInvalidException());
                     break;
+                case "PHONE_NUMBER_UNOCCUPIED":
+                    RequestService.ReturnException(messageReqMsgId, new PhoneNumberUnoccupiedException());
+                    break;
                 default:
                     RequestService.ReturnException(messageReqMsgId, new UnhandledException(error.ErrorMessage));
                     break;

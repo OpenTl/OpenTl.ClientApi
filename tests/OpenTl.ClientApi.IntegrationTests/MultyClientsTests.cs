@@ -31,7 +31,7 @@
 
         private int MessagesCount =>  ClientsCount * 4;
 
-        protected override int ClientsCount { get; } = 3;
+        protected override int ClientsCount { get; } = 2;
 
         public MultyClientsTests(ITestOutputHelper output) : base(output)
         {
