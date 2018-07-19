@@ -57,7 +57,10 @@ namespace OpenTl.ClientApi.Services
                         var diff = await GetUpdatesFromState(state).ConfigureAwait(false);
                         await HandlerUpdates(diff);
                     }
-                    ClientSettings.ClientSession.UpdateState = (TState) await GetCurrentStateAsync().ConfigureAwait(false);
+                    else
+                    {
+                        ClientSettings.ClientSession.UpdateState = (TState) await GetCurrentStateAsync().ConfigureAwait(false);
+                    }
                 },
                 null,
                 TimeSpan.FromSeconds(0),
@@ -70,7 +73,6 @@ namespace OpenTl.ClientApi.Services
             _updateTimer?.Dispose();
             _updateTimer = null;
         }
-
         
         /// <inheritdoc />
         public event UpdateHandler ReceiveUpdates;
