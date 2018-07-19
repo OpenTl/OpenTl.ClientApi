@@ -60,7 +60,7 @@
                 },
                 null,
                 TimeSpan.FromMinutes(1),
-                TimeSpan.FromHours(0));
+                TimeSpan.FromMinutes(1));
         }
     }
 }

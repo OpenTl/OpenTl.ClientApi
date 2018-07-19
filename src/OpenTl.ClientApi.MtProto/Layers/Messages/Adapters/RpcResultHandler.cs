@@ -49,6 +49,7 @@
                 if (Log.IsDebugEnabled)
                 {
                     var jMessages = JsonConvert.SerializeObject(result);
+                    Log.Debug(result.ToString());
                     Log.Debug(jMessages);
                 }
             }

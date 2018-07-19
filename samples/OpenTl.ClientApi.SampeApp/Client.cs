@@ -1,4 +1,6 @@
-﻿namespace OpenTl.ClientApi.SampeApp
+﻿using Newtonsoft.Json;
+
+namespace OpenTl.ClientApi.SampeApp
 {
     using System;
     using System.Threading.Tasks;
@@ -17,6 +19,12 @@
         {
             _clientApi = await ClientFactory.BuildClientAsync(factorySettings).ConfigureAwait(false);
             
+            _clientApi.KeepAliveConnection();
+            _clientApi.UpdatesService.RecieveUpdates += update =>
+            {
+                Console.WriteLine($"updates: {JsonConvert.SerializeObject(update)}");
+                return Task.CompletedTask;
+            };
         }
 
         public async Task LogOut()
