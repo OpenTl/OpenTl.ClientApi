@@ -55,12 +55,12 @@
                 
                 CheckChecksum(input, packageLength);
 
-                Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Recieve the message with sequence number {sequenceNumber}");
+                Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Receive the message with sequence number {sequenceNumber}");
 
                 if (dataLength == 4)
                 {
                     var code = dataBuffer.ReadIntLE();
-                    Log.Error($"#{ClientSettings.ClientSession.SessionId}: Recieve the message with {code}");
+                    Log.Error($"#{ClientSettings.ClientSession.SessionId}: Receive the message with {code}");
                 }
                 
                 context.FireChannelRead(dataBuffer);

@@ -1,4 +1,6 @@
-﻿namespace OpenTl.ClientApi.Settings
+﻿using OpenTl.Schema.Updates;
+
+namespace OpenTl.ClientApi.Settings
 {
     using System;
 
@@ -20,7 +22,10 @@
         public int LastMessageId { get; set; }
 
         public int SequenceNumber { get; set; }
-
+        
+        [AllowNull]
+        public TState UpdateState { get; set; }
+        
         [AllowNull]
         public byte[] ServerSalt { get; set; }
 

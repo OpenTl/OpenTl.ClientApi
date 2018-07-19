@@ -1,4 +1,6 @@
-﻿namespace OpenTl.ClientApi.MtProto.FunctionalTests.Settings
+﻿using OpenTl.Schema.Updates;
+
+namespace OpenTl.ClientApi.MtProto.FunctionalTests.Settings
 {
     using System;
 
@@ -26,6 +28,8 @@
         public int Port { get; set; }
 
         public int TimeOffset { get; set; }
+        
+        public TState UpdateState { get; set; }
 
         public IClientSession Clone()
         {

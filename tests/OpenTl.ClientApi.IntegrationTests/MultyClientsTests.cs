@@ -1,4 +1,6 @@
-﻿namespace OpenTl.ClientApi.IntegrationTests
+﻿using OpenTl.Schema.Updates;
+
+namespace OpenTl.ClientApi.IntegrationTests
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +21,7 @@
 
         public int SendCount { get; set; }
 
-        public int RecieveCount { get; set; }
+        public int ReceiveCount { get; set; }
     }
 
     public sealed class MultyClientsTests : MultyClientTest
@@ -49,34 +51,51 @@
 
             await Task.Delay(MessagesCount * 2500 + 1000);
 
-            Assert.All(_statistics, statistic => Assert.Equal(statistic.SendCount, statistic.RecieveCount));
+            Assert.All(_statistics, statistic => Assert.Equal(statistic.SendCount, statistic.ReceiveCount));
         }
 
-        protected override async Task HandleUpdate(IUpdates update, IClientApi clientApi, int index)
+        protected override async Task HandleUpdate(IDifference update, IClientApi clientApi, int index)
         {
             switch (update)
             {
-                case TUpdateShortMessage updateShortMessage:
-                    if (updateShortMessage.Message.StartsWith("Test_"))
+                case TDifference difference:
+                    var message = (TMessage) difference.NewMessages.FirstOrDefault(m => ((TMessage) m).Message.StartsWith("Test_"));
+                    if (message != null)
                     {
-                        var stat = _statistics.First(s => s.FromUserId == updateShortMessage.UserId && s.ToUserId == clientApi.AuthService.CurrentUserId.Value);
-                        stat.RecieveCount++;
+                        var stat = _statistics.First(s => s.FromUserId == message.FromId && s.ToUserId == clientApi.AuthService.CurrentUserId.Value);
+                        stat.ReceiveCount++;
 
                         await Task.Delay(1500).ConfigureAwait(false);
                         await SendMessage(clientApi, index).ConfigureAwait(false);
                     }
-
                     break;
-                case TUpdates updates:
+                case TDifferenceEmpty differenceEmpty:
                     break;
-                case TUpdatesCombined updatesCombined:
+                case TDifferenceSlice differenceSlice:
                     break;
-                case TUpdateShortChatMessage updateShortChatMessage:
+                case TDifferenceTooLong differenceTooLong:
                     break;
-                case TUpdateShortSentMessage updateShortSentMessage:
-                    break;
-                case TUpdatesTooLong updatesTooLong:
-                    break;
+//                case TUpdateShortMessage updateShortMessage:
+//                    if (updateShortMessage.Message.StartsWith("Test_"))
+//                    {
+//                        var stat = _statistics.First(s => s.FromUserId == updateShortMessage.UserId && s.ToUserId == clientApi.AuthService.CurrentUserId.Value);
+//                        stat.ReceiveCount++;
+//
+//                        await Task.Delay(1500).ConfigureAwait(false);
+//                        await SendMessage(clientApi, index).ConfigureAwait(false);
+//                    }
+//
+//                    break;
+//                case TUpdates updates:
+//                    break;
+//                case TUpdatesCombined updatesCombined:
+//                    break;
+//                case TUpdateShortChatMessage updateShortChatMessage:
+//                    break;
+//                case TUpdateShortSentMessage updateShortSentMessage:
+//                    break;
+//                case TUpdatesTooLong updatesTooLong:
+//                    break;
             }
         }
 

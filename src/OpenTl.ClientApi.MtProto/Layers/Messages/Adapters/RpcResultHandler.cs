@@ -77,7 +77,7 @@
 
         private void HandleRpcError(IChannelHandlerContext ctx, long messageReqMsgId, TRpcError error)
         {
-            Log.Warn($"#{ClientSettings.ClientSession.SessionId}: Recieve error from server: {error.ErrorMessage}");
+            Log.Warn($"#{ClientSettings.ClientSession.SessionId}: Receive error from server: {error.ErrorMessage}");
             if (Log.IsDebugEnabled)
             {
                 var jMessages = JsonConvert.SerializeObject(error);

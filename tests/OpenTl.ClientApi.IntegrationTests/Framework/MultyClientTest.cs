@@ -1,4 +1,5 @@
 ﻿using OpenTl.ClientApi.MtProto.Exceptions;
+using OpenTl.Schema.Updates;
 
 namespace OpenTl.ClientApi.IntegrationTests.Framework
 {
@@ -71,7 +72,7 @@ namespace OpenTl.ClientApi.IntegrationTests.Framework
                 var contacts = await clientApi.ContactsService.GetContactsAsync().ConfigureAwait(false);
 
                 var index = i;
-                clientApi.UpdatesService.RecieveUpdates += async update => await HandleUpdate(update, clientApi, index).ConfigureAwait(false);
+                clientApi.UpdatesService.ReceiveUpdates += async update => await HandleUpdate(update, clientApi, index).ConfigureAwait(false);
 
                 Clients.Add(
                     new ClientItem
@@ -83,6 +84,6 @@ namespace OpenTl.ClientApi.IntegrationTests.Framework
             }
         }
 
-        protected abstract Task HandleUpdate(IUpdates update, IClientApi clientApi, int index);
+        protected abstract Task HandleUpdate(IDifference update, IClientApi clientApi, int index);
     }
 }

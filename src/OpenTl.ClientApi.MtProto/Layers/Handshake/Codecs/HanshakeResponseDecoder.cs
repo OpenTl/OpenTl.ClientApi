@@ -44,7 +44,7 @@ namespace OpenTl.ClientApi.MtProto.Layers.Handshake.Codecs
 
             var message = Serializer.Deserialize(input);
         
-            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Recieve the message {message} with id: {messageId}");
+            Log.Debug($"#{ClientSettings.ClientSession.SessionId}: Receive the message {message} with id: {messageId}");
         
             output.Add(message);
         }

@@ -1,3 +1,5 @@
+using OpenTl.Schema.Updates;
+
 namespace OpenTl.ClientApi.MtProto
 {
     using OpenTl.Common.Interfaces;
@@ -10,6 +12,8 @@ namespace OpenTl.ClientApi.MtProto
 
         int TimeOffset { get; set; }
 
+        TState UpdateState { get; set; }
+        
         IClientSession Clone();
     }
 }

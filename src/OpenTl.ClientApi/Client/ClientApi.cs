@@ -47,20 +47,5 @@
             _keepAliveTimer?.Dispose();
             Container?.Dispose();
         }
-
-        /// <inheritdoc />
-        public void KeepAliveConnection()
-        {
-            _keepAliveTimer = new Timer(
-                _ =>
-                {
-                    var requestPing = new RequestPing { PingId = new Random().NextLong() };
-
-                    CustomRequestsService.SendRequestAsync(requestPing, CancellationToken.None).ConfigureAwait(false);
-                },
-                null,
-                TimeSpan.FromMinutes(1),
-                TimeSpan.FromMinutes(1));
-        }
     }
 }

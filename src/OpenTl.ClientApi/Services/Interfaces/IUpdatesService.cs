@@ -1,4 +1,6 @@
-﻿namespace OpenTl.ClientApi.Services.Interfaces
+﻿using System;
+
+namespace OpenTl.ClientApi.Services.Interfaces
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -6,7 +8,7 @@
     using OpenTl.Schema;
     using OpenTl.Schema.Updates;
 
-    public delegate Task UpdateHandler(IUpdates update);
+    public delegate void UpdateHandler(IDifference update);
 
     public interface IUpdatesService
     {
@@ -21,7 +23,18 @@
         /// <returns></returns>
         Task<IDifference> GetUpdatesFromState(IState currentState, CancellationToken cancellationToken = default(CancellationToken));
 
-        /// <summary>Get automatic updates</summary>
-        event UpdateHandler RecieveUpdates;
+        /// <summary>
+        /// Starting receive updates. Updates will be raise an event <seealso cref="ReceiveUpdates"/>
+        /// </summary>
+        /// <param name="updatePeriod">Update period</param>
+        void StartReceiveUpdates(TimeSpan updatePeriod);
+        
+        /// <summary>
+        /// Stopping receive updates
+        /// </summary>
+        void StopReceiveUpdates();
+        
+        /// <summary>Get updates</summary>
+        event UpdateHandler ReceiveUpdates;
     }
 }

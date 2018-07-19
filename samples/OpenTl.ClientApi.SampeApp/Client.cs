@@ -19,12 +19,15 @@ namespace OpenTl.ClientApi.SampeApp
         {
             _clientApi = await ClientFactory.BuildClientAsync(factorySettings).ConfigureAwait(false);
             
-            _clientApi.KeepAliveConnection();
-            _clientApi.UpdatesService.RecieveUpdates += update =>
+            _clientApi.UpdatesService.ReceiveUpdates += update =>
             {
                 Console.WriteLine($"updates: {JsonConvert.SerializeObject(update)}");
-                return Task.CompletedTask;
             };
+
+            if (_clientApi.AuthService.CurrentUserId.HasValue)
+            {
+                _clientApi.UpdatesService.StartReceiveUpdates(TimeSpan.FromSeconds(1));
+            }
         }
 
         public async Task LogOut()
@@ -57,6 +60,8 @@ namespace OpenTl.ClientApi.SampeApp
             catch (PhoneCodeInvalidException)
             {
             }
+            
+             _clientApi.UpdatesService.StartReceiveUpdates(TimeSpan.FromSeconds(1));
         }
     }
 }
