@@ -143,7 +143,8 @@
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService">IUpdatesService</a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService">IUsersService</a></li>
 			<li class="header">Delegate Types</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/UpdateHandler">UpdateHandler</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/AutoUpdateHandler">AutoUpdateHandler</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ManualUpdateHandler">ManualUpdateHandler</a></li>
 
 
                     </ul>
@@ -215,42 +216,42 @@ class Type type-node
 						</thead>
 							<tbody><tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/6EE35D5A.html">DeleteContactAsync<wbr>(IInputUser, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;TLink&gt;<wbr></td>
 								<td>
 									<div>Delete user from contacts</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/9D687363.html">DeleteContactsAsync<wbr>(IReadOnlyList<wbr>&lt;IInputUser&gt;<wbr>, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;bool&gt;<wbr></td>
 								<td>
 									<div>Delete users from contacts</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/718F5AC8.html">GetContactsAsync<wbr>(CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;TContacts&gt;<wbr></td>
 								<td>
 									<div>Returns the current user’s contact list</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/C8AE1C8D.html">GetStatusesAsync<wbr>(CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IReadOnlyList<wbr>&lt;IContactStatus&gt;<wbr>&gt;<wbr></td>
 								<td>
 									<div></div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/E5450BFE.html">ImportContactsAsync<wbr>(IReadOnlyList<wbr>&lt;<wbr>T<wbr>Input<wbr>Phone<wbr>Contact&gt;<wbr>, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IImportedContacts&gt;<wbr></td>
 								<td>
 									<div>Import contacts to the server</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService/F160A2DA.html">SearchUserAsync<wbr>(string, <wbr>int, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IFound&gt;<wbr></td>
 								<td>
 									<div>Serch user or chat. By default the limit is 10.</div>
 								</td>

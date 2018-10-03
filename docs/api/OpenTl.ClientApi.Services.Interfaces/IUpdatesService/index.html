@@ -144,7 +144,8 @@
 				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService">IUpdatesService</a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService">IUsersService</a></li>
 			<li class="header">Delegate Types</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/UpdateHandler">UpdateHandler</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/AutoUpdateHandler">AutoUpdateHandler</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ManualUpdateHandler">ManualUpdateHandler</a></li>
 
 
                     </ul>
@@ -212,10 +213,17 @@ class Type type-node
 							</tr>
 						</thead>
 							<tbody><tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService/9816489B.html">ReceiveUpdates</a></td>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/UpdateHandler">UpdateHandler</a></td>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService/2C7585AF.html">AutoReceiveUpdates</a></td>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/AutoUpdateHandler">AutoUpdateHandler</a></td>
 								<td>
-									<div>Get updates</div>
+									<div>Get auto updates</div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService/8B395645.html">ManualReceiveUpdates</a></td>
+								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ManualUpdateHandler">ManualUpdateHandler</a></td>
+								<td>
+									<div>Get manuals updates</div>
 								</td>
 							</tr>
 					</tbody></table>
@@ -238,14 +246,14 @@ class Type type-node
 						</thead>
 							<tbody><tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService/549BAA96.html">GetCurrentStateAsync<wbr>(CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IState&gt;<wbr></td>
 								<td>
 									<div>Get current states of updates</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService/4F31D141.html">GetUpdatesFromState<wbr>(IState, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IDifference&gt;<wbr></td>
 								<td>
 									<div>Get manual updates</div>
 								</td>

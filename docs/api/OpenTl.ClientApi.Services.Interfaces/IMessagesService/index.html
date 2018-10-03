@@ -143,7 +143,8 @@
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService">IUpdatesService</a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService">IUsersService</a></li>
 			<li class="header">Delegate Types</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/UpdateHandler">UpdateHandler</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/AutoUpdateHandler">AutoUpdateHandler</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ManualUpdateHandler">ManualUpdateHandler</a></li>
 
 
                     </ul>
@@ -215,147 +216,147 @@ class Type type-node
 						</thead>
 							<tbody><tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/FFA90494.html">AddChatUserAsync<wbr>(int, <wbr>IInputUser, <wbr>int, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IUpdates&gt;<wbr></td>
 								<td>
 									<div>Adds a user to a chat and sends a service message on it.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/E2B0310D.html">CreateChatAsync<wbr>(string, <wbr>IReadOnlyList<wbr>&lt;IInputUser&gt;<wbr>, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IUpdates&gt;<wbr></td>
 								<td>
 									<div>Creates a new chat.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/304A4909.html">DeleteChatUser<wbr>(int, <wbr>IInputUser, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IUpdates&gt;<wbr></td>
 								<td>
 									<div>Deletes a user from a chat and sends a service message on it.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/1CEF28D9.html">DeleteHistoryAsync<wbr>(IInputPeer, <wbr>int, <wbr>bool, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IAffectedHistory&gt;<wbr></td>
 								<td>
 									<div>Deletes communication history.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/E8B44C39.html">DeleteMessagesAsync<wbr>(IReadOnlyList<wbr>&lt;int&gt;<wbr>, <wbr>bool, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IAffectedMessages&gt;<wbr></td>
 								<td>
 									<div>Deletes messages by their IDs.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/76631B9D.html">EditChatPhoto<wbr>(int, <wbr>IInputChatPhoto, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IUpdates&gt;<wbr></td>
 								<td>
 									<div>Changes chat photo and sends a service message on it.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/A161534F.html">EditChatTitle<wbr>(int, <wbr>string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IUpdates&gt;<wbr></td>
 								<td>
 									<div>Chanages chat name and sends a service message on it.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/4CFD209E.html">ForwardMessagesAsync<wbr>(IInputPeer, <wbr>IInputPeer, <wbr>IReadOnlyList<wbr>&lt;int&gt;<wbr>, <wbr>bool, <wbr>bool, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IUpdates&gt;<wbr></td>
 								<td>
 									<div>Forwards messages by their IDs.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/288B6903.html">GetChatsAsync<wbr>(IReadOnlyList<wbr>&lt;int&gt;<wbr>, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IChats&gt;<wbr></td>
 								<td>
 									<div>Returns chat basic info on their IDs.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/D6430F11.html">GetFullChatAsync<wbr>(int, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;Schema<wbr>.Messages<wbr>.IChatFull&gt;<wbr></td>
 								<td>
 									<div>Returns full chat info according to its ID.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/1DC7C312.html">GetHistoryAsync<wbr>(IInputPeer, <wbr>int, <wbr>int, <wbr>int, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IMessages&gt;<wbr></td>
 								<td>
 									<div>Returns messages from the history of a single conversation</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/AE04145B.html">GetMessagesAsync<wbr>(IReadOnlyList<wbr>&lt;<wbr>I<wbr>Input<wbr>Message&gt;<wbr>, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IMessages&gt;<wbr></td>
 								<td>
 									<div>Returns the list of messages by their IDs.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/6A31F111.html">GetUserDialogsAsync<wbr>(int, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IDialogs&gt;<wbr></td>
 								<td>
 									<div>Returns a list of the current user’s conversations</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/766646DD.html">ReadHistoryAsync<wbr>(IInputPeer, <wbr>int, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IAffectedMessages&gt;<wbr></td>
 								<td>
 									<div>Marks message history as read.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/4540421E.html">Read<wbr>Message<wbr>Contents<wbr>Async<wbr>(IReadOnlyList<wbr>&lt;int&gt;<wbr>, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IAffectedMessages&gt;<wbr></td>
 								<td>
 									<div>Notifies the sender about the recipient having listened a voice message or watched a video.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/DB414E02.html">Received<wbr>Messages<wbr>Async<wbr>(int, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IReadOnlyList<wbr>&lt;I<wbr>Received<wbr>Notify<wbr>Message&gt;<wbr>&gt;<wbr></td>
 								<td>
 									<div>Confirms that a client has received messages and cancels push notifications</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/4CE6A949.html">SendMediaAsync<wbr>(IInputPeer, <wbr>IInputMedia, <wbr>string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IUpdates&gt;<wbr></td>
 								<td>
 									<div>Sends a non-text message.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/B7915C0E.html">SendMessageAsync<wbr>(IInputPeer, <wbr>string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IUpdates&gt;<wbr></td>
 								<td>
 									<div>Sends a text message.</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/7C37B7A7.html">SendTypingAsync<wbr>(IInputPeer, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;bool&gt;<wbr></td>
 								<td>
 									<div>Transmits the current user typing event to the conversation partner or group</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/7B860B2C.html">Send<wbr>Uploaded<wbr>Document<wbr>Async<wbr>(IInputPeer, <wbr>IInputFile, <wbr>string, <wbr>IReadOnlyList<wbr>&lt;<wbr>I<wbr>Document<wbr>Attribute&gt;<wbr>, <wbr>string, <wbr>IInputFile, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IUpdates&gt;<wbr></td>
 								<td>
 									<div>Sends a document with <inheritdoc cref="!:mimeType"> to user or chat</inheritdoc></div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService/390AA234.html">Send<wbr>Uploaded<wbr>Photo<wbr>Async<wbr>(IInputPeer, <wbr>IInputFile, <wbr>string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IUpdates&gt;<wbr></td>
 								<td>
 									<div>Sends a photo to user or chat</div>
 								</td>

@@ -143,7 +143,8 @@
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService">IUpdatesService</a></li>
 				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService">IUsersService</a></li>
 			<li class="header">Delegate Types</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/UpdateHandler">UpdateHandler</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/AutoUpdateHandler">AutoUpdateHandler</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ManualUpdateHandler">ManualUpdateHandler</a></li>
 
 
                     </ul>
@@ -215,42 +216,42 @@ class Type type-node
 						</thead>
 							<tbody><tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/574D37FE.html">CheckUsernameAsync<wbr>(string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;bool&gt;<wbr></td>
 								<td>
 									<div>Check username</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/B9C26C0D.html">Get<wbr>Current<wbr>User<wbr>Full<wbr>Async<wbr>(CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;TUserFull&gt;<wbr></td>
 								<td>
 									<div>Get full information about current user</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/B9F30550.html">GetUserFullAsync<wbr>(IInputUser, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;TUserFull&gt;<wbr></td>
 								<td>
 									<div>Get full information about the user</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/18A39690.html">GetUserPhotosAsync<wbr>(IInputUser, <wbr>int, <wbr>int, <wbr>long, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IPhotos&gt;<wbr></td>
 								<td>
 									<div>Get a user photos</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/07EE28F1.html">GetUsersAsync<wbr>(IReadOnlyList<wbr>&lt;IInputUser&gt;<wbr>, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;ICollection<wbr>&lt;IUser&gt;<wbr>&gt;<wbr></td>
 								<td>
 									<div>Get users</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService/795A083C.html">UpdateUsernameAsync<wbr>(string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;TUser&gt;<wbr></td>
 								<td>
 									<div>Update username</div>
 								</td>

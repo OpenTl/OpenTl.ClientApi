@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/OpenTl.ClientApi/assets/img/favicon.ico" type="image/x-icon">
-        <title>OpenTl.ClientApi - API - IAuthService.SendCodeAsync(string, CancellationToken) Method</title>
+        <title>OpenTl.ClientApi - API - ManualUpdateHandler Delegate</title>
         <link href="/OpenTl.ClientApi/assets/css/mermaid.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/highlight.css" rel="stylesheet">
         <link href="/OpenTl.ClientApi/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
@@ -70,10 +70,8 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Summary">Summary</a></p>
-<p><a href="#Syntax">Syntax</a></p>
-<p><a href="#Parameters">Parameters</a></p>
-<p><a href="#ReturnValue">Return Value</a></p>
+	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Syntax">Syntax</a></p>
+<p><a href="#Operators">Operators</a></p>
 <hr class="infobar-hidden">
 </div>
 
@@ -134,17 +132,19 @@
                         
 			<li class="header">Namespace</li>
 		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces">OpenTl<wbr>.ClientApi<wbr>.Services<wbr>.Interfaces</a></li>
-		<li class="header">Type</li>
-		<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService">IAuthService</a></li>
 		<li role="separator" class="divider"></li>
-			<li class="header">Property Members</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/99088D81.html">CurrentUserId</a></li>
-			<li class="header">Method Members</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/2E4AA088.html">Check<wbr>Cloud<wbr>Password<wbr>Async<wbr>(string, <wbr>CancellationToken)<wbr></a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/BCD2DAA1.html">LogoutAsync<wbr>(CancellationToken)<wbr></a></li>
-				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/1175765B.html">SendCodeAsync<wbr>(string, <wbr>CancellationToken)<wbr></a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/7870583D.html">SignInAsync<wbr>(string, <wbr>ISentCode, <wbr>string, <wbr>CancellationToken)<wbr></a></li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/8AC60B76.html">SignUpAsync<wbr>(string, <wbr>ISentCode, <wbr>string, <wbr>string, <wbr>string, <wbr>CancellationToken)<wbr></a></li>
+			<li class="header">Interface Types</li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService">IAuthService</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService">IContactsService</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService">I<wbr>Custom<wbr>Requests<wbr>Service</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IFileService">IFileService</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IHelpService">IHelpService</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService">IMessagesService</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService">IUpdatesService</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService">IUsersService</a></li>
+			<li class="header">Delegate Types</li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/AutoUpdateHandler">AutoUpdateHandler</a></li>
+				<li class="selected"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ManualUpdateHandler">ManualUpdateHandler</a></li>
 
 
                     </ul>
@@ -159,78 +159,119 @@
 
 
 <section class="content-header">
-			<h3><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService">IAuthService</a>.</h3>
-	<h1>SendCodeAsync<wbr>(string, <wbr>CancellationToken)<wbr> <small>Method</small></h1>
+	<h1>ManualUpdateHandler <small>Delegate</small></h1>
 </section>
 <section class="content">
 	
 	
-		<h1 id="Summary">Summary</h1>
-	<div class="lead">The first stage of authentication or registration. Request to send a verification code</div>
-
+	
 		<div class="panel panel-default">
-  			<div class="panel-body">	
-				<dl class="dl-horizontal">	
-						
-						<dt>Namespace</dt>
-						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces">OpenTl<wbr>.ClientApi<wbr>.Services<wbr>.Interfaces</a></dd>
-					
-						<dt>Containing Type</dt>
-						<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService">IAuthService</a></dd>		
-					
-				</dl>
+  			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-6">
+						<dl class="dl-horizontal">		
+
+								<dt>Namespace</dt>
+								<dd><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces">OpenTl<wbr>.ClientApi<wbr>.Services<wbr>.Interfaces</a></dd>
+											
+								<dt>Interfaces</dt>
+								<dd>
+									<ul class="list-unstyled">
+											<li>ICloneable</li>								
+											<li>ISerializable</li>								
+									</ul>
+								</dd>
+							
+								<dt>Base Types</dt>
+								<dd>
+									<ul class="list-unstyled">										
+											<li>object</li>								
+											<li>Delegate</li>								
+											<li>MulticastDelegate</li>								
+									</ul>
+								</dd>				
+							
+							
+						</dl>
+					</div>		
+					<div class="col-md-6">
+						<div class="mermaid">
+							graph TD
+	Base0["MulticastDelegate"]--&gt;Type
+	Base1["Delegate"]--&gt;Base0
+	Base2["object"]--&gt;Base1
+	Interface0["ICloneable"]-.-&gt;Type
+	Interface1["ISerializable"]-.-&gt;Type
+	Type["ManualUpdateHandler"]
+class Type type-node
+
+						</div>
+					</div>
+				</div>
   			</div>
 		</div>
 
 	<h1 id="Syntax">Syntax</h1>
-	<pre><code>Task&lt;ISentCode&gt; SendCodeAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+	<pre><code>public delegate void ManualUpdateHandler(IDifference update) : MulticastDelegate, ICloneable, 
+    ISerializable</code></pre>
 
 
 
 
 
-	<h1 id="Parameters">Parameters</h1>
-	<div class="box">
-		<div class="box-body no-padding table-responsive">
-			<table class="table table-striped table-hover three-cols">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Type</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-					<tbody><tr>
-						<td>phoneNumber</td>
-						<td>string</td>
-						<td>Phone number</td>
-					</tr>
-					<tr>
-						<td>cancellationToken</td>
-						<td>CancellationToken</td>
-						<td>Сancellation token</td>
-					</tr>
-			</tbody></table>
-		</div>
-	</div>	
 
-	<h1 id="ReturnValue">Return Value</h1>
-	<div class="box">
-		<div class="box-body no-padding table-responsive">
-			<table class="table table-striped table-hover two-cols">
-				<thead>
-					<tr>
-						<th>Type</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				<tbody><tr>
-					<td>Task<wbr>&lt;ISentCode&gt;<wbr></td>
-					<td>Information about the sent code</td>
-				</tr>
-			</tbody></table>
-		</div>
-	</div>	
+
+
+
+
+
+			<h1 id="Operators">Operators</h1>
+			<div class="box">
+				<div class="box-body no-padding table-responsive">
+					<table class="table table-striped table-hover three-cols">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Value</th>
+								<th>Summary</th>
+							</tr>
+						</thead>
+							<tbody><tr>
+								<td>operator !=<wbr>(Delegate, <wbr>Delegate)<wbr></td>
+								<td>bool</td>
+								<td>
+									<div></div>
+											<div><small><em>Inherited from Delegate</em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td>operator !=<wbr>(MulticastDelegate, <wbr>MulticastDelegate)<wbr></td>
+								<td>bool</td>
+								<td>
+									<div></div>
+											<div><small><em>Inherited from MulticastDelegate</em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td>operator ==<wbr>(Delegate, <wbr>Delegate)<wbr></td>
+								<td>bool</td>
+								<td>
+									<div></div>
+											<div><small><em>Inherited from Delegate</em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td>operator ==<wbr>(MulticastDelegate, <wbr>MulticastDelegate)<wbr></td>
+								<td>bool</td>
+								<td>
+									<div></div>
+											<div><small><em>Inherited from MulticastDelegate</em></small></div>
+								</td>
+							</tr>
+					</tbody></table>
+				</div>
+			</div>
+		
 
 
 	

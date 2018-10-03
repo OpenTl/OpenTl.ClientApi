@@ -143,7 +143,8 @@
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService">IUpdatesService</a></li>
 				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService">IUsersService</a></li>
 			<li class="header">Delegate Types</li>
-				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/UpdateHandler">UpdateHandler</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/AutoUpdateHandler">AutoUpdateHandler</a></li>
+				<li><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ManualUpdateHandler">ManualUpdateHandler</a></li>
 
 
                     </ul>
@@ -215,21 +216,21 @@ class Type type-node
 						</thead>
 							<tbody><tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IFileService/D81225F5.html">Download<wbr>All<wbr>File<wbr>Parts<wbr>Async<wbr>(<wbr>I<wbr>Input<wbr>File<wbr>Location, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;byte[]&gt;<wbr></td>
 								<td>
 									<div>Download file without handle <code class="cs"><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/FileMigrationException">FileMigrationException</a></code></div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IFileService/F64FF93A.html">Download<wbr>Full<wbr>File<wbr>Async<wbr>(<wbr>I<wbr>Input<wbr>File<wbr>Location, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;byte[]&gt;<wbr></td>
 								<td>
 									<div>Download full file</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IFileService/59BA9573.html">UploadFileAsync<wbr>(string, <wbr>Stream, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;IInputFile&gt;<wbr></td>
 								<td>
 									<div>Upload file</div>
 								</td>
