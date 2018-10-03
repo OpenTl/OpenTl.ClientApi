@@ -1,4 +1,6 @@
 ﻿using System;
+using log4net;
+using OpenTl.Schema;
 
 namespace OpenTl.ClientApi.Services
 {
@@ -9,12 +11,13 @@ namespace OpenTl.ClientApi.Services
     using OpenTl.ClientApi.MtProto;
     using OpenTl.ClientApi.Services.Interfaces;
     using OpenTl.Common.IoC;
-    using OpenTl.Schema;
     using OpenTl.Schema.Updates;
 
     [SingleInstance(typeof(IUpdatesService))]
-    internal class UpdatesService : IUpdatesService, IDisposable
+    internal class UpdatesService : IUpdatesService, IAutoUpdatesHandler, IDisposable
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(UpdatesService));
+
         public IClientSettings ClientSettings { get; set; }
 
         public IRequestSender SenderService { get; set; }
@@ -55,7 +58,7 @@ namespace OpenTl.ClientApi.Services
                     if (state != null)
                     {
                         var diff = await GetUpdatesFromState(state).ConfigureAwait(false);
-                        await HandlerUpdates(diff);
+                        await HandleManualsUpdates(diff);
                     }
                     else
                     {
@@ -75,35 +78,50 @@ namespace OpenTl.ClientApi.Services
         }
         
         /// <inheritdoc />
-        public event UpdateHandler ReceiveUpdates;
+        public event ManualUpdateHandler ManualReceiveUpdates;
+
+        /// <inheritdoc />
+        public event AutoUpdateHandler AutoReceiveUpdates;
 
         public void Dispose()
         {
             _updateTimer?.Dispose();
         }
         
-        private async Task HandlerUpdates(IDifference diff)
+        private async Task HandleManualsUpdates(IDifference diff)
         {
             switch (diff)
             {
                 case TDifference difference:
                     ClientSettings.ClientSession.UpdateState = (TState) difference.State;
                     
-                    ReceiveUpdates?.Invoke(difference);
+                    ManualReceiveUpdates?.Invoke(difference);
                     break;
                 case TDifferenceEmpty _:
                     return;
                 case TDifferenceSlice differenceSlice:
                     var newState = ClientSettings.ClientSession.UpdateState = (TState) differenceSlice.IntermediateState;
                     
-                    ReceiveUpdates?.Invoke(differenceSlice);
+                    ManualReceiveUpdates?.Invoke(differenceSlice);
 
                     await GetUpdatesFromState(newState).ConfigureAwait(false);
                     
                     break;
                 case TDifferenceTooLong differenceTooLong:
-                    ReceiveUpdates?.Invoke(differenceTooLong);
+                    ManualReceiveUpdates?.Invoke(differenceTooLong);
                     break;
+            }
+        }
+
+        public void HandleAutoUpdates(IUpdates update)
+        {
+            try
+            {
+                AutoReceiveUpdates?.Invoke(update);
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error processing updates", e);
             }
         }
     }

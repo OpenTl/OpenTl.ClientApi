@@ -20,7 +20,7 @@
         [Fact]
         public async Task UpdatesTest()
         {
-            ClientApi.UpdatesService.ReceiveUpdates += update => { };
+            ClientApi.UpdatesService.AutoReceiveUpdates += update => { };
 
             await ClientApi.MessagesService.SendMessageAsync(new TInputPeerSelf(), _random.Next().ToString()).ConfigureAwait(false);
             await ClientApi.MessagesService.SendMessageAsync(new TInputPeerSelf(), _random.Next().ToString()).ConfigureAwait(false);

@@ -19,7 +19,7 @@ namespace OpenTl.ClientApi.SampeApp
         {
             _clientApi = await ClientFactory.BuildClientAsync(factorySettings).ConfigureAwait(false);
             
-            _clientApi.UpdatesService.ReceiveUpdates += update =>
+            _clientApi.UpdatesService.AutoReceiveUpdates += update =>
             {
                 Console.WriteLine($"updates: {JsonConvert.SerializeObject(update)}");
             };

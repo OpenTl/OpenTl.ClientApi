@@ -54,27 +54,21 @@ namespace OpenTl.ClientApi.IntegrationTests
             Assert.All(_statistics, statistic => Assert.Equal(statistic.SendCount, statistic.ReceiveCount));
         }
 
-        protected override async Task HandleUpdate(IDifference update, IClientApi clientApi, int index)
+        protected override async Task HandleUpdate(IUpdates update, IClientApi clientApi, int index)
         {
             switch (update)
             {
-                case TDifference difference:
-                    var message = (TMessage) difference.NewMessages.FirstOrDefault(m => ((TMessage) m).Message.StartsWith("Test_"));
-                    if (message != null)
+                    case TUpdateShortMessage updateShortMessage:
+                    if (updateShortMessage.Message.StartsWith("Test_"))
                     {
-                        var stat = _statistics.First(s => s.FromUserId == message.FromId && s.ToUserId == clientApi.AuthService.CurrentUserId.Value);
+                        var stat = _statistics.First(s => s.FromUserId == updateShortMessage.UserId && s.ToUserId == clientApi.AuthService.CurrentUserId.Value);
                         stat.ReceiveCount++;
 
                         await Task.Delay(1500).ConfigureAwait(false);
                         await SendMessage(clientApi, index).ConfigureAwait(false);
-                    }
-                    break;
-                case TDifferenceEmpty differenceEmpty:
-                    break;
-                case TDifferenceSlice differenceSlice:
-                    break;
-                case TDifferenceTooLong differenceTooLong:
-                    break;
+                    }  
+                        break;
+            }
 //                case TUpdateShortMessage updateShortMessage:
 //                    if (updateShortMessage.Message.StartsWith("Test_"))
 //                    {
@@ -96,7 +90,6 @@ namespace OpenTl.ClientApi.IntegrationTests
 //                    break;
 //                case TUpdatesTooLong updatesTooLong:
 //                    break;
-            }
         }
 
         private async Task SendMessage(IClientApi fromClient, int i)

@@ -14,8 +14,6 @@
     [SingleInstance(typeof(IClientApi))]
     internal class ClientApi : IClientApi
     {
-        private Timer _keepAliveTimer;
-
         public IWindsorContainer Container { get; set; }
 
         /// <inheritdoc />
@@ -44,7 +42,6 @@
 
         public void Dispose()
         {
-            _keepAliveTimer?.Dispose();
             Container?.Dispose();
         }
     }

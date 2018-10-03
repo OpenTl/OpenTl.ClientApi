@@ -3,6 +3,7 @@
     using System;
     using System.Threading.Tasks;
 
+    /// <inheritdoc />
     /// <summary>Works with session</summary>
     public interface ISessionStore : IDisposable
     {
@@ -15,7 +16,7 @@
         /// <returns>Task</returns>
         Task Save(byte[] session);
 
-        /// <summary>Taging session</summary>
+        /// <summary>Tagging session</summary>
         /// <param name="sessionTag">Tag name</param>
         void SetSessionTag(string sessionTag);
     }
