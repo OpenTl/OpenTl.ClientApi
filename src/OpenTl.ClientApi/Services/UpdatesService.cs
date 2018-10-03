@@ -13,7 +13,7 @@ namespace OpenTl.ClientApi.Services
     using OpenTl.Common.IoC;
     using OpenTl.Schema.Updates;
 
-    [SingleInstance(typeof(IUpdatesService))]
+    [SingleInstance(typeof(IUpdatesService), typeof(IAutoUpdatesHandler))]
     internal class UpdatesService : IUpdatesService, IAutoUpdatesHandler, IDisposable
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(UpdatesService));
