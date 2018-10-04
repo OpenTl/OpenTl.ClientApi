@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard16;net46</TargetFrameworks>
     <Title>OpenTl Client API using MtProto</Title>
-    <Version>1.0.0</Version>
+    <Version>1</Version>
     <PackageId>OpenTl.ClientApi</PackageId>
     <Authors>Viktor Borisov</Authors>
     <Company />
@@ -16,7 +16,7 @@
     <PackageReference Include="BarsGroup.CodeGuard" Version="3.2.43" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
-    <PackageReference Include="NullGuard.Fody" Version="1.8.4" />
+    <PackageReference Include="NullGuard.Fody" Version="1.8.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenTl.ClientApi.MtProto\OpenTl.ClientApi.MtProto.csproj" />
