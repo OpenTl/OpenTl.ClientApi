@@ -13,8 +13,6 @@
     {
         protected static readonly ILog Log = LogManager.GetLogger(typeof(BaseTest));
 
-        private readonly LogOutputTester _logOutputTester;
-
         private static readonly IConfigurationRoot Configuration;
 
         protected const string PhoneNumber = "9996610000";
@@ -32,13 +30,10 @@
 
         protected BaseTest(ITestOutputHelper output)
         {
-            _logOutputTester = new LogOutputTester(output);
-
             Log.Info(
                 $"\n\n#################################################  {this} - {DateTime.Now}  ################################################################################\n\n");
             
             PrepareToTesting();
-            
         }
 
         private void PrepareToTesting()

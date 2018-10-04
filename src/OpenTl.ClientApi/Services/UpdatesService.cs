@@ -58,7 +58,7 @@ namespace OpenTl.ClientApi.Services
                     if (state != null)
                     {
                         var diff = await GetUpdatesFromState(state).ConfigureAwait(false);
-                        await HandleManualsUpdates(diff);
+                        await HandleManualsUpdates(diff).ConfigureAwait(false);
                     }
                     else
                     {
@@ -110,6 +110,8 @@ namespace OpenTl.ClientApi.Services
                 case TDifferenceTooLong differenceTooLong:
                     ManualReceiveUpdates?.Invoke(differenceTooLong);
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(diff));
             }
         }
 

@@ -68,28 +68,19 @@ namespace OpenTl.ClientApi.IntegrationTests
                         await SendMessage(clientApi, index).ConfigureAwait(false);
                     }  
                         break;
+                case TUpdates _:
+                    break;
+                case TUpdatesCombined _:
+                    break;
+                case TUpdateShortChatMessage _:
+                    break;
+                case TUpdateShortSentMessage _:
+                    break;
+                case TUpdatesTooLong _:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(update));
             }
-//                case TUpdateShortMessage updateShortMessage:
-//                    if (updateShortMessage.Message.StartsWith("Test_"))
-//                    {
-//                        var stat = _statistics.First(s => s.FromUserId == updateShortMessage.UserId && s.ToUserId == clientApi.AuthService.CurrentUserId.Value);
-//                        stat.ReceiveCount++;
-//
-//                        await Task.Delay(1500).ConfigureAwait(false);
-//                        await SendMessage(clientApi, index).ConfigureAwait(false);
-//                    }
-//
-//                    break;
-//                case TUpdates updates:
-//                    break;
-//                case TUpdatesCombined updatesCombined:
-//                    break;
-//                case TUpdateShortChatMessage updateShortChatMessage:
-//                    break;
-//                case TUpdateShortSentMessage updateShortSentMessage:
-//                    break;
-//                case TUpdatesTooLong updatesTooLong:
-//                    break;
         }
 
         private async Task SendMessage(IClientApi fromClient, int i)
