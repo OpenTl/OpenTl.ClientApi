@@ -36,34 +36,34 @@
         /// <inheritdoc />
         public int? CurrentUserId => ClientSettings.ClientSession.UserId;
 
-        /// <inheritdoc />
-        public async Task<TUser> CheckCloudPasswordAsync(string password, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            Guard.That(password, nameof(password)).IsNotNullOrWhiteSpace();
-
-            var passwordBytes = Encoding.UTF8.GetBytes(password);
-
-            var pwd = (TPassword)await RequestSender.SendRequestAsync(new RequestGetPassword(), cancellationToken).ConfigureAwait(false);
-            var rv = pwd.CurrentSalt.Concat(passwordBytes).Concat(pwd.CurrentSalt);
-
-            byte[] passwordHash;
-            using (var sha = SHA256.Create())
-            {
-                passwordHash = sha.ComputeHash(rv.ToArray());
-            }
-
-            var request = new RequestCheckPassword
-                          {
-                              PasswordHash = passwordHash
-                          };
-            var result = (TAuthorization)await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
-
-            var user = result.User.Is<TUser>();
-
-            await OnUserAuthenticated(user).ConfigureAwait(false);
-
-            return user;
-        }
+//        /// <inheritdoc />
+//        public async Task<TUser> CheckCloudPasswordAsync(string password, CancellationToken cancellationToken = default(CancellationToken))
+//        {
+//            Guard.That(password, nameof(password)).IsNotNullOrWhiteSpace();
+//
+//            var passwordBytes = Encoding.UTF8.GetBytes(password);
+//
+//            var pwd = (TPassword)await RequestSender.SendRequestAsync(new RequestGetPassword(), cancellationToken).ConfigureAwait(false);
+//            var rv = pwd.CurrentSalt.Concat(passwordBytes).Concat(pwd.CurrentSalt);
+//
+//            byte[] passwordHash;
+//            using (var sha = SHA256.Create())
+//            {
+//                passwordHash = sha.ComputeHash(rv.ToArray());
+//            }
+//
+//            var request = new RequestCheckPassword
+//                          {
+//                              PasswordHash = passwordHash
+//                          };
+//            var result = (TAuthorization)await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+//
+//            var user = result.User.Is<TUser>();
+//
+//            await OnUserAuthenticated(user).ConfigureAwait(false);
+//
+//            return user;
+//        }
 
         /// <inheritdoc />
         public async Task<ISentCode> SendCodeAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken))

@@ -55,7 +55,9 @@ namespace OpenTl.ClientApi.SampeApp
                 var passwordStr = ReadLineHelper.ReadPassword("Write a password:");
                 ReadLine.PasswordMode = false;
 
-                _user = await _clientApi.AuthService.CheckCloudPasswordAsync(passwordStr).ConfigureAwait(false);
+                throw new NotSupportedException();
+
+//                _user = await _clientApi.AuthService.CheckCloudPasswordAsync(passwordStr).ConfigureAwait(false);
             }
             catch (PhoneCodeInvalidException)
             {

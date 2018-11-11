@@ -1,4 +1,6 @@
-﻿namespace OpenTl.ClientApi.FunctinonalTests
+﻿using System;
+
+namespace OpenTl.ClientApi.FunctinonalTests
 {
     using System.Threading.Tasks;
 
@@ -31,7 +33,8 @@
                 //TODO: Set the cloud password here 
                 const string Password = "";
 
-                user = await ClientApi.AuthService.CheckCloudPasswordAsync(Password).ConfigureAwait(false);
+                throw new NotSupportedException();
+//                user = await ClientApi.AuthService.CheckCloudPasswordAsync(Password).ConfigureAwait(false);
             }
             catch (PhoneCodeInvalidException)
             {

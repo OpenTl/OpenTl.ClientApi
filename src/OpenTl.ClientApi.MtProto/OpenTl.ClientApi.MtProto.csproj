@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard16;net46</TargetFrameworks>
     <Title>Client implementation of the MtProto protocol</Title>
@@ -14,10 +14,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BarsGroup.CodeGuard" Version="3.2.43" />
-    <PackageReference Include="DotNetty.Handlers" Version="0.5.0" />
+    <PackageReference Include="DotNetty.Handlers" Version="0.6.0" />
     <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="NullGuard.Fody" Version="1.8.3" />
-    <PackageReference Include="OpenTl.Common" Version="1.1.24" />
+    <PackageReference Include="NullGuard.Fody" Version="1.8.5" />
+    <PackageReference Include="OpenTl.Common" Version="1.1.27" />
     <PackageReference Include="OpenTl.Netty.Socks" Version="1.0.2" />
   </ItemGroup>
 </Project>
