@@ -219,7 +219,7 @@ class Type type-node
 						</thead>
 							<tbody><tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/99088D81.html">CurrentUserId</a></td>
-								<td>int?</td>
+								<td>Nullable<wbr>&lt;T&gt;<wbr></td>
 								<td>
 									<div>Returns the current user ID. Null - if the session is not authenticated</div>
 								</td>
@@ -241,16 +241,6 @@ class Type type-node
 							</tr>
 						</thead>
 							<tbody><tr>
-								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/2E4AA088.html">Check<wbr>Cloud<wbr>Password<wbr>Async<wbr>(string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TUser&gt;<wbr></td>
-								<td>
-									<div>
-        Sends a cloud password if an exception <inheritdoc cref="T:OpenTl.ClientApi.MtProto.Exceptions.CloudPasswordNeededException"> is caught in the
-        previous step <inheritdoc cref="M:OpenTl.ClientApi.Services.Interfaces.IAuthService.SignInAsync(System.String,ISentCode,System.String,System.Threading.CancellationToken)">
-    </inheritdoc></inheritdoc></div>
-								</td>
-							</tr>
-							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/BCD2DAA1.html">LogoutAsync<wbr>(CancellationToken)<wbr></a></td>
 								<td>Task</td>
 								<td>
@@ -259,21 +249,21 @@ class Type type-node
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/1175765B.html">SendCodeAsync<wbr>(string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;ISentCode&gt;<wbr></td>
+								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
 								<td>
 									<div>The first stage of authentication or registration. Request to send a verification code</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/7870583D.html">SignInAsync<wbr>(string, <wbr>ISentCode, <wbr>string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TUser&gt;<wbr></td>
+								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
 								<td>
 									<div>The second stage of authentication. Send the received authentication code</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/8AC60B76.html">SignUpAsync<wbr>(string, <wbr>ISentCode, <wbr>string, <wbr>string, <wbr>string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TUser&gt;<wbr></td>
+								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
 								<td>
 									<div>Register new user</div>
 								</td>

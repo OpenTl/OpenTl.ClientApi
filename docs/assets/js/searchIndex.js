@@ -1,542 +1,525 @@
 
-var camelCaseTokenizer = function (builder) {
-
-  var pipelineFunction = function (token) {
+var camelCaseTokenizer = function (obj) {
     var previous = '';
-    // split camelCaseString to on each word and combined words
-    // e.g. camelCaseTokenizer -> ['camel', 'case', 'camelcase', 'tokenizer', 'camelcasetokenizer']
-    var tokenStrings = token.toString().trim().split(/[\s\-]+|(?=[A-Z])/).reduce(function(acc, cur) {
-      var current = cur.toLowerCase();
-      if (acc.length === 0) {
-        previous = current;
-        return acc.concat(current);
-      }
-      previous = previous.concat(current);
-      return acc.concat([current, previous]);
+    return obj.toString().trim().split(/[\s\-]+|(?=[A-Z])/).reduce(function(acc, cur) {
+        var current = cur.toLowerCase();
+        if(acc.length === 0) {
+            previous = current;
+            return acc.concat(current);
+        }
+        previous = previous.concat(current);
+        return acc.concat([current, previous]);
     }, []);
-
-    // return token for each string
-    // will copy any metadata on input token
-    return tokenStrings.map(function(tokenString) {
-      return token.clone(function(str) {
-        return tokenString;
-      })
-    });
-  }
-
-  lunr.Pipeline.registerFunction(pipelineFunction, 'camelCaseTokenizer')
-
-  builder.pipeline.before(lunr.stemmer, pipelineFunction)
 }
+lunr.tokenizer.registerFunction(camelCaseTokenizer, 'camelCaseTokenizer')
 var searchModule = function() {
-    var documents = [];
     var idMap = [];
-    function a(a,b) { 
-        documents.push(a);
-        idMap.push(b); 
+    function y(e) { 
+        idMap.push(e); 
     }
-
-    a(
-        {
-            id:0,
-            title:"PhoneCodeInvalidException",
-            content:"PhoneCodeInvalidException",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/PhoneCodeInvalidException',
-            title:"PhoneCodeInvalidException",
-            description:""
-        }
-    );
-    a(
-        {
-            id:1,
-            title:"IFactorySettings",
-            content:"IFactorySettings",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/IFactorySettings',
-            title:"IFactorySettings",
-            description:""
-        }
-    );
-    a(
-        {
-            id:2,
-            title:"ISessionStore",
-            content:"ISessionStore",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/ISessionStore',
-            title:"ISessionStore",
-            description:""
-        }
-    );
-    a(
-        {
-            id:3,
-            title:"IUpdatesService",
-            content:"IUpdatesService",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService',
-            title:"IUpdatesService",
-            description:""
-        }
-    );
-    a(
-        {
-            id:4,
-            title:"CloudPasswordNeededException",
-            content:"CloudPasswordNeededException",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/CloudPasswordNeededException',
-            title:"CloudPasswordNeededException",
-            description:""
-        }
-    );
-    a(
-        {
-            id:5,
-            title:"FileMigrationException",
-            content:"FileMigrationException",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/FileMigrationException',
-            title:"FileMigrationException",
-            description:""
-        }
-    );
-    a(
-        {
-            id:6,
-            title:"ISessionWriter",
-            content:"ISessionWriter",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/ISessionWriter',
-            title:"ISessionWriter",
-            description:""
-        }
-    );
-    a(
-        {
-            id:7,
-            title:"ApplicationProperties",
-            content:"ApplicationProperties",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/ApplicationProperties',
-            title:"ApplicationProperties",
-            description:""
-        }
-    );
-    a(
-        {
-            id:8,
-            title:"UserLogoutException",
-            content:"UserLogoutException",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/UserLogoutException',
-            title:"UserLogoutException",
-            description:""
-        }
-    );
-    a(
-        {
-            id:9,
-            title:"ClientFactory",
-            content:"ClientFactory",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/ClientFactory',
-            title:"ClientFactory",
-            description:""
-        }
-    );
-    a(
-        {
-            id:10,
-            title:"AutoUpdateHandler",
-            content:"AutoUpdateHandler",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/AutoUpdateHandler',
-            title:"AutoUpdateHandler",
-            description:""
-        }
-    );
-    a(
-        {
-            id:11,
-            title:"IHelpService",
-            content:"IHelpService",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IHelpService',
-            title:"IHelpService",
-            description:""
-        }
-    );
-    a(
-        {
-            id:12,
-            title:"PhoneNumberUnoccupiedException",
-            content:"PhoneNumberUnoccupiedException",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/PhoneNumberUnoccupiedException',
-            title:"PhoneNumberUnoccupiedException",
-            description:""
-        }
-    );
-    a(
-        {
-            id:13,
-            title:"IUsersService",
-            content:"IUsersService",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService',
-            title:"IUsersService",
-            description:""
-        }
-    );
-    a(
-        {
-            id:14,
-            title:"IAutoUpdatesHandler",
-            content:"IAutoUpdatesHandler",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IAutoUpdatesHandler',
-            title:"IAutoUpdatesHandler",
-            description:""
-        }
-    );
-    a(
-        {
-            id:15,
-            title:"IApplicationProperties",
-            content:"IApplicationProperties",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IApplicationProperties',
-            title:"IApplicationProperties",
-            description:""
-        }
-    );
-    a(
-        {
-            id:16,
-            title:"UnhandledException",
-            content:"UnhandledException",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/UnhandledException',
-            title:"UnhandledException",
-            description:""
-        }
-    );
-    a(
-        {
-            id:17,
-            title:"ISocks Proxy",
-            content:"ISocks Proxy",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/ISocks5Proxy',
-            title:"ISocks5Proxy",
-            description:""
-        }
-    );
-    a(
-        {
-            id:18,
-            title:"IClientSession",
-            content:"IClientSession",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSession',
-            title:"IClientSession",
-            description:""
-        }
-    );
-    a(
-        {
-            id:19,
-            title:"IContactsService",
-            content:"IContactsService",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService',
-            title:"IContactsService",
-            description:""
-        }
-    );
-    a(
-        {
-            id:20,
-            title:"ManualUpdateHandler",
-            content:"ManualUpdateHandler",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ManualUpdateHandler',
-            title:"ManualUpdateHandler",
-            description:""
-        }
-    );
-    a(
-        {
-            id:21,
-            title:"FactorySettings",
-            content:"FactorySettings",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/FactorySettings',
-            title:"FactorySettings",
-            description:""
-        }
-    );
-    a(
-        {
-            id:22,
-            title:"Socks ProxyConfig",
-            content:"Socks ProxyConfig",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/Socks5ProxyConfig',
-            title:"Socks5ProxyConfig",
-            description:""
-        }
-    );
-    a(
-        {
-            id:23,
-            title:"IRequestSender",
-            content:"IRequestSender",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IRequestSender',
-            title:"IRequestSender",
-            description:""
-        }
-    );
-    a(
-        {
-            id:24,
-            title:"UserNotAuthorizeException",
-            content:"UserNotAuthorizeException",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/UserNotAuthorizeException',
-            title:"UserNotAuthorizeException",
-            description:""
-        }
-    );
-    a(
-        {
-            id:25,
-            title:"IFileService",
-            content:"IFileService",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IFileService',
-            title:"IFileService",
-            description:""
-        }
-    );
-    a(
-        {
-            id:26,
-            title:"IClientApi",
-            content:"IClientApi",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi',
-            title:"IClientApi",
-            description:""
-        }
-    );
-    a(
-        {
-            id:27,
-            title:"IMessagesService",
-            content:"IMessagesService",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService',
-            title:"IMessagesService",
-            description:""
-        }
-    );
-    a(
-        {
-            id:28,
-            title:"ICustomRequestsService",
-            content:"ICustomRequestsService",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService',
-            title:"ICustomRequestsService",
-            description:""
-        }
-    );
-    a(
-        {
-            id:29,
-            title:"IAuthService",
-            content:"IAuthService",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService',
-            title:"IAuthService",
-            description:""
-        }
-    );
-    a(
-        {
-            id:30,
-            title:"INettyBootstrapper",
-            content:"INettyBootstrapper",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/INettyBootstrapper',
-            title:"INettyBootstrapper",
-            description:""
-        }
-    );
-    a(
-        {
-            id:31,
-            title:"IClientSettings",
-            content:"IClientSettings",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings',
-            title:"IClientSettings",
-            description:""
-        }
-    );
-    a(
-        {
-            id:32,
-            title:"PhoneNumberInvalidException",
-            content:"PhoneNumberInvalidException",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/PhoneNumberInvalidException',
-            title:"PhoneNumberInvalidException",
-            description:""
-        }
-    );
-    a(
-        {
-            id:33,
-            title:"ILogoutService",
-            content:"ILogoutService",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/ILogoutService',
-            title:"ILogoutService",
-            description:""
-        }
-    );
-    a(
-        {
-            id:34,
-            title:"FloodWaitException",
-            content:"FloodWaitException",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/FloodWaitException',
-            title:"FloodWaitException",
-            description:""
-        }
-    );
     var idx = lunr(function() {
-        this.field('title');
+        this.field('title', { boost: 10 });
         this.field('content');
-        this.field('description');
-        this.field('tags');
+        this.field('description', { boost: 5 });
+        this.field('tags', { boost: 50 });
         this.ref('id');
-        this.use(camelCaseTokenizer);
+        this.tokenizer(camelCaseTokenizer);
 
         this.pipeline.remove(lunr.stopWordFilter);
         this.pipeline.remove(lunr.stemmer);
-        documents.forEach(function (doc) { this.add(doc) }, this)
+    });
+    function a(e) { 
+        idx.add(e); 
+    }
+
+    a({
+        id:0,
+        title:"ISessionWriter",
+        content:"ISessionWriter",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:1,
+        title:"IClientSession",
+        content:"IClientSession",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:2,
+        title:"CloudPasswordNeededException",
+        content:"CloudPasswordNeededException",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:3,
+        title:"IHelpService",
+        content:"IHelpService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:4,
+        title:"ILogoutService",
+        content:"ILogoutService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:5,
+        title:"IMessagesService",
+        content:"IMessagesService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:6,
+        title:"IFileService",
+        content:"IFileService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:7,
+        title:"ISessionStore",
+        content:"ISessionStore",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:8,
+        title:"FactorySettings",
+        content:"FactorySettings",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:9,
+        title:"UserNotAuthorizeException",
+        content:"UserNotAuthorizeException",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:10,
+        title:"UnhandledException",
+        content:"UnhandledException",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:11,
+        title:"IRequestSender",
+        content:"IRequestSender",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:12,
+        title:"IFactorySettings",
+        content:"IFactorySettings",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:13,
+        title:"AutoUpdateHandler",
+        content:"AutoUpdateHandler",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:14,
+        title:"IApplicationProperties",
+        content:"IApplicationProperties",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:15,
+        title:"IAutoUpdatesHandler",
+        content:"IAutoUpdatesHandler",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:16,
+        title:"UserLogoutException",
+        content:"UserLogoutException",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:17,
+        title:"ISocks Proxy",
+        content:"ISocks Proxy",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:18,
+        title:"IClientSettings",
+        content:"IClientSettings",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:19,
+        title:"PhoneCodeInvalidException",
+        content:"PhoneCodeInvalidException",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:20,
+        title:"ICustomRequestsService",
+        content:"ICustomRequestsService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:21,
+        title:"FloodWaitException",
+        content:"FloodWaitException",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:22,
+        title:"IContactsService",
+        content:"IContactsService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:23,
+        title:"PhoneNumberInvalidException",
+        content:"PhoneNumberInvalidException",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:24,
+        title:"IUpdatesService",
+        content:"IUpdatesService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:25,
+        title:"FileMigrationException",
+        content:"FileMigrationException",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:26,
+        title:"INettyBootstrapper",
+        content:"INettyBootstrapper",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:27,
+        title:"ApplicationProperties",
+        content:"ApplicationProperties",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:28,
+        title:"Socks ProxyConfig",
+        content:"Socks ProxyConfig",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:29,
+        title:"IUsersService",
+        content:"IUsersService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:30,
+        title:"IClientApi",
+        content:"IClientApi",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:31,
+        title:"IAuthService",
+        content:"IAuthService",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:32,
+        title:"PhoneNumberUnoccupiedException",
+        content:"PhoneNumberUnoccupiedException",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:33,
+        title:"ManualUpdateHandler",
+        content:"ManualUpdateHandler",
+        description:'',
+        tags:''
+    });
+
+    a({
+        id:34,
+        title:"ClientFactory",
+        content:"ClientFactory",
+        description:'',
+        tags:''
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/ISessionWriter',
+        title:"ISessionWriter",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSession',
+        title:"IClientSession",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/CloudPasswordNeededException',
+        title:"CloudPasswordNeededException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IHelpService',
+        title:"IHelpService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/ILogoutService',
+        title:"ILogoutService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IMessagesService',
+        title:"IMessagesService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IFileService',
+        title:"IFileService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/ISessionStore',
+        title:"ISessionStore",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/FactorySettings',
+        title:"FactorySettings",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/UserNotAuthorizeException',
+        title:"UserNotAuthorizeException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/UnhandledException',
+        title:"UnhandledException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IRequestSender',
+        title:"IRequestSender",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/IFactorySettings',
+        title:"IFactorySettings",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/AutoUpdateHandler',
+        title:"AutoUpdateHandler",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IApplicationProperties',
+        title:"IApplicationProperties",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IAutoUpdatesHandler',
+        title:"IAutoUpdatesHandler",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/UserLogoutException',
+        title:"UserLogoutException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/ISocks5Proxy',
+        title:"ISocks5Proxy",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/IClientSettings',
+        title:"IClientSettings",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/PhoneCodeInvalidException',
+        title:"PhoneCodeInvalidException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ICustomRequestsService',
+        title:"ICustomRequestsService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/FloodWaitException',
+        title:"FloodWaitException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IContactsService',
+        title:"IContactsService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/PhoneNumberInvalidException',
+        title:"PhoneNumberInvalidException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUpdatesService',
+        title:"IUpdatesService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/FileMigrationException',
+        title:"FileMigrationException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto/INettyBootstrapper',
+        title:"INettyBootstrapper",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/ApplicationProperties',
+        title:"ApplicationProperties",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/Socks5ProxyConfig',
+        title:"Socks5ProxyConfig",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IUsersService',
+        title:"IUsersService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/IClientApi',
+        title:"IClientApi",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService',
+        title:"IAuthService",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.MtProto.Exceptions/PhoneNumberUnoccupiedException',
+        title:"PhoneNumberUnoccupiedException",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/ManualUpdateHandler',
+        title:"ManualUpdateHandler",
+        description:""
+    });
+
+    y({
+        url:'/OpenTl.ClientApi/api/OpenTl.ClientApi/ClientFactory',
+        title:"ClientFactory",
+        description:""
     });
 
     return {
