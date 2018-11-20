@@ -14,6 +14,8 @@
     [SingleInstance(typeof(IClientApi))]
     internal class ClientApi : IClientApi
     {
+        private Timer _keepAliveTimer;
+        
         public IWindsorContainer Container { get; set; }
 
         /// <inheritdoc />
@@ -43,6 +45,24 @@
         public void Dispose()
         {
             Container?.Dispose();
+        }
+        
+        
+        /// <inheritdoc />
+        public void KeepAliveConnection()
+        {
+            _keepAliveTimer?.Dispose();
+            
+            _keepAliveTimer = new Timer(
+                _ =>
+                {
+                    var requestPing = new RequestPing { PingId = new Random().NextLong() };
+
+                    CustomRequestsService.SendRequestAsync(requestPing, CancellationToken.None).ConfigureAwait(false);
+                },
+                null,
+                TimeSpan.FromMinutes(1),
+                TimeSpan.FromMinutes(1));
         }
     }
 }

@@ -18,6 +18,7 @@ namespace OpenTl.ClientApi.SampeApp
         public async Task Init(IFactorySettings factorySettings)
         {
             _clientApi = await ClientFactory.BuildClientAsync(factorySettings).ConfigureAwait(false);
+            _clientApi.KeepAliveConnection();
             
             _clientApi.UpdatesService.AutoReceiveUpdates += update =>
             {

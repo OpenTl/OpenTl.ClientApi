@@ -26,6 +26,7 @@
             }
 
             clientApi = await ClientFactory.BuildTempClientAsync(clientSettings, ipAddress, port).ConfigureAwait(false);
+            clientApi.KeepAliveConnection();
             
             _memoryCache.Set(serverAddress, clientApi, new MemoryCacheEntryOptions().SetSlidingExpiration(SlidingExpiration));
             
