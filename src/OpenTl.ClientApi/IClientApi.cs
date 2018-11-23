@@ -34,7 +34,7 @@
         
         /// <summary>
         ///     The server closes the connection if the client does not send requests for some time. This method sends an
-        ///     inquiry to the server every hour and keeps the connection open
+        ///     inquiry to the server every minute and keeps the connection open
         /// </summary>
         void KeepAliveConnection();
     }
