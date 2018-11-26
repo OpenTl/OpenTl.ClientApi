@@ -206,6 +206,7 @@ class Type type-node
 
 
 
+
 			<h1 id="Properties">Properties</h1>
 			<div class="box">
 				<div class="box-body no-padding table-responsive">
@@ -219,7 +220,7 @@ class Type type-node
 						</thead>
 							<tbody><tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/99088D81.html">CurrentUserId</a></td>
-								<td>Nullable<wbr>&lt;T&gt;<wbr></td>
+								<td>int?</td>
 								<td>
 									<div>Returns the current user ID. Null - if the session is not authenticated</div>
 								</td>
@@ -249,21 +250,21 @@ class Type type-node
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/1175765B.html">SendCodeAsync<wbr>(string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;ISentCode&gt;<wbr></td>
 								<td>
 									<div>The first stage of authentication or registration. Request to send a verification code</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/7870583D.html">SignInAsync<wbr>(string, <wbr>ISentCode, <wbr>string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;TUser&gt;<wbr></td>
 								<td>
 									<div>The second stage of authentication. Send the received authentication code</div>
 								</td>
 							</tr>
 							<tr>
 								<td><a href="/OpenTl.ClientApi/api/OpenTl.ClientApi.Services.Interfaces/IAuthService/8AC60B76.html">SignUpAsync<wbr>(string, <wbr>ISentCode, <wbr>string, <wbr>string, <wbr>string, <wbr>CancellationToken)<wbr></a></td>
-								<td>Task<wbr>&lt;TResult&gt;<wbr></td>
+								<td>Task<wbr>&lt;TUser&gt;<wbr></td>
 								<td>
 									<div>Register new user</div>
 								</td>
