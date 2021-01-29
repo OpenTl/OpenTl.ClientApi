@@ -8,7 +8,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.2" />
     <PackageReference Include="ReadLine" Version="1.2.0" />
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.10" />
     <ProjectReference Include="..\..\src\OpenTl.ClientApi\OpenTl.ClientApi.csproj" />
   </ItemGroup>
   <ItemGroup>
